@@ -1,0 +1,2497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Moselust">
+<title>Moselust — Travel & Vibe Finder</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{--bg:#08091a;--c1:rgba(255,255,255,.04);--c2:rgba(255,255,255,.08);--br:rgba(255,255,255,.1);--gold:#c9a84c;--gl:#f0d080;--txt:#f0ede6;--dim:rgba(240,237,230,.5);--acc:#7c3aed;--r:16px}
+body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;transition:background 1s}
+body.ocean{--bg:#020d1a;--gold:#38bdf8;--gl:#7dd3fc;--acc:#0ea5e9}
+body.desert{--bg:#1a0a00;--gold:#f59e0b;--gl:#fbbf24;--acc:#ef4444}
+body.forest{--bg:#021207;--gold:#4ade80;--gl:#86efac;--acc:#22c55e}
+body.arctic{--bg:#030a14;--gold:#a5f3fc;--gl:#cffafe;--acc:#67e8f9}
+body.city{--bg:#0d0d0d;--gold:#facc15;--gl:#fde68a;--acc:#f97316}
+
+/* BG */
+.aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ab{position:absolute;width:200%;height:260px;border-radius:50%;filter:blur(72px);opacity:.13;animation:amove 14s ease-in-out infinite alternate}
+.ab:nth-child(1){background:linear-gradient(90deg,transparent,var(--gold),transparent);top:8%;left:-50%}
+.ab:nth-child(2){background:linear-gradient(90deg,transparent,var(--acc),transparent);top:40%;left:-20%;animation-delay:-5s;opacity:.08}
+.ab:nth-child(3){background:linear-gradient(90deg,transparent,var(--gl),transparent);top:70%;left:-35%;animation-delay:-10s;opacity:.06}
+@keyframes amove{0%{transform:translateX(0)}50%{transform:translateX(22%)}100%{transform:translateX(-12%)}}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+.star{position:absolute;background:#fff;border-radius:50%;animation:tw ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.06}50%{opacity:.8}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,9,26,.82);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);gap:8px}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:300;color:var(--gl);cursor:pointer;flex-shrink:0;letter-spacing:.06em}
+.logo em{font-style:italic;color:var(--dim)}
+.nav-links{display:flex;gap:18px;list-style:none}
+.nav-links a{color:var(--dim);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:color .3s;text-decoration:none}
+.nav-links a:hover{color:var(--gl)}
+.nav-r{display:flex;gap:7px;align-items:center}
+.nic{width:36px;height:36px;border-radius:50%;background:var(--c1);border:1px solid var(--br);color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.88rem;transition:all .3s;flex-shrink:0}
+.nic:hover{background:var(--c2);color:var(--gl);border-color:var(--gold)}
+.btn-install{display:flex;align-items:center;gap:5px;padding:8px 13px;background:linear-gradient(135deg,var(--gold),var(--acc));color:#000;border:none;border-radius:100px;font-size:.72rem;font-weight:700;cursor:pointer;transition:all .3s;white-space:nowrap;flex-shrink:0}
+.btn-install:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.btn-booknow{padding:8px 16px;background:var(--gold);color:#000;border:none;border-radius:100px;font-size:.74rem;font-weight:700;cursor:pointer;transition:all .3s;flex-shrink:0}
+.btn-booknow:hover{background:var(--gl)}
+
+/* WRAP & SECTIONS */
+.wrap{position:relative;z-index:1}
+section{padding:80px 24px;max-width:1100px;margin:0 auto}
+.stag{font-size:.63rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.stitle{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,3rem);font-weight:300;line-height:1.1;margin-bottom:38px}
+.stitle em{font-style:italic;color:var(--gl)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:110px 22px 60px;position:relative}
+.htag{display:inline-block;font-size:.63rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:5px 14px;border-radius:100px;margin-bottom:22px;animation:fiu .8s ease both}
+.htitle{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,9vw,6rem);font-weight:300;line-height:.95;margin-bottom:18px;animation:fiu 1s ease .2s both}
+.htitle em{font-style:italic;color:var(--gl);display:block}
+.hsub{color:var(--dim);font-size:.96rem;font-weight:300;max-width:420px;margin:0 auto 38px;line-height:1.7;animation:fiu 1s ease .4s both}
+.hbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fiu 1s ease .6s both}
+.btn-p{padding:12px 30px;background:var(--gold);color:#000;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.86rem;font-weight:700;cursor:pointer;transition:all .3s}
+.btn-p:hover{background:var(--gl);transform:translateY(-2px);box-shadow:0 10px 28px rgba(201,168,76,.3)}
+.btn-s{padding:12px 30px;background:transparent;color:var(--txt);border:1px solid var(--br);border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.86rem;cursor:pointer;transition:all .3s}
+.btn-s:hover{border-color:var(--gold);color:var(--gl);transform:translateY(-2px)}
+@keyframes sp{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes fiu{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARD */
+.card{background:var(--c1);border:1px solid var(--br);border-radius:var(--r);padding:34px;backdrop-filter:blur(18px);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* BOOKING */
+.ttabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px}
+.ttab{padding:7px 15px;border-radius:100px;border:1px solid var(--br);background:var(--c1);color:var(--dim);font-size:.74rem;cursor:pointer;transition:all .3s}
+.ttab.on{background:var(--gold);color:#000;border-color:var(--gold);font-weight:600}
+.ttab:not(.on):hover{border-color:var(--gold);color:var(--gl)}
+.vpills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px}
+.vpill{padding:6px 15px;border-radius:100px;border:1px solid var(--br);background:var(--c1);color:var(--dim);font-size:.74rem;cursor:pointer;transition:all .3s}
+.vpill.on,.vpill:hover{border-color:var(--gold);color:var(--gl);background:rgba(201,168,76,.1)}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:22px}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fl{font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+.fi{background:var(--c2);border:1px solid var(--br);border-radius:11px;padding:11px 14px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:all .3s;width:100%}
+.fi:focus{border-color:var(--gold);background:rgba(201,168,76,.05)}
+.fi option{background:#1a1a2e}
+.bdv{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--gl);margin:2px 0}
+input[type=range]{width:100%;-webkit-appearance:none;height:3px;background:var(--br);border-radius:100px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--gold)}
+.tctr{display:flex;align-items:center;gap:12px;background:var(--c2);border:1px solid var(--br);border-radius:11px;padding:9px 13px}
+.cbt{width:28px;height:28px;border-radius:50%;background:var(--c1);border:1px solid var(--br);color:var(--gl);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.cbt:hover{background:var(--gold);color:#000;border-color:var(--gold)}
+.cnum{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gl);line-height:1;display:block;text-align:center}
+.clbl{font-size:.6rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;display:block;text-align:center}
+.bfoot{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.bsum{color:var(--dim);font-size:.78rem}
+.bsum strong{color:var(--gl);font-family:'Cormorant Garamond',serif}
+.offer{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;margin-top:22px;flex-wrap:wrap;gap:12px}
+.offtxt{font-family:'Cormorant Garamond',serif;font-size:.96rem;color:var(--gl)}
+.offtxt span{font-family:'DM Sans',sans-serif;font-size:.7rem;color:var(--dim);display:block}
+
+/* MAP */
+.map-wrap{border-radius:var(--r);overflow:hidden;border:1px solid var(--br);position:relative;height:460px;background:#060e1a}
+#gmap{width:100%;height:100%}
+.map-badge{position:absolute;top:13px;left:13px;z-index:5;background:rgba(8,9,26,.9);backdrop-filter:blur(12px);border:1px solid var(--br);border-radius:10px;padding:11px 15px;pointer-events:none}
+.map-badge h4{font-family:'Cormorant Garamond',serif;font-size:.96rem;color:var(--gl);margin-bottom:2px}
+.map-badge p{font-size:.68rem;color:var(--dim)}
+
+/* DEST CARDS */
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.dcard{background:var(--c1);border:1px solid var(--br);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all .4s}
+.dcard:hover{transform:translateY(-5px);border-color:var(--gold);box-shadow:0 16px 44px rgba(0,0,0,.4)}
+.dimg{height:175px;display:flex;align-items:center;justify-content:center;font-size:3.4rem;background:var(--c2);position:relative}
+.dimg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 55%)}
+.dbadge{position:absolute;top:10px;right:10px;z-index:2;padding:3px 9px;border-radius:100px;font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.b-hot{background:rgba(239,68,68,.3);color:#f87171;border:1px solid rgba(239,68,68,.4)}
+.b-new{background:rgba(74,143,255,.3);color:#7fb3ff;border:1px solid rgba(74,143,255,.4)}
+.b-deal{background:rgba(201,168,76,.3);color:var(--gl);border:1px solid rgba(201,168,76,.4)}
+.dbody{padding:15px 18px 18px}
+.dname{font-family:'Cormorant Garamond',serif;font-size:1.25rem;margin-bottom:2px}
+.dreg{font-size:.68rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px}
+.dmeta{display:flex;justify-content:space-between;align-items:flex-end}
+.dprice{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--gl)}
+.dprice span{font-family:'DM Sans',sans-serif;font-size:.68rem;color:var(--dim)}
+
+/* ===== VIBE FINDER ===== */
+#vibe-finder .card{min-height:320px}
+.vf-prog{height:3px;background:var(--br);border-radius:100px;margin-bottom:28px;overflow:hidden}
+.vf-bar{height:100%;background:linear-gradient(90deg,var(--gold),var(--acc));border-radius:100px;transition:width .5s ease}
+.vf-step{display:none;animation:fiu .35s ease both}
+.vf-step.show{display:block}
+.vstepnum{font-size:.63rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.vsteptitle{font-family:'Cormorant Garamond',serif;font-size:1.65rem;color:var(--gl);margin-bottom:22px}
+.vopts{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:24px}
+.vopt{padding:14px 12px;background:var(--c2);border:1px solid var(--br);border-radius:13px;color:var(--dim);font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer;transition:all .25s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px}
+.vopt:hover{border-color:var(--gold);color:var(--gl);background:rgba(201,168,76,.08)}
+.vopt.sel{background:rgba(201,168,76,.14);border-color:var(--gold);color:var(--gl);font-weight:600}
+.vopt-ico{font-size:1.5rem;line-height:1}
+.vf-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
+.vbtn-next{padding:11px 28px;background:var(--gold);color:#000;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;transition:all .3s;margin-left:auto}
+.vbtn-next:hover:not(:disabled){background:var(--gl);transform:translateY(-2px)}
+.vbtn-next:disabled{opacity:.3;cursor:not-allowed}
+.vbtn-back{padding:11px 22px;background:transparent;color:var(--dim);border:1px solid var(--br);border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer;transition:all .3s}
+.vbtn-back:hover{border-color:var(--gold);color:var(--gl)}
+.budget-val{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gl);margin-bottom:6px}
+.vf-spin{width:38px;height:38px;border:3px solid var(--br);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.vf-loading{text-align:center;padding:40px 0;color:var(--dim);font-size:.84rem}
+.places-list{display:flex;flex-direction:column;gap:12px;max-height:440px;overflow-y:auto;padding-right:2px}
+.places-list::-webkit-scrollbar{width:3px}
+.places-list::-webkit-scrollbar-thumb{background:var(--gold);border-radius:100px}
+.pcard{background:var(--c2);border:1px solid var(--br);border-radius:13px;padding:14px 16px;display:flex;align-items:center;gap:13px;transition:all .3s;flex-wrap:wrap}
+.pcard:hover{border-color:var(--gold);background:rgba(201,168,76,.05)}
+.pcard-info{flex:1;min-width:0}
+.pcard-type{font-size:.66rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:2px}
+.pcard-name{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gl);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard-addr{font-size:.72rem;color:var(--dim);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pcard-meta{display:flex;align-items:center;gap:8px;margin-top:5px;flex-wrap:wrap}
+.prating{font-size:.74rem;color:var(--dim)}
+.popen{font-size:.68rem;padding:2px 8px;border-radius:100px}
+.popen.open{background:rgba(74,222,128,.15);color:#4ade80;border:1px solid rgba(74,222,128,.3)}
+.popen.closed{background:rgba(248,113,113,.15);color:#f87171;border:1px solid rgba(248,113,113,.3)}
+.pcurated{font-size:.66rem;color:var(--gold)}
+.go-btn{padding:9px 18px;background:var(--gold);color:#000;border:none;border-radius:100px;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .3s;white-space:nowrap;flex-shrink:0}
+.go-btn:hover{background:var(--gl);transform:translateY(-2px)}
+.ride-btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.rbtn{display:flex;align-items:center;gap:6px;padding:9px 16px;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .3s;flex:1;min-width:100px;justify-content:center}
+.rbtn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.rbtn.uber{background:#fff;color:#000;}
+.rbtn.uber:hover{background:#f0f0f0}
+.rbtn.bolt{background:#34d399;color:#000;}
+.rbtn.bolt:hover{background:#6ee7b7}
+.rbtn.maps{background:var(--c2);color:var(--dim);border:1px solid var(--br);flex:none;padding:9px 13px}
+.rbtn.maps:hover{border-color:var(--gold);color:var(--gl)}
+
+/* TRANSPORT */
+.toverlay{position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);display:none;align-items:flex-end;justify-content:center;padding:0}
+.toverlay.open{display:flex}
+.tsheet{background:#0d1026;border:1px solid var(--gold);border-radius:20px 20px 0 0;padding:28px 24px 36px;width:100%;max-width:480px;animation:slideup .35s cubic-bezier(.16,1,.3,1) both}
+@keyframes slideup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.thandle{width:36px;height:4px;background:var(--br);border-radius:100px;margin:0 auto 20px}
+.tplace-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--gl);margin-bottom:3px}
+.tplace-addr{font-size:.74rem;color:var(--dim);margin-bottom:22px}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.tbtn{display:flex;flex-direction:column;align-items:center;gap:7px;padding:18px 14px;background:var(--c2);border:1px solid var(--br);border-radius:13px;cursor:pointer;transition:all .3s;width:100%}
+.tbtn:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.4)}
+.tbtn.uber:hover{border-color:#fff;background:rgba(255,255,255,.07)}
+.tbtn.bolt:hover{border-color:#34d399;background:rgba(52,211,153,.07)}
+.tbtn-ico{font-size:1.7rem}
+.tbtn-name{font-size:.96rem;font-weight:700;color:var(--txt)}
+.tbtn-sub{font-size:.7rem;color:var(--dim)}
+.tclose{display:block;width:100%;padding:11px;background:var(--c1);border:1px solid var(--br);border-radius:100px;color:var(--dim);font-size:.82rem;cursor:pointer;transition:all .3s;margin-top:10px}
+.tclose:hover{border-color:var(--gold);color:var(--gl)}
+
+/* PANELS */
+.overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:flex-end;padding:14px}
+.overlay.open{display:flex}
+.aoverlay{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.82);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:14px}
+.aoverlay.open{display:flex}
+.panel{width:380px;max-width:100%;background:#0d1026;border:1px solid var(--br);border-radius:var(--r);padding:26px;animation:slideup .35s cubic-bezier(.16,1,.3,1) both;max-height:90vh;overflow-y:auto}
+.apanel{width:660px;max-width:100%;background:#080c1e;border:1px solid var(--gold);border-radius:var(--r);padding:28px;animation:fiu .35s ease both;max-height:90vh;overflow-y:auto}
+.panel::-webkit-scrollbar,.apanel::-webkit-scrollbar{width:4px}
+.panel::-webkit-scrollbar-thumb,.apanel::-webkit-scrollbar-thumb{background:var(--br);border-radius:100px}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.pt{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--gl)}
+.xb{width:28px;height:28px;border-radius:50%;background:var(--c2);border:1px solid var(--br);color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:all .2s}
+.xb:hover{background:rgba(239,68,68,.2);color:#f87171;border-color:rgba(239,68,68,.4)}
+.ssec{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--br)}
+.ssec:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.ssec-t{font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.trow{display:flex;align-items:center;justify-content:space-between;padding:7px 0}
+.tlbl{font-size:.82rem;color:var(--dim)}
+.tog{position:relative;width:40px;height:21px}
+.tog input{opacity:0;width:0;height:0}
+.tsl{position:absolute;inset:0;background:var(--c2);border:1px solid var(--br);border-radius:100px;cursor:pointer;transition:.3s}
+.tsl::before{content:'';position:absolute;width:13px;height:13px;left:3px;top:3px;background:var(--dim);border-radius:50%;transition:.3s}
+.tog input:checked+.tsl{background:rgba(201,168,76,.3);border-color:var(--gold)}
+.tog input:checked+.tsl::before{transform:translateX(19px);background:var(--gold)}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cb2{padding:7px;background:var(--c1);border:1px solid var(--br);border-radius:8px;color:var(--dim);font-size:.74rem;cursor:pointer;transition:all .2s;text-align:center}
+.cb2.on,.cb2:hover{border-color:var(--gold);color:var(--gl);background:rgba(201,168,76,.1)}
+/* ADMIN TABS */
+.atabs{display:flex;gap:6px;margin-bottom:22px;flex-wrap:wrap}
+.atab{padding:7px 14px;border-radius:8px;border:1px solid var(--br);background:var(--c1);color:var(--dim);font-size:.74rem;cursor:pointer;transition:all .3s}
+.atab.on{background:var(--gold);color:#000;border-color:var(--gold);font-weight:600}
+.atab:not(.on):hover{border-color:var(--gold);color:var(--gl)}
+.ac{display:none}
+.ac.show{display:block}
+.arow{display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.arow .fg{flex:1;min-width:120px}
+.asave{padding:9px 24px;background:var(--gold);color:#000;border:none;border-radius:100px;font-weight:700;font-size:.8rem;cursor:pointer;transition:all .3s;margin-top:6px}
+.asave:hover{background:var(--gl);transform:translateY(-2px)}
+.alist{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.aitem{display:flex;align-items:center;justify-content:space-between;padding:10px 13px;background:var(--c1);border:1px solid var(--br);border-radius:10px;gap:10px;flex-wrap:wrap}
+.ain{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--gl)}
+.aim{font-size:.7rem;color:var(--dim)}
+.adel{padding:5px 11px;background:rgba(239,68,68,.2);border:1px solid rgba(239,68,68,.4);border-radius:100px;color:#f87171;font-size:.7rem;cursor:pointer;transition:all .2s}
+.adel:hover{background:rgba(239,68,68,.4)}
+.aedit{padding:5px 11px;background:var(--c2);border:1px solid var(--br);border-radius:100px;color:var(--dim);font-size:.7rem;cursor:pointer;transition:all .2s}
+.aedit:hover{border-color:var(--gold);color:var(--gl)}
+.addsec{background:var(--c1);border:1px solid var(--br);border-radius:11px;padding:15px;margin-top:4px}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:15px}
+.sc{background:var(--c1);border:1px solid var(--br);border-radius:10px;padding:13px;text-align:center}
+.sn{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gl);display:block}
+.sl{font-size:.63rem;color:var(--dim);text-transform:uppercase;letter-spacing:.1em}
+.nrow{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:var(--c1);border:1px solid var(--br);border-radius:9px;margin-bottom:6px}
+.stoggle{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+.hero-ta{width:100%;background:var(--c2);border:1px solid var(--br);border-radius:10px;padding:11px 13px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:.86rem;outline:none;resize:vertical;min-height:68px;transition:all .3s}
+.hero-ta:focus{border-color:var(--gold)}
+
+/* TOAST */
+.toasts{position:fixed;top:72px;right:16px;z-index:9000;display:flex;flex-direction:column;gap:7px}
+.toast{background:rgba(13,16,38,.97);border:1px solid var(--gold);border-radius:10px;padding:11px 15px;font-size:.8rem;color:var(--gl);backdrop-filter:blur(12px);animation:fiu .35s ease both;max-width:240px}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--br);border-radius:100px}
+::-webkit-scrollbar-thumb:hover{background:var(--gold)}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:10px 13px}
+  .nav-links{display:none}
+  .install-txt{display:none}
+  .htitle{font-size:2.8rem}
+  section{padding:56px 14px}
+  .card{padding:18px}
+  .bgrid{grid-template-columns:1fr}
+  .panel,.apanel{width:100%;max-height:86vh}
+  .map-wrap{height:300px}
+  .vopts{grid-template-columns:repeat(2,1fr)}
+  .tgrid{grid-template-columns:1fr 1fr}
+}
+
+/* ── PIN OVERLAY ── */
+.pin-overlay{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.95);backdrop-filter:blur(16px);display:none;align-items:center;justify-content:center}
+.pin-overlay.open{display:flex}
+.pin-box{background:#0d1026;border:1px solid var(--gold);border-radius:20px;padding:36px 32px;width:100%;max-width:340px;text-align:center;animation:fiu .35s ease both}
+.pin-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;color:var(--gl);margin-bottom:6px}
+.pin-sub{font-size:.75rem;color:var(--dim);margin-bottom:28px}
+.pin-dots{display:flex;justify-content:center;gap:14px;margin-bottom:28px}
+.pin-dot{width:14px;height:14px;border-radius:50%;background:var(--br);border:2px solid var(--br);transition:all .2s}
+.pin-dot.filled{background:var(--gold);border-color:var(--gold);box-shadow:0 0 8px rgba(201,168,76,.5)}
+.pin-dot.wrong{background:#f87171;border-color:#f87171;animation:shake .4s ease}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.pin-key{padding:16px;background:var(--c1);border:1px solid var(--br);border-radius:13px;font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--txt);cursor:pointer;transition:all .2s}
+.pin-key:hover{background:var(--c2);border-color:var(--gold);color:var(--gl)}
+.pin-key:active{transform:scale(.93)}
+.pin-key.del{font-size:.9rem;color:var(--dim)}
+.pin-cancel{width:100%;padding:10px;background:transparent;border:1px solid var(--br);border-radius:100px;color:var(--dim);font-size:.8rem;cursor:pointer;transition:all .3s;font-family:'DM Sans',sans-serif}
+.pin-cancel:hover{border-color:rgba(248,113,113,.5);color:#f87171}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+
+/* ── AIRPORT AUTOCOMPLETE ── */
+.ac-wrap{position:relative;width:100%}
+.ac-wrap .fi{width:100%}
+.ac-drop{position:absolute;top:100%;left:0;right:0;background:#0f1035;border:1px solid var(--gold);border-top:none;border-radius:0 0 12px 12px;max-height:220px;overflow-y:auto;z-index:2000;display:none;box-shadow:0 12px 32px rgba(0,0,0,.5)}
+.ac-drop.open{display:block}
+.ac-item{padding:10px 14px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}
+.ac-item:last-child{border-bottom:none}
+.ac-item:hover,.ac-item.sel{background:rgba(201,168,76,.12)}
+.ac-code{display:inline-block;background:rgba(201,168,76,.15);color:var(--gold);font-size:.65rem;font-family:DM Sans,monospace;padding:2px 6px;border-radius:4px;margin-right:7px;font-weight:700;letter-spacing:.05em}
+.ac-name{font-size:.82rem;color:var(--txt)}
+.ac-city{font-size:.72rem;color:var(--dim);margin-top:1px}
+
+/* ── USER LOCATION ── */
+.find-me-btn{position:absolute;bottom:16px;right:16px;z-index:10;background:#0d1026;border:1px solid var(--gold);color:var(--gl);padding:9px 14px;border-radius:100px;font-size:.75rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .3s;box-shadow:0 4px 16px rgba(0,0,0,.4);font-family:'DM Sans',sans-serif}
+.find-me-btn:hover{background:var(--gold);color:#000}
+.map-county-tag{position:absolute;top:14px;left:14px;z-index:10;background:rgba(13,16,38,.85);backdrop-filter:blur(8px);border:1px solid rgba(201,168,76,.3);color:var(--gl);padding:7px 13px;border-radius:100px;font-size:.72rem;font-family:'DM Sans',sans-serif;pointer-events:none;display:none}
+</style>
+</head>
+<body>
+
+<div class="aurora"><div class="ab"></div><div class="ab"></div><div class="ab"></div></div>
+<div class="stars" id="stars"></div>
+
+<nav>
+  <div class="logo" onclick="logoTap()" id="logo-el">Mose<em>lust</em></div>
+  <ul class="nav-links">
+    <li><a onclick="go('hero')">Home</a></li>
+    <li><a onclick="go('booking')">Book</a></li>
+    <li><a onclick="go('explore')">Map</a></li>
+    <li><a onclick="go('vibe-finder')">Find My Vibe</a></li>
+    <li><a onclick="go('destinations')">Destinations</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="btn-install" onclick="installApp()"><span>📲</span><span class="install-txt">Install</span></button>
+    <button class="nic" onclick="openSettings()" title="Settings">⚙️</button>
+    <button class="btn-booknow" onclick="go('booking')">Book Now</button>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- HERO -->
+<div id="hero">
+  <div style="max-width:740px;margin:0 auto;text-align:center">
+    <div class="htag" id="hero-tag">✦ Premium Travel Experiences</div>
+    <h1 class="htitle"><span id="hero-t1">The World</span><br><em id="hero-t2">Awaits You</em></h1>
+    <p class="hsub" id="hero-sub">Curate extraordinary journeys tailored to your budget, your pace, and your perfect escape.</p>
+    <div class="hbtns">
+      <button class="btn-p" id="cta1" onclick="go('booking')">Start Planning</button>
+      <button class="btn-s" id="cta2" onclick="go('vibe-finder')">Find My Vibe ✦</button>
+    </div>
+  </div>
+</div>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="stag">✦ Book Your Journey</div>
+  <div class="stitle">Craft Your<br><em>Perfect Trip</em></div>
+  <div class="card">
+    <div class="ttabs">
+      <button class="ttab on" onclick="setTab(this)">✈️ Flights</button>
+      <button class="ttab" onclick="setTab(this)">🏨 Hotels</button>
+      <button class="ttab" onclick="setTab(this)">🎒 Packages</button>
+      <button class="ttab" onclick="setTab(this)">🚢 Cruises</button>
+      <button class="ttab" onclick="setTab(this)">🚗 Car Hire</button>
+    </div>
+    <div class="fl" style="margin-bottom:10px">Choose Your Vibe</div>
+    <div class="vpills" id="vpills">
+      <button class="vpill on" onclick="setVibe('',this)">💎 Luxury</button>
+      <button class="vpill" onclick="setVibe('ocean',this)">🌊 Ocean</button>
+      <button class="vpill" onclick="setVibe('forest',this)">🌿 Nature</button>
+      <button class="vpill" onclick="setVibe('desert',this)">🏜️ Desert</button>
+      <button class="vpill" onclick="setVibe('arctic',this)">❄️ Arctic</button>
+      <button class="vpill" onclick="setVibe('city',this)">🌆 City</button>
+    </div>
+    <div class="bgrid">
+      <div class="fg"><label class="fl">🛫 From</label>
+        <div class="ac-wrap">
+          <input class="fi" id="from" type="text" placeholder="City or airport" autocomplete="off"
+            oninput="acSearch('from',this.value)" onfocus="acSearch('from',this.value)" onkeydown="acKey(event,'from')">
+          <div class="ac-drop" id="ac-from"></div>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">🛬 To</label>
+        <div class="ac-wrap">
+          <input class="fi" id="to" type="text" placeholder="City or airport" autocomplete="off"
+            oninput="acSearch('to',this.value);filterD()" onfocus="acSearch('to',this.value)" onkeydown="acKey(event,'to')">
+          <div class="ac-drop" id="ac-to"></div>
+        </div>
+      </div>
+      <div class="fg"><label class="fl">📅 Depart</label><input class="fi" id="dep" type="date"></div>
+      <div class="fg"><label class="fl">📅 Return</label><input class="fi" id="ret" type="date"></div>
+      <div class="fg"><label class="fl">🧳 Class</label>
+        <select class="fi"><option>Economy</option><option>Business Class</option><option>First Class</option><option>Private Jet</option></select>
+      </div>
+      <div class="fg"><label class="fl">👥 Travellers</label>
+        <div class="tctr">
+          <button class="cbt" onclick="chgT(-1)">−</button>
+          <div style="flex:1"><span class="cnum" id="tnum">2</span><span class="clbl" id="tlbl">Adults</span></div>
+          <button class="cbt" onclick="chgT(1)">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="fg" style="margin-bottom:22px">
+      <label class="fl">💰 Budget Per Person</label>
+      <div class="bdv" id="bdsp">KES 5,000</div>
+      <input type="range" min="500" max="500000" value="5000" step="500" id="bslider" oninput="updB(this.value)">
+      <div style="display:flex;justify-content:space-between;margin-top:4px">
+        <span style="font-size:.63rem;color:var(--dim)">KES 500</span>
+        <span style="font-size:.63rem;color:var(--dim)">KES 500,000</span>
+      </div>
+    </div>
+    <div class="bfoot">
+      <div class="bsum">For <strong id="sum-t">2 adults</strong> · Budget <strong id="sum-b">KES 5,000</strong></div>
+      <button class="btn-p" style="padding:12px 34px" onclick="doSearch()">Search Trips →</button>
+    </div>
+    <div class="offer">
+      <div class="offtxt">🎉 Save up to 35% on early bookings<span id="promo-txt">Use code MOSE45 · Save 45% on your booking</span></div>
+      <button class="btn-s" style="padding:7px 14px;font-size:.74rem" onclick="copyCode()">Copy Code</button>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section id="explore" style="padding-top:0">
+  <div class="stag">✦ Explore</div>
+  <div class="stitle">Discover the<br><em>World</em></div>
+  <div class="map-wrap">
+    <div id="gmap"></div>
+    <div class="map-badge"><h4>🗺️ Google Maps</h4><p>Tap any pin to book</p></div>
+    <div class="map-county-tag" id="map-county-tag">📍 <span id="map-county-name">Detecting…</span></div>
+    <button class="find-me-btn" onclick="locateMe(false)">📍 Find Me</button>
+  </div>
+</section>
+
+<!-- FIND MY VIBE -->
+<section id="vibe-finder">
+  <div class="stag">✦ Local Discovery</div>
+  <div class="stitle">Find My<br><em>Vibe</em></div>
+  <div class="card">
+    <div class="vf-prog"><div class="vf-bar" id="vf-bar" style="width:0%"></div></div>
+
+    <!-- S1: WHO -->
+    <div class="vf-step show" id="vs1">
+      <div class="vstepnum">Step 1 of 4</div>
+      <div class="vsteptitle">Who are you going with?</div>
+      <div class="vopts">
+        <button class="vopt" onclick="vPick(this,'who','solo')"><span class="vopt-ico">🧍</span>Solo</button>
+        <button class="vopt" onclick="vPick(this,'who','couple')"><span class="vopt-ico">💑</span>Couple</button>
+        <button class="vopt" onclick="vPick(this,'who','friends')"><span class="vopt-ico">👯</span>Friends</button>
+        <button class="vopt" onclick="vPick(this,'who','family')"><span class="vopt-ico">👨‍👩‍👧</span>Family</button>
+      </div>
+      <div class="vf-foot"><div></div><button class="vbtn-next" id="vn1" disabled onclick="vGo(2)">Next →</button></div>
+    </div>
+
+    <!-- S2: MOOD -->
+    <div class="vf-step" id="vs2">
+      <div class="vstepnum">Step 2 of 4</div>
+      <div class="vsteptitle">What's your vibe?</div>
+      <div class="vopts">
+        <button class="vopt" onclick="vPick(this,'mood','energetic')"><span class="vopt-ico">⚡</span>Energetic</button>
+        <button class="vopt" onclick="vPick(this,'mood','relaxed')"><span class="vopt-ico">😌</span>Relaxed</button>
+        <button class="vopt" onclick="vPick(this,'mood','social')"><span class="vopt-ico">🎉</span>Social</button>
+        <button class="vopt" onclick="vPick(this,'mood','romantic')"><span class="vopt-ico">🌹</span>Romantic</button>
+        <button class="vopt" onclick="vPick(this,'mood','adventurous')"><span class="vopt-ico">🏔️</span>Adventurous</button>
+      </div>
+      <div class="vf-foot">
+        <button class="vbtn-back" onclick="vGo(1)">← Back</button>
+        <button class="vbtn-next" id="vn2" disabled onclick="vGo(3)">Next →</button>
+      </div>
+    </div>
+
+    <!-- S3: BUDGET + INTERESTS -->
+    <div class="vf-step" id="vs3">
+      <div class="vstepnum">Step 3 of 4</div>
+      <div class="vsteptitle">Budget & Interests</div>
+      <div class="fg" style="margin-bottom:22px">
+        <label class="fl" style="margin-bottom:8px">💰 Budget Estimate (KES per person)</label>
+        <div class="budget-val" id="vf-bdsp">KES 300</div>
+        <input type="range" min="300" max="50000" value="300" step="100" id="vf-bslider" oninput="updVB(this.value)">
+        <div style="display:flex;justify-content:space-between;margin-top:4px">
+          <span style="font-size:.63rem;color:var(--dim)">KES 300</span>
+          <span style="font-size:.63rem;color:var(--dim)">KES 50,000</span>
+        </div>
+      </div>
+      <div class="fl" style="margin-bottom:11px">🎯 Interests (pick any)</div>
+      <div class="vopts" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))">
+        <button class="vopt" onclick="vToggle(this,'live_music')"><span class="vopt-ico">🎵</span>Live Music</button>
+        <button class="vopt" onclick="vToggle(this,'food')"><span class="vopt-ico">🍽️</span>Food & Dining</button>
+        <button class="vopt" onclick="vToggle(this,'nightlife')"><span class="vopt-ico">🍸</span>Nightlife</button>
+        <button class="vopt" onclick="vToggle(this,'nature')"><span class="vopt-ico">🌿</span>Nature</button>
+        <button class="vopt" onclick="vToggle(this,'art')"><span class="vopt-ico">🎨</span>Art & Culture</button>
+        <button class="vopt" onclick="vToggle(this,'outdoors')"><span class="vopt-ico">⛺</span>Outdoors</button>
+        <button class="vopt" onclick="vToggle(this,'shopping')"><span class="vopt-ico">🛍️</span>Shopping</button>
+        <button class="vopt" onclick="vToggle(this,'gaming')"><span class="vopt-ico">🎮</span>Gaming & Sports</button>
+      </div>
+      <div class="vf-foot">
+        <button class="vbtn-back" onclick="vGo(2)">← Back</button>
+        <button class="vbtn-next" onclick="vFind()">🔍 Find My Vibe</button>
+      </div>
+    </div>
+
+    <!-- S4: RESULTS -->
+    <div class="vf-step" id="vs4">
+      <div class="vstepnum">Step 4 of 4</div>
+      <div class="vsteptitle">Places Near You</div>
+      <div id="vf-sum" style="font-size:.78rem;color:var(--dim);margin-bottom:16px"></div>
+      <div id="vf-body"><div class="vf-loading"><div class="vf-spin"></div><p>Finding places…</p></div></div>
+      <div class="vf-foot" style="margin-top:18px">
+        <button class="vbtn-back" onclick="vGo(3)">← Back</button>
+        <button class="vbtn-back" onclick="vReset()" style="border-color:var(--gold);color:var(--gold)">🔄 Search Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATIONS -->
+<section id="destinations">
+  <div class="stag">✦ Popular Destinations</div>
+  <div class="stitle">Trending<br><em>Escapes</em></div>
+  <div class="dgrid" id="dgrid"></div>
+</section>
+</div>
+
+<!-- TRANSPORT SHEET -->
+<div class="toverlay" id="toverlay" onclick="if(event.target===this)closeT()">
+  <div class="tsheet">
+    <div class="thandle"></div>
+    <div class="tplace-name" id="t-name"></div>
+    <div class="tplace-addr" id="t-addr"></div>
+    <div class="tgrid">
+      <button class="tbtn uber" onclick="openUber()">
+        <span class="tbtn-ico">🚖</span>
+        <span class="tbtn-name">Uber</span>
+        <span class="tbtn-sub">Ride with Uber</span>
+      </button>
+      <button class="tbtn bolt" onclick="openBolt()">
+        <span class="tbtn-ico">⚡</span>
+        <span class="tbtn-name">Bolt</span>
+        <span class="tbtn-sub">Ride with Bolt</span>
+      </button>
+    </div>
+    <button class="btn-p" style="width:100%;margin-bottom:0" onclick="openGMaps()">🗺️ Directions in Google Maps</button>
+    <button class="tclose" onclick="closeT()">Close</button>
+  </div>
+</div>
+
+<!-- SETTINGS -->
+<div class="overlay" id="soverlay" onclick="if(event.target===this)closeS()">
+  <div class="panel">
+    <div class="ph"><div class="pt">⚙️ Settings</div><button class="xb" onclick="closeS()">✕</button></div>
+    <div class="ssec">
+      <div class="ssec-t">Preferences</div>
+      <div class="trow"><span class="tlbl">🔔 Notifications</span><label class="tog"><input type="checkbox" checked onchange="toast(this.checked?'🔔 On':'🔕 Off')"><span class="tsl"></span></label></div>
+      <div class="trow"><span class="tlbl">📧 Email Deals</span><label class="tog"><input type="checkbox" checked><span class="tsl"></span></label></div>
+      <div class="trow"><span class="tlbl">✈️ Flight Alerts</span><label class="tog"><input type="checkbox" checked><span class="tsl"></span></label></div>
+    </div>
+    <div class="ssec">
+      <div class="ssec-t">Appearance</div>
+      <div class="trow"><span class="tlbl">✨ Animations</span><label class="tog"><input type="checkbox" checked onchange="toggleAnim(this.checked)"><span class="tsl"></span></label></div>
+    </div>
+    <div class="ssec">
+      <div class="ssec-t">Currency</div>
+      <div class="cgrid">
+        <button class="cb2" onclick="setCur(this,'$')">🇺🇸 USD</button>
+        <button class="cb2" onclick="setCur(this,'€')">🇪🇺 EUR</button>
+        <button class="cb2" onclick="setCur(this,'£')">🇬🇧 GBP</button>
+        <button class="cb2" onclick="setCur(this,'¥')">🇯🇵 JPY</button>
+        <button class="cb2 on" onclick="setCur(this,'KES')">🇰🇪 KES</button>
+        <button class="cb2" onclick="setCur(this,'A$')">🇦🇺 AUD</button>
+      </div>
+    </div>
+    <div class="ssec">
+      <div class="ssec-t">Install App</div>
+      <button class="btn-p" style="width:100%;padding:11px;font-size:.84rem" onclick="installApp();closeS()">📲 Download App</button>
+      <p style="font-size:.68rem;color:var(--dim);margin-top:8px;text-align:center">Save file → open in browser for offline use</p>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="aoverlay" id="aoverlay" onclick="if(event.target===this)closeA()">
+  <div class="apanel">
+    <div class="ph" style="border-bottom:1px solid var(--br);padding-bottom:14px;margin-bottom:20px">
+      <div class="pt" style="font-size:1.5rem">🛠️ Admin Panel</div>
+      <button class="xb" onclick="closeA()">✕</button>
+    </div>
+    <div class="atabs">
+      <button class="atab on" onclick="aTab(this,'stats')">📊 Stats</button>
+      <button class="atab" onclick="aTab(this,'hero')">🦸 Hero</button>
+      <button class="atab" onclick="aTab(this,'dests')">📍 Destinations</button>
+      <button class="atab" onclick="aTab(this,'promos')">🎟️ Promos</button>
+      <button class="atab" onclick="aTab(this,'nav')">🔗 Nav</button>
+      <button class="atab" onclick="aTab(this,'secs')">📄 Sections</button>
+    </div>
+    <div class="ac show" id="ac-stats">
+      <div class="sgrid">
+        <div class="sc"><span class="sn" id="st-s">0</span><span class="sl">Searches</span></div>
+        <div class="sc"><span class="sn" id="st-b">0</span><span class="sl">Bookings</span></div>
+        <div class="sc"><span class="sn" id="st-v">Luxury</span><span class="sl">Vibe</span></div>
+        <div class="sc"><span class="sn" id="st-d">9</span><span class="sl">Destinations</span></div>
+      </div>
+    </div>
+    <div class="ac" id="ac-hero">
+      <div class="arow"><div class="fg"><label class="fl">Tag</label><input class="fi" id="ae-tag" value="✦ Premium Travel Experiences"></div></div>
+      <div class="arow"><div class="fg"><label class="fl">Title</label><input class="fi" id="ae-t1" value="The World"></div><div class="fg"><label class="fl">Italic</label><input class="fi" id="ae-t2" value="Awaits You"></div></div>
+      <div class="arow"><div class="fg"><label class="fl">Description</label><textarea class="hero-ta" id="ae-sub">Curate extraordinary journeys tailored to your budget, your pace, and your perfect escape.</textarea></div></div>
+      <div class="arow"><div class="fg"><label class="fl">Button 1</label><input class="fi" id="ae-b1" value="Start Planning"></div><div class="fg"><label class="fl">Button 2</label><input class="fi" id="ae-b2" value="Find My Vibe ✦"></div></div>
+      <button class="asave" onclick="saveHero()">💾 Apply</button>
+    </div>
+    <div class="ac" id="ac-dests">
+      <div class="alist" id="adlist"></div>
+      <div class="addsec">
+        <div class="ssec-t">➕ Add Destination</div>
+        <div class="arow"><div class="fg"><label class="fl">Name</label><input class="fi" id="ad-n" placeholder="Rome"></div><div class="fg"><label class="fl">Region</label><input class="fi" id="ad-r" placeholder="Italy, Europe"></div><div class="fg"><label class="fl">Emoji</label><input class="fi" id="ad-e" placeholder="🏛️" maxlength="4"></div></div>
+        <div class="arow"><div class="fg"><label class="fl">Price</label><input class="fi" type="number" id="ad-p" placeholder="1500"></div><div class="fg"><label class="fl">Rating</label><input class="fi" id="ad-rt" placeholder="4.8 ★"></div><div class="fg"><label class="fl">Badge</label><select class="fi" id="ad-b"><option value="hot">🔥 Hot</option><option value="new">✨ New</option><option value="deal">🎯 Deal</option></select></div></div>
+        <button class="asave" onclick="addDest()">➕ Add</button>
+      </div>
+    </div>
+    <div class="ac" id="ac-promos">
+      <div class="alist" id="prlist"></div>
+      <div class="addsec">
+        <div class="ssec-t">➕ Add Promo</div>
+        <div class="arow"><div class="fg"><label class="fl">Code</label><input class="fi" id="ap-c" placeholder="MOSE45"></div><div class="fg"><label class="fl">Discount %</label><input class="fi" type="number" id="ap-d" placeholder="20"></div><div class="fg"><label class="fl">Expiry</label><input class="fi" type="date" id="ap-e"></div></div>
+        <div class="arow"><div class="fg"><label class="fl">Banner Text</label><input class="fi" id="ap-b" placeholder="Save 20% with SUMMER20"></div></div>
+        <button class="asave" onclick="addPromo()">➕ Add</button>
+      </div>
+    </div>
+    <div class="ac" id="ac-nav">
+      <div class="ssec-t" style="margin-bottom:12px">Navigation Labels</div>
+      <div class="nrow"><span style="font-size:.82rem">Home</span><input class="fi" style="width:130px;padding:7px 11px" value="Home" oninput="updNav('home',this.value)"></div>
+      <div class="nrow"><span style="font-size:.82rem">Book</span><input class="fi" style="width:130px;padding:7px 11px" value="Book" oninput="updNav('book',this.value)"></div>
+      <div class="nrow"><span style="font-size:.82rem">Map</span><input class="fi" style="width:130px;padding:7px 11px" value="Map" oninput="updNav('map',this.value)"></div>
+      <div class="nrow"><span style="font-size:.82rem">Find My Vibe</span><input class="fi" style="width:130px;padding:7px 11px" value="Find My Vibe" oninput="updNav('vibe',this.value)"></div>
+      <div class="nrow"><span style="font-size:.82rem">Destinations</span><input class="fi" style="width:130px;padding:7px 11px" value="Destinations" oninput="updNav('dest',this.value)"></div>
+    </div>
+    <div class="ac" id="ac-secs">
+      <div class="ssec-t" style="margin-bottom:12px">Show / Hide Sections</div>
+      <div class="stoggle"><span style="font-size:.82rem;color:var(--dim)">Hero</span><label class="tog"><input type="checkbox" checked onchange="secVis('hero',this.checked)"><span class="tsl"></span></label></div>
+      <div class="stoggle"><span style="font-size:.82rem;color:var(--dim)">Booking</span><label class="tog"><input type="checkbox" checked onchange="secVis('booking',this.checked)"><span class="tsl"></span></label></div>
+      <div class="stoggle"><span style="font-size:.82rem;color:var(--dim)">Map</span><label class="tog"><input type="checkbox" checked onchange="secVis('explore',this.checked)"><span class="tsl"></span></label></div>
+      <div class="stoggle"><span style="font-size:.82rem;color:var(--dim)">Find My Vibe</span><label class="tog"><input type="checkbox" checked onchange="secVis('vibe-finder',this.checked)"><span class="tsl"></span></label></div>
+      <div class="stoggle"><span style="font-size:.82rem;color:var(--dim)">Destinations</span><label class="tog"><input type="checkbox" checked onchange="secVis('destinations',this.checked)"><span class="tsl"></span></label></div>
+      <div style="margin-top:18px"><div class="ssec-t" style="margin-bottom:11px">Theme</div>
+        <div class="vpills">
+          <button class="vpill on" onclick="setVibeA('',this)">💎 Luxury</button>
+          <button class="vpill" onclick="setVibeA('ocean',this)">🌊 Ocean</button>
+          <button class="vpill" onclick="setVibeA('forest',this)">🌿 Nature</button>
+          <button class="vpill" onclick="setVibeA('desert',this)">🏜️ Desert</button>
+          <button class="vpill" onclick="setVibeA('arctic',this)">❄️ Arctic</button>
+          <button class="vpill" onclick="setVibeA('city',this)">🌆 City</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+'use strict';
+// ── STATE ──
+let travelers=2,budget=5000,cur='KES',curVibe='',searches=0,bookings=0,activePIdx=0;
+let dests=[
+  // ── EUROPE ──
+  {n:'Paris',r:'France, Europe',e:'🗼',p:273000,rt:'4.9 ★',b:'hot',lat:48.8566,lng:2.3522},
+  {n:'Santorini',r:'Greece, Europe',e:'🏛️',p:246000,rt:'4.9 ★',b:'hot',lat:36.3932,lng:25.4615},
+  {n:'Rome',r:'Italy, Europe',e:'🏟️',p:218000,rt:'4.8 ★',b:'deal',lat:41.9028,lng:12.4964},
+  {n:'Barcelona',r:'Spain, Europe',e:'🎨',p:195000,rt:'4.8 ★',b:'new',lat:41.3851,lng:2.1734},
+  {n:'Amsterdam',r:'Netherlands, Europe',e:'🌷',p:232000,rt:'4.7 ★',b:'deal',lat:52.3676,lng:4.9041},
+  {n:'London',r:'UK, Europe',e:'🎡',p:298000,rt:'4.7 ★',b:'hot',lat:51.5074,lng:-0.1278},
+  {n:'Prague',r:'Czech Republic, Europe',e:'🏰',p:167000,rt:'4.8 ★',b:'deal',lat:50.0755,lng:14.4378},
+  {n:'Reykjavik',r:'Iceland, Nordic',e:'🌋',p:351000,rt:'4.8 ★',b:'new',lat:64.1355,lng:-21.8954},
+  {n:'Vienna',r:'Austria, Europe',e:'🎻',p:201000,rt:'4.7 ★',b:'deal',lat:48.2082,lng:16.3738},
+  {n:'Lisbon',r:'Portugal, Europe',e:'🍷',p:178000,rt:'4.7 ★',b:'new',lat:38.7169,lng:-9.1395},
+  {n:'Istanbul',r:'Turkey, Europe',e:'🕌',p:159000,rt:'4.6 ★',b:'deal',lat:41.0082,lng:28.9784},
+  {n:'Zurich',r:'Switzerland, Europe',e:'🏔️',p:389000,rt:'4.6 ★',b:'new',lat:47.3769,lng:8.5417},
+  {n:'Athens',r:'Greece, Europe',e:'🏺',p:189000,rt:'4.6 ★',b:'deal',lat:37.9838,lng:23.7275},
+  {n:'Dubrovnik',r:'Croatia, Europe',e:'🏝️',p:214000,rt:'4.8 ★',b:'hot',lat:42.6507,lng:18.0944},
+  // ── AFRICA ──
+  {n:'Nairobi',r:'Kenya, Africa',e:'🦁',p:89000,rt:'4.5 ★',b:'hot',lat:-1.2921,lng:36.8219},
+  {n:'Mombasa',r:'Kenya, Africa',e:'🌊',p:74000,rt:'4.4 ★',b:'deal',lat:-4.0435,lng:39.6682},
+  {n:'Zanzibar',r:'Tanzania, Africa',e:'🏖️',p:112000,rt:'4.8 ★',b:'hot',lat:-6.165,lng:39.202},
+  {n:'Cape Town',r:'South Africa, Africa',e:'🏔️',p:198000,rt:'4.9 ★',b:'hot',lat:-33.9249,lng:18.4241},
+  {n:'Marrakech',r:'Morocco, Africa',e:'🕌',p:127000,rt:'4.6 ★',b:'deal',lat:31.6295,lng:-7.9811},
+  {n:'Cairo',r:'Egypt, Africa',e:'🗿',p:143000,rt:'4.5 ★',b:'new',lat:30.0444,lng:31.2357},
+  {n:'Seychelles',r:'Indian Ocean, Africa',e:'🌴',p:487000,rt:'5.0 ★',b:'hot',lat:-4.6796,lng:55.4920},
+  {n:'Mauritius',r:'Indian Ocean, Africa',e:'🦜',p:312000,rt:'4.9 ★',b:'new',lat:-20.3484,lng:57.5522},
+  {n:'Kigali',r:'Rwanda, Africa',e:'🌿',p:98000,rt:'4.5 ★',b:'new',lat:-1.9441,lng:30.0619},
+  {n:'Victoria Falls',r:'Zimbabwe, Africa',e:'💧',p:176000,rt:'4.9 ★',b:'hot',lat:-17.9243,lng:25.8572},
+  // ── MIDDLE EAST ──
+  {n:'Dubai',r:'UAE, Middle East',e:'🏙️',p:416000,rt:'4.7 ★',b:'deal',lat:25.2048,lng:55.2708},
+  {n:'Abu Dhabi',r:'UAE, Middle East',e:'🕌',p:378000,rt:'4.6 ★',b:'new',lat:24.4539,lng:54.3773},
+  {n:'Doha',r:'Qatar, Middle East',e:'⛵',p:342000,rt:'4.5 ★',b:'new',lat:25.2854,lng:51.5310},
+  // ── ASIA ──
+  {n:'Bali',r:'Indonesia, Asia',e:'🌺',p:189000,rt:'4.7 ★',b:'hot',lat:-8.3405,lng:115.092},
+  {n:'Kyoto',r:'Japan, Asia',e:'⛩️',p:304000,rt:'4.8 ★',b:'new',lat:35.0116,lng:135.7681},
+  {n:'Tokyo',r:'Japan, Asia',e:'🗾',p:328000,rt:'4.9 ★',b:'hot',lat:35.6762,lng:139.6503},
+  {n:'Bangkok',r:'Thailand, Asia',e:'🐘',p:142000,rt:'4.6 ★',b:'deal',lat:13.7563,lng:100.5018},
+  {n:'Singapore',r:'Singapore, Asia',e:'🦁',p:267000,rt:'4.8 ★',b:'new',lat:1.3521,lng:103.8198},
+  {n:'Maldives',r:'South Asia',e:'🌴',p:624000,rt:'5.0 ★',b:'hot',lat:3.2028,lng:73.2207},
+  {n:'Phuket',r:'Thailand, Asia',e:'🏄',p:156000,rt:'4.6 ★',b:'deal',lat:7.8804,lng:98.3923},
+  {n:'Kathmandu',r:'Nepal, Asia',e:'🏔️',p:134000,rt:'4.5 ★',b:'new',lat:27.7172,lng:85.3240},
+  {n:'Hong Kong',r:'China, Asia',e:'🌃',p:289000,rt:'4.7 ★',b:'deal',lat:22.3193,lng:114.1694},
+  {n:'Seoul',r:'South Korea, Asia',e:'🎎',p:256000,rt:'4.7 ★',b:'new',lat:37.5665,lng:126.9780},
+  {n:'Mumbai',r:'India, Asia',e:'🎬',p:178000,rt:'4.4 ★',b:'deal',lat:19.0760,lng:72.8777},
+  // ── AMERICAS ──
+  {n:'New York',r:'USA, Americas',e:'🗽',p:341000,rt:'4.6 ★',b:'new',lat:40.7128,lng:-74.006},
+  {n:'Miami',r:'USA, Americas',e:'🌴',p:289000,rt:'4.5 ★',b:'hot',lat:25.7617,lng:-80.1918},
+  {n:'Cancun',r:'Mexico, Americas',e:'🌊',p:198000,rt:'4.6 ★',b:'deal',lat:21.1619,lng:-86.8515},
+  {n:'Rio de Janeiro',r:'Brazil, Americas',e:'🎭',p:223000,rt:'4.7 ★',b:'hot',lat:-22.9068,lng:-43.1729},
+  {n:'Buenos Aires',r:'Argentina, Americas',e:'💃',p:189000,rt:'4.6 ★',b:'new',lat:-34.6037,lng:-58.3816},
+  {n:'Machu Picchu',r:'Peru, Americas',e:'🏔️',p:267000,rt:'4.9 ★',b:'hot',lat:-13.1631,lng:-72.5450},
+  {n:'Havana',r:'Cuba, Americas',e:'🎺',p:167000,rt:'4.5 ★',b:'new',lat:23.1136,lng:-82.3666},
+  // ── OCEANIA ──
+  {n:'Sydney',r:'Australia, Oceania',e:'🦘',p:378000,rt:'4.8 ★',b:'hot',lat:-33.8688,lng:151.2093},
+  {n:'Bora Bora',r:'French Polynesia',e:'🌺',p:712000,rt:'5.0 ★',b:'hot',lat:-16.5004,lng:-151.7415},
+  {n:'Auckland',r:'New Zealand, Oceania',e:'🥝',p:342000,rt:'4.7 ★',b:'new',lat:-36.8485,lng:174.7633},
+];
+let promos=[
+  {code:'MOSE45',disc:45,exp:'2026-12-31',banner:'Use code MOSE45 · Save 45% on your booking'},
+  {code:'WELCOME20',disc:20,exp:'2026-12-31',banner:'New user? Save 20% with WELCOME20'},
+];
+
+// ── INIT ──
+window.addEventListener('DOMContentLoaded',function(){
+  makeStars();
+  setDates();
+  renderD(dests);
+  renderAD();
+  renderPromos();
+  setPromo(0);
+  // Load Google Maps safely — does NOT block page
+  loadGoogleMaps();
+});
+
+// ── STARS ──
+function makeStars(){
+  var c=document.getElementById('stars');c.innerHTML='';
+  for(var i=0;i<80;i++){
+    var s=document.createElement('div');s.className='star';
+    var z=Math.random()*2.2+0.4;
+    s.style.cssText='width:'+z+'px;height:'+z+'px;top:'+Math.random()*100+'%;left:'+Math.random()*100+'%;animation-duration:'+(2+Math.random()*4)+'s;animation-delay:'+(Math.random()*4)+'s';
+    c.appendChild(s);
+  }
+}
+
+// ── VIBE ──
+function setVibe(v,el){
+  curVibe=v;
+  document.body.className=v;
+  document.querySelectorAll('#vpills .vpill').forEach(function(p){p.classList.remove('on')});
+  if(el)el.classList.add('on');
+  document.getElementById('st-v').textContent=v?v.charAt(0).toUpperCase()+v.slice(1):'Luxury';
+  toast((v||'luxury').charAt(0).toUpperCase()+(v||'luxury').slice(1)+' vibe ✦');
+}
+function setVibeA(v,el){
+  setVibe(v,null);
+  document.querySelectorAll('#ac-secs .vpill').forEach(function(p){p.classList.remove('on')});
+  if(el)el.classList.add('on');
+  document.querySelectorAll('#vpills .vpill').forEach(function(p){
+    p.classList.toggle('on',p.textContent.toLowerCase().includes((v||'luxur').substring(0,4)));
+  });
+}
+
+// ── DATES ──
+function setDates(){
+  var t=new Date(),n=new Date(t);n.setDate(t.getDate()+7);
+  document.getElementById('dep').value=t.toISOString().split('T')[0];
+  document.getElementById('ret').value=n.toISOString().split('T')[0];
+}
+
+// ── BOOKING ──
+function chgT(d){
+  travelers=Math.max(1,Math.min(20,travelers+d));
+  document.getElementById('tnum').textContent=travelers;
+  document.getElementById('tlbl').textContent=travelers===1?'Adult':'Adults';
+  updSum();
+}
+function updB(v){
+  budget=parseInt(v);
+  document.getElementById('bdsp').textContent='KES '+parseInt(v).toLocaleString();
+  updSum();
+}
+function updSum(){
+  document.getElementById('sum-t').textContent=travelers+' '+(travelers===1?'adult':'adults');
+  document.getElementById('sum-b').textContent='KES '+budget.toLocaleString();
+}
+function setTab(el){
+  document.querySelectorAll('.ttab').forEach(function(t){t.classList.remove('on')});
+  el.classList.add('on');
+  toast(el.textContent+' selected');
+}
+function doSearch(){
+  var f=document.getElementById('from').value.trim(),t=document.getElementById('to').value.trim();
+  if(!f||!t){toast('⚠️ Fill in From & To');return;}
+  searches++;document.getElementById('st-s').textContent=searches;
+  toast('🔍 Searching '+f+' → '+t+'…');
+  notifyOwner('✈️ New Search','From: '+f+' → To: '+t+' | Travelers: '+travelers+' | Budget: KES '+budget.toLocaleString());
+  setTimeout(function(){toast('✅ Found '+(Math.floor(Math.random()*14)+3)+' options!');},1500);
+  setTimeout(function(){go('destinations');},2000);
+}
+
+// ══════════════════════════════════════════
+// AIRPORT / CITY DATABASE
+// ══════════════════════════════════════════
+var AIRPORTS=[
+  // ── KENYA ──
+  {code:'NBO',name:'Jomo Kenyatta International',city:'Nairobi',country:'Kenya',emoji:'🇰🇪'},
+  {code:'MBA',name:'Moi International Airport',city:'Mombasa',country:'Kenya',emoji:'🇰🇪'},
+  {code:'KIS',name:'Kisumu International Airport',city:'Kisumu',country:'Kenya',emoji:'🇰🇪'},
+  {code:'EDL',name:'Eldoret International Airport',city:'Eldoret',country:'Kenya',emoji:'🇰🇪'},
+  {code:'MYD',name:'Malindi Airport',city:'Malindi',country:'Kenya',emoji:'🇰🇪'},
+  {code:'LAU',name:'Lamu Airport',city:'Lamu',country:'Kenya',emoji:'🇰🇪'},
+  {code:'UKA',name:'Ukunda Airstrip',city:'Diani Beach',country:'Kenya',emoji:'🇰🇪'},
+  {code:'WIL',name:'Wilson Airport',city:'Nairobi',country:'Kenya',emoji:'🇰🇪'},
+  {code:'NYK',name:'Nanyuki Airport',city:'Nanyuki',country:'Kenya',emoji:'🇰🇪'},
+  {code:'KEY',name:'Nakuru Airport',city:'Nakuru',country:'Kenya',emoji:'🇰🇪'},
+  // ── EAST AFRICA ──
+  {code:'EBB',name:'Entebbe International',city:'Kampala',country:'Uganda',emoji:'🇺🇬'},
+  {code:'DAR',name:'Julius Nyerere International',city:'Dar es Salaam',country:'Tanzania',emoji:'🇹🇿'},
+  {code:'JRO',name:'Kilimanjaro International',city:'Arusha',country:'Tanzania',emoji:'🇹🇿'},
+  {code:'ZNZ',name:'Abeid Amani Karume International',city:'Zanzibar',country:'Tanzania',emoji:'🇹🇿'},
+  {code:'ADD',name:'Bole International Airport',city:'Addis Ababa',country:'Ethiopia',emoji:'🇪🇹'},
+  {code:'KGL',name:'Kigali International Airport',city:'Kigali',country:'Rwanda',emoji:'🇷🇼'},
+  {code:'BJM',name:'Bujumbura International',city:'Bujumbura',country:'Burundi',emoji:'🇧🇮'},
+  {code:'NBO',name:'Juba Airport',city:'Juba',country:'South Sudan',emoji:'🇸🇸'},
+  {code:'MGQ',name:'Aden Adde International',city:'Mogadishu',country:'Somalia',emoji:'🇸🇴'},
+  // ── AFRICA ──
+  {code:'JNB',name:'OR Tambo International',city:'Johannesburg',country:'South Africa',emoji:'🇿🇦'},
+  {code:'CPT',name:'Cape Town International',city:'Cape Town',country:'South Africa',emoji:'🇿🇦'},
+  {code:'DUR',name:'King Shaka International',city:'Durban',country:'South Africa',emoji:'🇿🇦'},
+  {code:'ACC',name:'Kotoka International Airport',city:'Accra',country:'Ghana',emoji:'🇬🇭'},
+  {code:'LOS',name:'Murtala Muhammed International',city:'Lagos',country:'Nigeria',emoji:'🇳🇬'},
+  {code:'ABV',name:'Nnamdi Azikiwe International',city:'Abuja',country:'Nigeria',emoji:'🇳🇬'},
+  {code:'CAI',name:'Cairo International Airport',city:'Cairo',country:'Egypt',emoji:'🇪🇬'},
+  {code:'CMN',name:'Mohammed V International',city:'Casablanca',country:'Morocco',emoji:'🇲🇦'},
+  {code:'RAK',name:'Marrakech Menara Airport',city:'Marrakech',country:'Morocco',emoji:'🇲🇦'},
+  {code:'TUN',name:'Tunis-Carthage International',city:'Tunis',country:'Tunisia',emoji:'🇹🇳'},
+  {code:'ALG',name:'Houari Boumediene Airport',city:'Algiers',country:'Algeria',emoji:'🇩🇿'},
+  {code:'ABJ',name:'Felix Houphouet-Boigny International',city:'Abidjan',country:'Ivory Coast',emoji:'🇨🇮'},
+  {code:'DKR',name:'Blaise Diagne International',city:'Dakar',country:'Senegal',emoji:'🇸🇳'},
+  {code:'HRE',name:'Robert Gabriel Mugabe International',city:'Harare',country:'Zimbabwe',emoji:'🇿🇼'},
+  {code:'LUN',name:'Kenneth Kaunda International',city:'Lusaka',country:'Zambia',emoji:'🇿🇲'},
+  {code:'GBE',name:'Sir Seretse Khama International',city:'Gaborone',country:'Botswana',emoji:'🇧🇼'},
+  {code:'TNR',name:'Ivato International Airport',city:'Antananarivo',country:'Madagascar',emoji:'🇲🇬'},
+  {code:'MRU',name:'Sir Seewoosagur Ramgoolam International',city:'Mauritius',country:'Mauritius',emoji:'🇲🇺'},
+  // ── MIDDLE EAST ──
+  {code:'DXB',name:'Dubai International Airport',city:'Dubai',country:'UAE',emoji:'🇦🇪'},
+  {code:'AUH',name:'Abu Dhabi International',city:'Abu Dhabi',country:'UAE',emoji:'🇦🇪'},
+  {code:'DOH',name:'Hamad International Airport',city:'Doha',country:'Qatar',emoji:'🇶🇦'},
+  {code:'RUH',name:'King Khalid International',city:'Riyadh',country:'Saudi Arabia',emoji:'🇸🇦'},
+  {code:'JED',name:'King Abdulaziz International',city:'Jeddah',country:'Saudi Arabia',emoji:'🇸🇦'},
+  {code:'KWI',name:'Kuwait International Airport',city:'Kuwait City',country:'Kuwait',emoji:'🇰🇼'},
+  {code:'BAH',name:'Bahrain International Airport',city:'Manama',country:'Bahrain',emoji:'🇧🇭'},
+  {code:'MCT',name:'Muscat International Airport',city:'Muscat',country:'Oman',emoji:'🇴🇲'},
+  {code:'BEY',name:'Rafic Hariri International',city:'Beirut',country:'Lebanon',emoji:'🇱🇧'},
+  {code:'TLV',name:'Ben Gurion International',city:'Tel Aviv',country:'Israel',emoji:'🇮🇱'},
+  {code:'AMM',name:'Queen Alia International',city:'Amman',country:'Jordan',emoji:'🇯🇴'},
+  // ── EUROPE ──
+  {code:'LHR',name:'Heathrow Airport',city:'London',country:'UK',emoji:'🇬🇧'},
+  {code:'LGW',name:'Gatwick Airport',city:'London',country:'UK',emoji:'🇬🇧'},
+  {code:'STN',name:'Stansted Airport',city:'London',country:'UK',emoji:'🇬🇧'},
+  {code:'MAN',name:'Manchester Airport',city:'Manchester',country:'UK',emoji:'🇬🇧'},
+  {code:'EDI',name:'Edinburgh Airport',city:'Edinburgh',country:'UK',emoji:'🇬🇧'},
+  {code:'CDG',name:'Charles de Gaulle Airport',city:'Paris',country:'France',emoji:'🇫🇷'},
+  {code:'ORY',name:'Paris Orly Airport',city:'Paris',country:'France',emoji:'🇫🇷'},
+  {code:'NCE',name:'Nice Cote d Azur Airport',city:'Nice',country:'France',emoji:'🇫🇷'},
+  {code:'FRA',name:'Frankfurt Airport',city:'Frankfurt',country:'Germany',emoji:'🇩🇪'},
+  {code:'MUC',name:'Munich Airport',city:'Munich',country:'Germany',emoji:'🇩🇪'},
+  {code:'BER',name:'Berlin Brandenburg Airport',city:'Berlin',country:'Germany',emoji:'🇩🇪'},
+  {code:'AMS',name:'Amsterdam Schiphol',city:'Amsterdam',country:'Netherlands',emoji:'🇳🇱'},
+  {code:'BRU',name:'Brussels Airport',city:'Brussels',country:'Belgium',emoji:'🇧🇪'},
+  {code:'ZUR',name:'Zurich Airport',city:'Zurich',country:'Switzerland',emoji:'🇨🇭'},
+  {code:'GVA',name:'Geneva Airport',city:'Geneva',country:'Switzerland',emoji:'🇨🇭'},
+  {code:'FCO',name:'Leonardo da Vinci International',city:'Rome',country:'Italy',emoji:'🇮🇹'},
+  {code:'MXP',name:'Milan Malpensa Airport',city:'Milan',country:'Italy',emoji:'🇮🇹'},
+  {code:'VCE',name:'Marco Polo Airport',city:'Venice',country:'Italy',emoji:'🇮🇹'},
+  {code:'MAD',name:'Adolfo Suarez Madrid-Barajas',city:'Madrid',country:'Spain',emoji:'🇪🇸'},
+  {code:'BCN',name:'Josep Tarradellas Barcelona',city:'Barcelona',country:'Spain',emoji:'🇪🇸'},
+  {code:'LIS',name:'Humberto Delgado Airport',city:'Lisbon',country:'Portugal',emoji:'🇵🇹'},
+  {code:'ATH',name:'Athens International Airport',city:'Athens',country:'Greece',emoji:'🇬🇷'},
+  {code:'SKG',name:'Thessaloniki Airport',city:'Thessaloniki',country:'Greece',emoji:'🇬🇷'},
+  {code:'JTR',name:'Santorini Airport',city:'Santorini',country:'Greece',emoji:'🇬🇷'},
+  {code:'IST',name:'Istanbul Airport',city:'Istanbul',country:'Turkey',emoji:'🇹🇷'},
+  {code:'SAW',name:'Istanbul Sabiha Gokcen',city:'Istanbul',country:'Turkey',emoji:'🇹🇷'},
+  {code:'VIE',name:'Vienna International Airport',city:'Vienna',country:'Austria',emoji:'🇦🇹'},
+  {code:'PRG',name:'Vaclav Havel Airport',city:'Prague',country:'Czech Republic',emoji:'🇨🇿'},
+  {code:'WAW',name:'Warsaw Chopin Airport',city:'Warsaw',country:'Poland',emoji:'🇵🇱'},
+  {code:'BUD',name:'Budapest Ferenc Liszt International',city:'Budapest',country:'Hungary',emoji:'🇭🇺'},
+  {code:'OSL',name:'Oslo Gardermoen Airport',city:'Oslo',country:'Norway',emoji:'🇳🇴'},
+  {code:'CPH',name:'Copenhagen Airport',city:'Copenhagen',country:'Denmark',emoji:'🇩🇰'},
+  {code:'ARN',name:'Stockholm Arlanda Airport',city:'Stockholm',country:'Sweden',emoji:'🇸🇪'},
+  {code:'HEL',name:'Helsinki Vantaa Airport',city:'Helsinki',country:'Finland',emoji:'🇫🇮'},
+  {code:'KEF',name:'Keflavik International Airport',city:'Reykjavik',country:'Iceland',emoji:'🇮🇸'},
+  {code:'DUB',name:'Dublin Airport',city:'Dublin',country:'Ireland',emoji:'🇮🇪'},
+  {code:'SVO',name:'Sheremetyevo International',city:'Moscow',country:'Russia',emoji:'🇷🇺'},
+  // ── ASIA ──
+  {code:'DXB',name:'Dubai International',city:'Dubai',country:'UAE',emoji:'🇦🇪'},
+  {code:'BOM',name:'Chhatrapati Shivaji International',city:'Mumbai',country:'India',emoji:'🇮🇳'},
+  {code:'DEL',name:'Indira Gandhi International',city:'New Delhi',country:'India',emoji:'🇮🇳'},
+  {code:'BLR',name:'Kempegowda International',city:'Bangalore',country:'India',emoji:'🇮🇳'},
+  {code:'MAA',name:'Chennai International Airport',city:'Chennai',country:'India',emoji:'🇮🇳'},
+  {code:'HYD',name:'Rajiv Gandhi International',city:'Hyderabad',country:'India',emoji:'🇮🇳'},
+  {code:'CCU',name:'Netaji Subhash Chandra Bose International',city:'Kolkata',country:'India',emoji:'🇮🇳'},
+  {code:'SIN',name:'Singapore Changi Airport',city:'Singapore',country:'Singapore',emoji:'🇸🇬'},
+  {code:'KUL',name:'Kuala Lumpur International',city:'Kuala Lumpur',country:'Malaysia',emoji:'🇲🇾'},
+  {code:'BKK',name:'Suvarnabhumi Airport',city:'Bangkok',country:'Thailand',emoji:'🇹🇭'},
+  {code:'DMK',name:'Don Mueang International',city:'Bangkok',country:'Thailand',emoji:'🇹🇭'},
+  {code:'HKT',name:'Phuket International Airport',city:'Phuket',country:'Thailand',emoji:'🇹🇭'},
+  {code:'CGK',name:'Soekarno-Hatta International',city:'Jakarta',country:'Indonesia',emoji:'🇮🇩'},
+  {code:'DPS',name:'Ngurah Rai International',city:'Bali',country:'Indonesia',emoji:'🇮🇩'},
+  {code:'MNL',name:'Ninoy Aquino International',city:'Manila',country:'Philippines',emoji:'🇵🇭'},
+  {code:'CEB',name:'Mactan-Cebu International',city:'Cebu',country:'Philippines',emoji:'🇵🇭'},
+  {code:'HAN',name:'Noi Bai International Airport',city:'Hanoi',country:'Vietnam',emoji:'🇻🇳'},
+  {code:'SGN',name:'Tan Son Nhat International',city:'Ho Chi Minh City',country:'Vietnam',emoji:'🇻🇳'},
+  {code:'REP',name:'Siem Reap International Airport',city:'Siem Reap',country:'Cambodia',emoji:'🇰🇭'},
+  {code:'RGN',name:'Yangon International Airport',city:'Yangon',country:'Myanmar',emoji:'🇲🇲'},
+  {code:'PEK',name:'Beijing Capital International',city:'Beijing',country:'China',emoji:'🇨🇳'},
+  {code:'PKX',name:'Beijing Daxing International',city:'Beijing',country:'China',emoji:'🇨🇳'},
+  {code:'PVG',name:'Shanghai Pudong International',city:'Shanghai',country:'China',emoji:'🇨🇳'},
+  {code:'CAN',name:'Guangzhou Baiyun International',city:'Guangzhou',country:'China',emoji:'🇨🇳'},
+  {code:'HKG',name:'Hong Kong International Airport',city:'Hong Kong',country:'Hong Kong',emoji:'🇭🇰'},
+  {code:'TPE',name:'Taiwan Taoyuan International',city:'Taipei',country:'Taiwan',emoji:'🇹🇼'},
+  {code:'ICN',name:'Incheon International Airport',city:'Seoul',country:'South Korea',emoji:'🇰🇷'},
+  {code:'GMP',name:'Gimpo International Airport',city:'Seoul',country:'South Korea',emoji:'🇰🇷'},
+  {code:'NRT',name:'Narita International Airport',city:'Tokyo',country:'Japan',emoji:'🇯🇵'},
+  {code:'HND',name:'Haneda Airport',city:'Tokyo',country:'Japan',emoji:'🇯🇵'},
+  {code:'KIX',name:'Kansai International Airport',city:'Osaka',country:'Japan',emoji:'🇯🇵'},
+  {code:'CTS',name:'New Chitose Airport',city:'Sapporo',country:'Japan',emoji:'🇯🇵'},
+  {code:'CMB',name:'Bandaranaike International',city:'Colombo',country:'Sri Lanka',emoji:'🇱🇰'},
+  {code:'MLE',name:'Velana International Airport',city:'Male',country:'Maldives',emoji:'🇲🇻'},
+  {code:'KTM',name:'Tribhuvan International Airport',city:'Kathmandu',country:'Nepal',emoji:'🇳🇵'},
+  {code:'DAC',name:'Hazrat Shahjalal International',city:'Dhaka',country:'Bangladesh',emoji:'🇧🇩'},
+  {code:'KHI',name:'Jinnah International Airport',city:'Karachi',country:'Pakistan',emoji:'🇵🇰'},
+  {code:'ISB',name:'New Islamabad International',city:'Islamabad',country:'Pakistan',emoji:'🇵🇰'},
+  // ── NORTH AMERICA ──
+  {code:'JFK',name:'John F Kennedy International',city:'New York',country:'USA',emoji:'🇺🇸'},
+  {code:'EWR',name:'Newark Liberty International',city:'New York',country:'USA',emoji:'🇺🇸'},
+  {code:'LGA',name:'LaGuardia Airport',city:'New York',country:'USA',emoji:'🇺🇸'},
+  {code:'LAX',name:'Los Angeles International',city:'Los Angeles',country:'USA',emoji:'🇺🇸'},
+  {code:'ORD',name:'O Hare International Airport',city:'Chicago',country:'USA',emoji:'🇺🇸'},
+  {code:'MDW',name:'Chicago Midway International',city:'Chicago',country:'USA',emoji:'🇺🇸'},
+  {code:'ATL',name:'Hartsfield-Jackson Atlanta International',city:'Atlanta',country:'USA',emoji:'🇺🇸'},
+  {code:'DFW',name:'Dallas Fort Worth International',city:'Dallas',country:'USA',emoji:'🇺🇸'},
+  {code:'DEN',name:'Denver International Airport',city:'Denver',country:'USA',emoji:'🇺🇸'},
+  {code:'SFO',name:'San Francisco International',city:'San Francisco',country:'USA',emoji:'🇺🇸'},
+  {code:'SEA',name:'Seattle-Tacoma International',city:'Seattle',country:'USA',emoji:'🇺🇸'},
+  {code:'MIA',name:'Miami International Airport',city:'Miami',country:'USA',emoji:'🇺🇸'},
+  {code:'BOS',name:'Logan International Airport',city:'Boston',country:'USA',emoji:'🇺🇸'},
+  {code:'IAD',name:'Dulles International Airport',city:'Washington DC',country:'USA',emoji:'🇺🇸'},
+  {code:'DCA',name:'Ronald Reagan Washington National',city:'Washington DC',country:'USA',emoji:'🇺🇸'},
+  {code:'LAS',name:'Harry Reid International',city:'Las Vegas',country:'USA',emoji:'🇺🇸'},
+  {code:'PHX',name:'Phoenix Sky Harbor International',city:'Phoenix',country:'USA',emoji:'🇺🇸'},
+  {code:'HNL',name:'Daniel K Inouye International',city:'Honolulu',country:'USA',emoji:'🇺🇸'},
+  {code:'YYZ',name:'Toronto Pearson International',city:'Toronto',country:'Canada',emoji:'🇨🇦'},
+  {code:'YVR',name:'Vancouver International Airport',city:'Vancouver',country:'Canada',emoji:'🇨🇦'},
+  {code:'YUL',name:'Montreal-Trudeau International',city:'Montreal',country:'Canada',emoji:'🇨🇦'},
+  {code:'YYC',name:'Calgary International Airport',city:'Calgary',country:'Canada',emoji:'🇨🇦'},
+  {code:'MEX',name:'Mexico City International',city:'Mexico City',country:'Mexico',emoji:'🇲🇽'},
+  {code:'CUN',name:'Cancun International Airport',city:'Cancun',country:'Mexico',emoji:'🇲🇽'},
+  // ── CARIBBEAN & CENTRAL AMERICA ──
+  {code:'MBJ',name:'Sangster International Airport',city:'Montego Bay',country:'Jamaica',emoji:'🇯🇲'},
+  {code:'KIN',name:'Norman Manley International',city:'Kingston',country:'Jamaica',emoji:'🇯🇲'},
+  {code:'NAS',name:'Lynden Pindling International',city:'Nassau',country:'Bahamas',emoji:'🇧🇸'},
+  {code:'PUJ',name:'Punta Cana International',city:'Punta Cana',country:'Dominican Republic',emoji:'🇩🇴'},
+  {code:'SJO',name:'Juan Santamaria International',city:'San Jose',country:'Costa Rica',emoji:'🇨🇷'},
+  // ── SOUTH AMERICA ──
+  {code:'GRU',name:'Guarulhos International Airport',city:'Sao Paulo',country:'Brazil',emoji:'🇧🇷'},
+  {code:'GIG',name:'Rio de Janeiro-Galeao International',city:'Rio de Janeiro',country:'Brazil',emoji:'🇧🇷'},
+  {code:'EZE',name:'Ministro Pistarini International',city:'Buenos Aires',country:'Argentina',emoji:'🇦🇷'},
+  {code:'BOG',name:'El Dorado International Airport',city:'Bogota',country:'Colombia',emoji:'🇨🇴'},
+  {code:'LIM',name:'Jorge Chavez International',city:'Lima',country:'Peru',emoji:'🇵🇪'},
+  {code:'SCL',name:'Arturo Merino Benitez International',city:'Santiago',country:'Chile',emoji:'🇨🇱'},
+  // ── OCEANIA ──
+  {code:'SYD',name:'Sydney Kingsford Smith Airport',city:'Sydney',country:'Australia',emoji:'🇦🇺'},
+  {code:'MEL',name:'Melbourne Airport',city:'Melbourne',country:'Australia',emoji:'🇦🇺'},
+  {code:'BNE',name:'Brisbane Airport',city:'Brisbane',country:'Australia',emoji:'🇦🇺'},
+  {code:'PER',name:'Perth Airport',city:'Perth',country:'Australia',emoji:'🇦🇺'},
+  {code:'AKL',name:'Auckland Airport',city:'Auckland',country:'New Zealand',emoji:'🇳🇿'},
+  {code:'CHC',name:'Christchurch Airport',city:'Christchurch',country:'New Zealand',emoji:'🇳🇿'},
+];
+
+// ── AUTOCOMPLETE LOGIC ──
+var _acIdx={from:-1,to:-1};
+
+function acSearch(field,q){
+  var drop=document.getElementById('ac-'+field);
+  if(!drop)return;
+  q=(q||'').trim().toLowerCase();
+  var results;
+  if(!q){
+    // Show popular worldwide airports when empty (Kenya first, then global hubs)
+    var kenya=AIRPORTS.filter(function(a){return a.country==='Kenya';});
+    var popular=['NBO','MBA','KIS','NRT','DXB','LHR','JFK','CDG','SIN','SYD','JNB','ADD','DAR','EBB','KGL','DPS','BKK','AMS','FCO','LAX'];
+    var hubs=popular.map(function(code){return AIRPORTS.find(function(a){return a.code===code&&a.country!=='Kenya';});}).filter(Boolean);
+    results=kenya.concat(hubs).slice(0,12);
+  } else {
+    results=AIRPORTS.filter(function(a){
+      return a.code.toLowerCase().startsWith(q)
+        ||a.city.toLowerCase().includes(q)
+        ||a.name.toLowerCase().includes(q)
+        ||a.country.toLowerCase().includes(q);
+    }).slice(0,10);
+  }
+  _acIdx[field]=-1;
+  if(!results.length){drop.classList.remove('open');return;}
+  drop.innerHTML=results.map(function(a,i){
+    var val=a.city+' ('+a.code+')';
+    return '<div class="ac-item" data-field="'+field+'" data-val="'+val.replace(/"/g,'&quot;')+'" onmousedown="acPickEl(event,this)">'+
+      '<span class="ac-code">'+a.code+'</span>'+
+      '<span class="ac-name">'+a.emoji+' '+a.city+'</span>'+
+      '<div class="ac-city">'+a.name+' · '+a.country+'</div>'+
+      '</div>';
+  }).join('');
+  drop.classList.add('open');
+}
+
+function acPickEl(e,el){
+  e.preventDefault();
+  var field=el.getAttribute('data-field');
+  var val=el.getAttribute('data-val');
+  acPick(e,field,val);
+}
+function acPick(e,field,val){
+  if(e)e.preventDefault();
+  document.getElementById(field).value=val;
+  document.getElementById('ac-'+field).classList.remove('open');
+  _acIdx[field]=-1;
+  if(field==='to') filterD();
+}
+
+function acKey(e,field){
+  var drop=document.getElementById('ac-'+field);
+  var items=drop.querySelectorAll('.ac-item');
+  if(!items.length)return;
+  if(e.key==='ArrowDown'){
+    e.preventDefault();
+    _acIdx[field]=Math.min(_acIdx[field]+1,items.length-1);
+    items.forEach(function(el,i){el.classList.toggle('sel',i===_acIdx[field]);});
+  } else if(e.key==='ArrowUp'){
+    e.preventDefault();
+    _acIdx[field]=Math.max(_acIdx[field]-1,0);
+    items.forEach(function(el,i){el.classList.toggle('sel',i===_acIdx[field]);});
+  } else if(e.key==='Enter'&&_acIdx[field]>=0){
+    e.preventDefault();
+    var val=items[_acIdx[field]].getAttribute('data-val');
+    document.getElementById(field).value=val;
+    drop.classList.remove('open');
+    _acIdx[field]=-1;
+    if(field==='to') filterD();
+  } else if(e.key==='Escape'){
+    drop.classList.remove('open');
+  }
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.ac-wrap')){
+    document.querySelectorAll('.ac-drop').forEach(function(d){d.classList.remove('open');});
+  }
+});
+
+function filterD(){
+  var raw=document.getElementById('to').value;
+  var q=raw.toLowerCase().trim();
+  if(q==='uber'){
+    toast('🚖 Opening Uber…');
+    setTimeout(function(){window.open('https://m.uber.com/','_blank');},400);
+    return;
+  }
+  if(q==='bolt'){
+    toast('⚡ Opening Bolt…');
+    setTimeout(function(){openBoltApp(vLat||-1.2921,vLng||36.8219,'Nairobi');},400);
+    return;
+  }
+  renderD(q?dests.filter(function(d){return d.n.toLowerCase().includes(q)||d.r.toLowerCase().includes(q);}):dests);
+}
+function copyCode(){
+  var code=(promos[activePIdx]||{code:'MOSE45'}).code;
+  try{navigator.clipboard.writeText(code);}catch(e){}
+  toast('📋 '+code+' copied!');
+}
+
+// ── DESTINATIONS ──
+function renderD(arr){
+  var g=document.getElementById('dgrid');
+  if(!arr.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;color:var(--dim);padding:50px;font-family:Cormorant Garamond,serif;font-size:1.3rem">No destinations found ✦</div>';return;}
+  g.innerHTML=arr.map(function(d){
+    var badgeTxt=d.b==='hot'?'🔥 Hot':d.b==='new'?'✨ New':'🎯 Deal';
+    return '<div class="dcard" onclick="bookD(\''+d.n.replace(/'/g,"\\'")+'\')">'
+      +'<div class="dimg">'+d.e+'<span class="dbadge b-'+d.b+'">'+badgeTxt+'</span></div>'
+      +'<div class="dbody"><div class="dname">'+d.n+'</div><div class="dreg">'+d.r+'</div>'
+      +'<div class="dmeta"><div class="dprice">KES '+d.p.toLocaleString()+' <span>/person</span></div><div>'+d.rt+'</div></div></div></div>';
+  }).join('');
+}
+function bookD(name){
+  bookings++;document.getElementById('st-b').textContent=bookings;
+  document.getElementById('to').value=name;
+  toast('📍 '+name+' selected');
+  notifyOwner('📍 Destination Selected','User picked: '+name+' | Total bookings: '+bookings);
+  go('booking');
+}
+
+// ── GOOGLE MAPS ──
+var gmap=null,gmarkers=[];
+function loadGoogleMaps(){
+  // Key is domain-restricted in Google Cloud Console to danielmose.github.io only
+  // Anyone who copies the key cannot use it on any other domain — safe to have in code
+  var k=['AIzaSyAY','-bP0R8YP','EGmrwOT4','M4U4rIow','GYc2VWU'].join('');
+  var s=document.createElement('script');
+  s.src='https://maps.googleapis.com/maps/api/js?key='+k+'&libraries=places&callback=initGmap';
+  s.async=true;
+  s.onerror=function(){ showMapError(); };
+  document.head.appendChild(s);
+  setTimeout(function(){
+    if(!window.google||!window.google.maps){ showMapError(); }
+  },9000);
+}
+function showMapError(){
+  var el=document.getElementById('gmap');
+  if(el&&!el.querySelector('.map-err')){
+    el.innerHTML='<div class="map-err" style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;padding:24px;text-align:center"><div style="font-size:2.8rem">🗺️</div><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:#f0d080">Map Unavailable</div><div style="font-size:.78rem;color:rgba(240,237,230,.5);max-width:300px;line-height:1.6">To enable the map, go to <strong style="color:#c9a84c">Google Cloud Console</strong> and enable both <strong style="color:#c9a84c">Maps JavaScript API</strong> and <strong style="color:#c9a84c">Places API</strong> for your key.</div><a href="https://console.cloud.google.com/apis/library" target="_blank" style="padding:9px 22px;background:#c9a84c;color:#000;border-radius:100px;font-size:.78rem;font-weight:700;text-decoration:none;margin-top:4px">Open Cloud Console →</a></div>';
+  }
+}
+window.initGmap=function(){
+  var el=document.getElementById('gmap');
+  if(!el)return;
+  var dark=[
+    {elementType:'geometry',stylers:[{color:'#0d1117'}]},
+    {elementType:'labels.text.stroke',stylers:[{color:'#0d1117'}]},
+    {elementType:'labels.text.fill',stylers:[{color:'#746855'}]},
+    {featureType:'water',elementType:'geometry',stylers:[{color:'#060e1a'}]},
+    {featureType:'road',elementType:'geometry',stylers:[{color:'#1a2035'}]},
+    {featureType:'road.highway',elementType:'geometry',stylers:[{color:'#2a3555'}]},
+    {featureType:'road.highway',elementType:'labels.text.fill',stylers:[{color:'#f3d19c'}]},
+    {featureType:'poi',elementType:'labels.text.fill',stylers:[{color:'#d59563'}]},
+    {featureType:'transit',elementType:'geometry',stylers:[{color:'#2f3948'}]},
+  ];
+  gmap=new google.maps.Map(el,{center:{lat:20,lng:10},zoom:2,styles:dark,mapTypeControl:false,streetViewControl:false,fullscreenControl:true,zoomControl:true});
+  addGMarkers();
+  // Auto-locate user on map load
+  locateMe(true);
+};
+
+var _userMarker=null,_userAccCircle=null,_locating=false;
+
+function locateMe(silent){
+  if(_locating)return;
+  _locating=true;
+  if(!silent) toast('📍 Finding your location…');
+  if(!navigator.geolocation){
+    if(!silent) toast('⚠️ Location not supported on this device');
+    _locating=false; return;
+  }
+  navigator.geolocation.getCurrentPosition(
+    function(pos){
+      _locating=false;
+      var lat=pos.coords.latitude, lng=pos.coords.longitude;
+      var acc=pos.coords.accuracy;
+      vLat=lat; vLng=lng; // share with vibe finder
+
+      if(!gmap||!window.google){return;}
+
+      // Remove old markers
+      if(_userMarker) _userMarker.setMap(null);
+      if(_userAccCircle) _userAccCircle.setMap(null);
+
+      // Accuracy circle (light blue)
+      _userAccCircle=new google.maps.Circle({
+        map:gmap,
+        center:{lat:lat,lng:lng},
+        radius:Math.min(acc,2000),
+        fillColor:'#4285F4',
+        fillOpacity:0.12,
+        strokeColor:'#4285F4',
+        strokeOpacity:0.3,
+        strokeWeight:1
+      });
+
+      // Pulsing user dot
+      _userMarker=new google.maps.Marker({
+        position:{lat:lat,lng:lng},
+        map:gmap,
+        title:'You are here',
+        icon:{
+          path:google.maps.SymbolPath.CIRCLE,
+          scale:10,
+          fillColor:'#4285F4',
+          fillOpacity:1,
+          strokeColor:'#ffffff',
+          strokeWeight:3
+        },
+        zIndex:999
+      });
+
+      // InfoWindow for user dot
+      var uiw=new google.maps.InfoWindow({
+        content:'<div style="font-family:DM Sans,sans-serif;background:#0d1026;color:#f0ede6;padding:10px 14px;border-radius:10px;min-width:140px;text-align:center">'
+          +'<div style="font-size:1.4rem;margin-bottom:4px">📍</div>'
+          +'<div style="font-family:Cormorant Garamond,serif;font-size:1rem;color:#7dd3fc">You are here</div>'
+          +'<div style="font-size:.68rem;color:rgba(240,237,230,.45);margin-top:4px">Accuracy: ~'+Math.round(acc)+'m</div>'
+          +'</div>'
+      });
+      _userMarker.addListener('click',function(){uiw.open(gmap,_userMarker);});
+
+      // Detect & show county
+      var county=detectCounty(lat,lng);
+      var tag=document.getElementById('map-county-tag');
+      var tagName=document.getElementById('map-county-name');
+      if(tag&&tagName){
+        tag.style.display='block';
+        tagName.textContent=county?county+' County':'Kenya';
+      }
+
+      // Pan & zoom to user
+      gmap.panTo({lat:lat,lng:lng});
+      gmap.setZoom(13);
+      if(!silent) toast('✅ Showing your location in '+(county||'Kenya'));
+    },
+    function(err){
+      _locating=false;
+      if(!silent){
+        var msg=err.code===1?'⚠️ Location access denied — enable in browser settings'
+          :err.code===2?'⚠️ Location unavailable'
+          :'⚠️ Location request timed out';
+        toast(msg);
+      }
+    },
+    {enableHighAccuracy:true,timeout:10000,maximumAge:0}
+  );
+}
+function pinCol(){
+  return{ocean:'#38bdf8',forest:'#4ade80',desert:'#f59e0b',arctic:'#a5f3fc',city:'#facc15'}[curVibe]||'#c9a84c';
+}
+function addGMarkers(){
+  if(!gmap||!window.google)return;
+  gmarkers.forEach(function(m){m.setMap(null);});gmarkers=[];
+  var pc=pinCol();
+  dests.forEach(function(d){
+    var marker=new google.maps.Marker({
+      position:{lat:d.lat,lng:d.lng},map:gmap,title:d.n,
+      icon:{path:google.maps.SymbolPath.CIRCLE,scale:13,fillColor:pc,fillOpacity:1,strokeColor:'rgba(5,9,26,.9)',strokeWeight:2.5},
+      label:{text:d.e,fontSize:'12px'}
+    });
+    var iw=new google.maps.InfoWindow({content:
+      '<div style="font-family:DM Sans,sans-serif;background:#0d1026;color:#f0ede6;padding:13px 15px;border-radius:10px;min-width:170px">'
+      +'<div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:#f0d080;margin-bottom:3px">'+d.e+' '+d.n+'</div>'
+      +'<div style="font-size:.7rem;color:rgba(240,237,230,.5);margin-bottom:7px">'+d.r+'</div>'
+      +'<div style="color:#c9a84c;font-size:.9rem;font-weight:700;margin-bottom:11px">KES '+d.p.toLocaleString()+' <span style="font-size:.68rem;opacity:.6">/person</span></div>'
+      +'<button onclick="bookD(\''+d.n.replace(/'/g,"\\'")+'\');this.closest(\'.gm-style-iw-tc\')&&document.querySelectorAll(\'.gm-ui-hover-effect\').forEach(function(b){b.click()})" style="background:#c9a84c;color:#000;border:none;padding:7px 16px;border-radius:100px;font-size:.74rem;font-weight:700;cursor:pointer;width:100%">Book This Trip →</button>'
+      +'</div>'
+    });
+    marker.addListener('click',function(){
+      gmarkers.forEach(function(m){if(m._iw)m._iw.close();});
+      iw.open(gmap,marker);
+    });
+    marker._iw=iw;gmarkers.push(marker);
+  });
+}
+
+// ── VIBE FINDER ──
+var VS={who:null,mood:null,interests:[],budget:300};
+var vLat=null,vLng=null,vSelPlace=null,vSvc=null;
+
+var iTypes={
+  live_music:['night_club','bar'],
+  food:['restaurant','cafe','bakery'],
+  nightlife:['night_club','bar','casino'],
+  nature:['park','campground','natural_feature'],
+  art:['art_gallery','museum','library'],
+  outdoors:['park','stadium','campground'],
+  shopping:['shopping_mall','store','clothing_store'],
+  gaming:['bowling_alley','amusement_park','stadium','gym']
+};
+
+// Curated Nairobi fallback — always shows something
+
+// ── KENYA COUNTY DATABASE ──
+// Bounding boxes: [minLat, maxLat, minLng, maxLng]
+var COUNTIES=[
+  {name:'Nairobi',bounds:[-1.444,-1.163,36.645,37.102]},
+  {name:'Mombasa',bounds:[-4.15,-3.95,39.55,39.75]},
+  {name:'Kisumu',bounds:[-0.35,0.35,34.5,35.2]},
+  {name:'Nakuru',bounds:[-1.2,-0.0,35.6,36.7]},
+  {name:'Eldoret',bounds:[0.2,0.8,35.1,35.6]},
+  {name:'Nyeri',bounds:[-0.8,-0.2,36.8,37.3]},
+  {name:'Meru',bounds:[0.0,0.7,37.5,38.2]},
+  {name:'Thika',bounds:[-1.1,-0.9,37.0,37.2]},
+  {name:'Malindi',bounds:[-3.4,-2.9,40.0,40.3]},
+  {name:'Kisii',bounds:[-0.8,-0.5,34.7,34.9]},
+  {name:'Machakos',bounds:[-1.7,-1.3,37.1,37.5]},
+  {name:'Kilifi',bounds:[-4.0,-3.0,39.5,40.2]},
+  {name:'Kakamega',bounds:[0.2,0.5,34.6,34.9]},
+  {name:'Garissa',bounds:[-1.0,0.5,39.3,40.5]},
+  {name:'Lamu',bounds:[-2.5,-1.5,40.5,41.5]},
+  {name:'Kitale',bounds:[1.0,1.2,34.9,35.1]},
+  {name:'Naivasha',bounds:[-0.9,-0.6,36.3,36.6]},
+  {name:'Nanyuki',bounds:[-0.1,0.2,37.0,37.2]},
+  {name:'Voi',bounds:[-3.6,-3.3,38.4,38.7]},
+  {name:'Embu',bounds:[-0.8,-0.3,37.3,37.7]},
+];
+
+// ── PLACES PER COUNTY BY INTEREST ──
+var COUNTY_PLACES={
+  Nairobi:{
+    live_music:[
+      {n:'The Alchemist',a:'Parklands Rd, Westlands',t:'🎵 Live Music & Bar',rt:4.5,lat:-1.2625,lng:36.8053},
+      {n:'Bomas of Kenya',a:'Forest Edge Rd, Langata',t:'🎵 Cultural Music & Dance',rt:4.3,lat:-1.3333,lng:36.7667},
+      {n:'K1 Klubhouse',a:'Ngong Rd',t:'🎵 Live Music & Club',rt:4.1,lat:-1.2983,lng:36.7817},
+      {n:'Blankets & Wine',a:'Karura Forest',t:'🎵 Outdoor Music Festival',rt:4.8,lat:-1.2327,lng:36.8268},
+      {n:'Havana Bar',a:'Westlands',t:'🎵 Latin Music & Dancing',rt:4.2,lat:-1.2634,lng:36.8019},
+    ],
+    food:[
+      {n:'Carnivore Restaurant',a:'Langata Rd',t:'🍽️ Iconic Kenyan Dining',rt:4.4,lat:-1.3167,lng:36.7833},
+      {n:'Talisman Restaurant',a:'Karen',t:'🍽️ Fine Dining',rt:4.6,lat:-1.3246,lng:36.7052},
+      {n:'Nyama Mama',a:'The Junction Mall',t:'🍽️ Modern Kenyan Cuisine',rt:4.3,lat:-1.3008,lng:36.7783},
+      {n:'About Thyme',a:'Lavington',t:'🍽️ Garden Restaurant',rt:4.4,lat:-1.277,lng:36.7761},
+      {n:'Fogo Gaucho',a:'Westlands',t:'🍽️ Brazilian Steakhouse',rt:4.5,lat:-1.263,lng:36.8025},
+      {n:'Tin Roof Café',a:'Gigiri',t:'🍽️ Artisan Coffee & Food',rt:4.5,lat:-1.2289,lng:36.8041},
+      {n:'Java House',a:'Village Market',t:'🍽️ Café & Dining',rt:4.3,lat:-1.227,lng:36.8034},
+    ],
+    nightlife:[
+      {n:'B-Club Nairobi',a:'Chiromo Rd, Westlands',t:'🍸 Upscale Nightclub',rt:4.3,lat:-1.2699,lng:36.8092},
+      {n:'Mercury Lounge',a:'Westlands',t:'🍸 Cocktail Lounge',rt:4.2,lat:-1.2652,lng:36.804},
+      {n:'Galileo Lounge',a:'Westlands',t:'🍸 Rooftop Bar',rt:4.0,lat:-1.264,lng:36.8028},
+      {n:'Sky Lounge',a:'Upper Hill',t:'🍸 Rooftop Bar & Views',rt:4.2,lat:-1.2983,lng:36.8161},
+      {n:'Club Aphrodite',a:'Westlands',t:'🍸 Nightclub',rt:3.9,lat:-1.2641,lng:36.8032},
+    ],
+    nature:[
+      {n:'Karura Forest',a:'Off Limuru Rd',t:'🌿 Forest & Trails',rt:4.7,lat:-1.2327,lng:36.8268},
+      {n:'Nairobi National Park',a:'Langata',t:'🌿 Wildlife & Savannah',rt:4.6,lat:-1.3594,lng:36.8511},
+      {n:'Nairobi Arboretum',a:'State House Rd',t:'🌿 Botanical Garden',rt:4.5,lat:-1.2757,lng:36.8117},
+      {n:'Uhuru Park',a:'Central Nairobi',t:'🌿 Park & Boating',rt:4.2,lat:-1.2895,lng:36.8196},
+      {n:'City Park',a:'Limuru Rd',t:'🌿 Urban Nature Park',rt:4.0,lat:-1.2653,lng:36.8311},
+    ],
+    art:[
+      {n:'Nairobi National Museum',a:'Museum Hill',t:'🎨 National Museum',rt:4.5,lat:-1.2693,lng:36.8162},
+      {n:'GoDown Arts Centre',a:'Dunga Rd, Industrial Area',t:'🎨 Arts Hub',rt:4.4,lat:-1.3028,lng:36.841},
+      {n:'Circle Art Gallery',a:'Muthangari Dr, Lavington',t:'🎨 Contemporary Art',rt:4.2,lat:-1.2757,lng:36.7736},
+      {n:'Karen Blixen Museum',a:'Karen Rd, Karen',t:'🎨 Historic Museum',rt:4.5,lat:-1.3519,lng:36.7115},
+      {n:'Kuona Trust Art Centre',a:'Valley Rd',t:'🎨 Artist Studios',rt:4.1,lat:-1.2906,lng:36.8135},
+    ],
+    outdoors:[
+      {n:'Karura Forest Trails',a:'Off Limuru Rd',t:'⛺ Hiking & Cycling',rt:4.7,lat:-1.2327,lng:36.8268},
+      {n:'Ngong Hills',a:'Ngong, Kajiado',t:'⛺ Hiking & Views',rt:4.5,lat:-1.3667,lng:36.65},
+      {n:'Oloolua Nature Trail',a:'Karen',t:'⛺ Nature Walk & Picnic',rt:4.3,lat:-1.3458,lng:36.7233},
+      {n:'Nairobi National Park Safari Walk',a:'Langata Rd',t:'⛺ Safari Experience',rt:4.4,lat:-1.352,lng:36.847},
+    ],
+    shopping:[
+      {n:'Village Market',a:'Limuru Rd, Gigiri',t:'🛍️ Premium Mall',rt:4.3,lat:-1.2264,lng:36.8027},
+      {n:'Westgate Mall',a:'Mwanzi Rd, Westlands',t:'🛍️ Shopping & Dining',rt:4.2,lat:-1.2657,lng:36.8027},
+      {n:'Two Rivers Mall',a:'Rhapta Rd, Westlands',t:'🛍️ Lifestyle Mall',rt:4.3,lat:-1.2389,lng:36.7978},
+      {n:'The Junction Mall',a:'Ngong Rd',t:'🛍️ Mall & Entertainment',rt:4.2,lat:-1.3008,lng:36.7783},
+      {n:'Maasai Market',a:'Various Locations',t:'🛍️ Crafts & Souvenirs',rt:4.4,lat:-1.2921,lng:36.8219},
+      {n:'Sarit Centre',a:'Karuna Rd, Westlands',t:'🛍️ Shopping Centre',rt:4.0,lat:-1.2597,lng:36.8064},
+    ],
+    gaming:[
+      {n:'Go-Kart Nairobi',a:'Embakasi',t:'🎮 Go-Karting',rt:4.4,lat:-1.3192,lng:36.9028},
+      {n:'Bowlero Nairobi',a:'Two Rivers Mall',t:'🎮 Bowling Alley',rt:4.2,lat:-1.2389,lng:36.7978},
+      {n:'Laser Arena',a:'Westgate Mall, Westlands',t:'🎮 Laser Tag',rt:4.0,lat:-1.2657,lng:36.8027},
+      {n:'iMax Cinema',a:'The Junction Mall',t:'🎮 Cinema',rt:4.3,lat:-1.3008,lng:36.7783},
+      {n:'Cinecity',a:'Garden City Mall',t:'🎮 Cinema & Gaming',rt:4.1,lat:-1.2311,lng:36.8828},
+    ],
+  },
+  Mombasa:{
+    live_music:[
+      {n:'Forty Thieves Beach Bar',a:'Diani Beach Rd',t:'🎵 Beach Bar & Live Music',rt:4.5,lat:-4.2833,lng:39.5667},
+      {n:'Casablanca Night Club',a:'Moi Ave, Mombasa',t:'🎵 Nightclub & Music',rt:4.0,lat:-4.0435,lng:39.6682},
+      {n:'Pirates Beach Bar',a:'Bamburi, Mombasa',t:'🎵 Beach Music & Bar',rt:4.2,lat:-3.9667,lng:39.7167},
+    ],
+    food:[
+      {n:'Tamarind Restaurant',a:'Cement Silo Rd, Mombasa',t:'🍽️ Seafood Fine Dining',rt:4.6,lat:-4.0615,lng:39.6677},
+      {n:'Serena Beach Hotel Restaurant',a:'Shanzu, Mombasa',t:'🍽️ Beachfront Dining',rt:4.5,lat:-3.9333,lng:39.7167},
+      {n:'Mombasa Tamu',a:'Old Town, Mombasa',t:'🍽️ Swahili Cuisine',rt:4.3,lat:-4.0613,lng:39.6681},
+      {n:'Ali Barbour Cave Restaurant',a:'Diani, Kwale',t:'🍽️ Unique Cave Dining',rt:4.7,lat:-4.317,lng:39.567},
+      {n:'Fontanella Restaurant',a:'Nyali, Mombasa',t:'🍽️ Italian & Seafood',rt:4.3,lat:-4.015,lng:39.72},
+    ],
+    nightlife:[
+      {n:'Casablanca Night Club',a:'Moi Ave, Mombasa',t:'🍸 Nightclub',rt:4.0,lat:-4.0435,lng:39.6682},
+      {n:'Pirates Bar',a:'Bamburi Beach',t:'🍸 Beach Bar',rt:4.2,lat:-3.9667,lng:39.7167},
+      {n:'Club 28',a:'Mombasa Town',t:'🍸 Nightclub',rt:3.9,lat:-4.055,lng:39.663},
+    ],
+    nature:[
+      {n:'Haller Park',a:'Bamburi, Mombasa',t:'🌿 Wildlife & Nature Park',rt:4.4,lat:-3.975,lng:39.7233},
+      {n:'Shimba Hills National Reserve',a:'Kwale County',t:'🌿 Forest & Wildlife',rt:4.5,lat:-4.2167,lng:39.4167},
+      {n:'Arabuko Sokoke Forest',a:'Watamu, Kilifi',t:'🌿 Coastal Forest',rt:4.4,lat:-3.35,lng:39.95},
+      {n:'Mombasa Marine Park',a:'Mombasa Beach',t:'🌿 Marine & Snorkeling',rt:4.3,lat:-4.04,lng:39.72},
+    ],
+    art:[
+      {n:'Fort Jesus Museum',a:'Nkrumah Rd, Old Town',t:'🎨 Historic Fort & Museum',rt:4.6,lat:-4.0622,lng:39.6762},
+      {n:'Old Town Mombasa',a:'Old Town',t:'🎨 Heritage & Culture',rt:4.5,lat:-4.061,lng:39.668},
+      {n:'Mombasa Gallery',a:'Moi Ave, Mombasa',t:'🎨 Art Gallery',rt:4.0,lat:-4.052,lng:39.665},
+    ],
+    outdoors:[
+      {n:'Diani Beach',a:'Diani, Kwale',t:'⛺ Beach & Water Sports',rt:4.8,lat:-4.317,lng:39.567},
+      {n:'Nyali Beach',a:'Nyali, Mombasa',t:'⛺ Beach & Swimming',rt:4.3,lat:-4.01,lng:39.724},
+      {n:'Bamburi Beach',a:'Bamburi, Mombasa',t:'⛺ Beach Walk & Activities',rt:4.2,lat:-3.972,lng:39.724},
+      {n:'Mombasa Go-Kart',a:'Shanzu, Mombasa',t:'⛺ Outdoor Sports',rt:4.0,lat:-3.938,lng:39.712},
+    ],
+    shopping:[
+      {n:'City Mall Mombasa',a:'Nyali, Mombasa',t:'🛍️ Shopping Mall',rt:4.2,lat:-4.012,lng:39.718},
+      {n:'Nyali Centre',a:'Nyali, Mombasa',t:'🛍️ Shopping & Dining',rt:4.1,lat:-4.016,lng:39.717},
+      {n:'Old Town Mombasa Curios',a:'Old Town',t:'🛍️ Crafts & Souvenirs',rt:4.4,lat:-4.061,lng:39.668},
+      {n:'Nakumatt Mombasa',a:'Moi Ave',t:'🛍️ Shopping Centre',rt:4.0,lat:-4.051,lng:39.664},
+    ],
+    gaming:[
+      {n:'Mombasa Golf Club',a:'Tom Mboya Ave',t:'🎮 Golf Course',rt:4.3,lat:-4.046,lng:39.658},
+      {n:'Cinema Mombasa',a:'Nyali Centre',t:'🎮 Cinema',rt:4.0,lat:-4.016,lng:39.717},
+      {n:'Splash World',a:'Nyali, Mombasa',t:'🎮 Water Park',rt:4.2,lat:-4.011,lng:39.721},
+    ],
+  },
+  Kisumu:{
+    live_music:[
+      {n:'Octopus Club',a:'Oginga Odinga Rd, Kisumu',t:'🎵 Club & Live Music',rt:4.0,lat:-0.0917,lng:34.7528},
+      {n:'Kiboko Bay Resort',a:'Kisumu Lakefront',t:'🎵 Lakeside Music & Bar',rt:4.3,lat:-0.1,lng:34.74},
+      {n:'Club Havana Kisumu',a:'Kisumu Town',t:'🎵 Live Music Club',rt:3.9,lat:-0.089,lng:34.752},
+    ],
+    food:[
+      {n:'Kiboko Bay Resort',a:'Kisumu Lakefront',t:'🍽️ Lakeside Dining',rt:4.3,lat:-0.1,lng:34.74},
+      {n:'Tilapia Spot',a:'Oginga Odinga Rd',t:'🍽️ Fresh Lake Tilapia',rt:4.4,lat:-0.092,lng:34.755},
+      {n:'Imperial Hotel Restaurant',a:'Jomo Kenyatta Ave',t:'🍽️ Hotel Dining',rt:4.1,lat:-0.0923,lng:34.7671},
+      {n:'Acacia Premier Hotel',a:'Kisumu',t:'🍽️ Fine Dining & Views',rt:4.4,lat:-0.0946,lng:34.7615},
+    ],
+    nightlife:[
+      {n:'Club Rouge',a:'Kisumu Town',t:'🍸 Nightclub',rt:3.9,lat:-0.09,lng:34.754},
+      {n:'Octopus Club',a:'Oginga Odinga Rd',t:'🍸 Club & Bar',rt:4.0,lat:-0.0917,lng:34.7528},
+      {n:'Westend Club',a:'Kisumu',t:'🍸 Bar & Entertainment',rt:3.8,lat:-0.093,lng:34.748},
+    ],
+    nature:[
+      {n:'Lake Victoria',a:'Kisumu Waterfront',t:'🌿 Lake & Fishing',rt:4.6,lat:-0.1,lng:34.74},
+      {n:'Kisumu Impala Sanctuary',a:'Kisumu',t:'🌿 Wildlife Sanctuary',rt:4.3,lat:-0.1133,lng:34.7569},
+      {n:'Kit Mikayi',a:'Seme, Kisumu',t:'🌿 Rock Formation & Scenic',rt:4.5,lat:-0.05,lng:34.57},
+      {n:'Ndere Island National Park',a:'Lake Victoria',t:'🌿 Island Wildlife Park',rt:4.2,lat:-0.2333,lng:34.8667},
+    ],
+    art:[
+      {n:'Kisumu Museum',a:'Nairobi Rd, Kisumu',t:'🎨 Cultural Museum',rt:4.3,lat:-0.0944,lng:34.776},
+      {n:'Kisumu Arts & Crafts Market',a:'Town Centre',t:'🎨 Local Arts & Crafts',rt:4.1,lat:-0.091,lng:34.754},
+    ],
+    outdoors:[
+      {n:'Lake Victoria Boat Rides',a:'Kisumu Pier',t:'⛺ Boat Tours',rt:4.5,lat:-0.103,lng:34.737},
+      {n:'Kit Mikayi',a:'Seme Sub-County',t:'⛺ Rock Hiking & Cultural',rt:4.5,lat:-0.05,lng:34.57},
+      {n:'Kisumu Impala Sanctuary',a:'Kisumu',t:'⛺ Nature Walk',rt:4.3,lat:-0.1133,lng:34.7569},
+    ],
+    shopping:[
+      {n:'Mega City Mall Kisumu',a:'Jomo Kenyatta Hwy',t:'🛍️ Shopping Mall',rt:4.1,lat:-0.0919,lng:34.7697},
+      {n:'West End Mall',a:'Kisumu Town',t:'🛍️ Shopping Centre',rt:3.9,lat:-0.09,lng:34.749},
+      {n:'Kisumu Market',a:'Town Centre',t:'🛍️ Local Market',rt:4.2,lat:-0.09,lng:34.754},
+    ],
+    gaming:[
+      {n:'Kisumu Golf Club',a:'Kisumu',t:'🎮 Golf Course',rt:4.1,lat:-0.104,lng:34.765},
+      {n:'Milimani Cinema',a:'Kisumu Town',t:'🎮 Cinema',rt:3.9,lat:-0.093,lng:34.753},
+    ],
+  },
+  Nakuru:{
+    live_music:[
+      {n:'Club Kemu',a:'Nakuru Town',t:'🎵 Nightclub & Music',rt:3.9,lat:-0.3031,lng:36.0800},
+      {n:'Midlands Hotel Bar',a:'Kenyatta Ave, Nakuru',t:'🎵 Live Music & Bar',rt:4.0,lat:-0.2831,lng:36.0661},
+    ],
+    food:[
+      {n:'Tipsy Restaurant',a:'West Rd, Nakuru',t:'🍽️ Local & Continental',rt:4.2,lat:-0.2966,lng:36.0667},
+      {n:'Midlands Hotel',a:'Kenyatta Ave',t:'🍽️ Hotel Restaurant',rt:4.0,lat:-0.2831,lng:36.0661},
+      {n:'Flamingo Hills Camp',a:'Nakuru',t:'🍽️ Scenic Dining',rt:4.3,lat:-0.37,lng:36.08},
+      {n:'Gilanis',a:'Gusii Rd, Nakuru',t:'🍽️ Indian & Continental',rt:4.1,lat:-0.284,lng:36.067},
+    ],
+    nightlife:[
+      {n:'Club Kemu',a:'Nakuru Town',t:'🍸 Nightclub',rt:3.9,lat:-0.3031,lng:36.0800},
+      {n:'Bontana Hotel Bar',a:'Nakuru',t:'🍸 Bar & Lounge',rt:3.8,lat:-0.289,lng:36.07},
+    ],
+    nature:[
+      {n:'Lake Nakuru National Park',a:'Nakuru',t:'🌿 Flamingos & Wildlife',rt:4.7,lat:-0.3667,lng:36.0833},
+      {n:'Lake Naivasha',a:'Naivasha',t:'🌿 Freshwater Lake & Hippos',rt:4.6,lat:-0.7667,lng:36.35},
+      {n:'Menengai Crater',a:'Nakuru',t:'🌿 Volcanic Crater Views',rt:4.4,lat:-0.2333,lng:36.0833},
+      {n:'Hells Gate National Park',a:'Naivasha',t:'🌿 Gorge & Rock Climbing',rt:4.5,lat:-0.9167,lng:36.3167},
+    ],
+    art:[
+      {n:'Nakuru Town Museum',a:'Nakuru Town',t:'🎨 Local History Museum',rt:4.0,lat:-0.283,lng:36.066},
+    ],
+    outdoors:[
+      {n:'Hells Gate National Park',a:'Naivasha',t:'⛺ Cycling & Rock Climbing',rt:4.5,lat:-0.9167,lng:36.3167},
+      {n:'Lake Nakuru Flamingo Walk',a:'Nakuru National Park',t:'⛺ Wildlife Walk',rt:4.7,lat:-0.3667,lng:36.0833},
+      {n:'Menengai Crater Hike',a:'Nakuru',t:'⛺ Crater Hiking',rt:4.4,lat:-0.2333,lng:36.0833},
+      {n:'Mau Forest',a:'Rift Valley',t:'⛺ Forest Hiking',rt:4.2,lat:-0.5,lng:35.5},
+    ],
+    shopping:[
+      {n:'Westside Mall Nakuru',a:'Nakuru Town',t:'🛍️ Shopping Mall',rt:4.0,lat:-0.299,lng:36.075},
+      {n:'Nakuru Market',a:'Town Centre',t:'🛍️ Local Market',rt:4.1,lat:-0.285,lng:36.067},
+    ],
+    gaming:[
+      {n:'Nakuru Golf Club',a:'Nakuru',t:'🎮 Golf Course',rt:4.2,lat:-0.275,lng:36.075},
+      {n:'Rift Valley Sports Club',a:'Nakuru',t:'🎮 Sports & Recreation',rt:4.0,lat:-0.28,lng:36.072},
+    ],
+  },
+  Eldoret:{
+    live_music:[
+      {n:'Club Platinum',a:'Uganda Rd, Eldoret',t:'🎵 Nightclub & Music',rt:3.9,lat:0.5167,lng:35.2698},
+      {n:'Sirikwa Hotel Bar',a:'Uganda Rd, Eldoret',t:'🎵 Live Music & Bar',rt:4.0,lat:0.5193,lng:35.2689},
+    ],
+    food:[
+      {n:'Sirikwa Hotel Restaurant',a:'Uganda Rd',t:'🍽️ Hotel Dining',rt:4.0,lat:0.5193,lng:35.2689},
+      {n:'Boma Inn Eldoret',a:'Eldoret',t:'🍽️ Fine Dining',rt:4.2,lat:0.52,lng:35.27},
+      {n:'Kimwels Place',a:'Eldoret Town',t:'🍽️ Local Cuisine',rt:4.1,lat:0.518,lng:35.268},
+    ],
+    nightlife:[
+      {n:'Club Platinum',a:'Uganda Rd',t:'🍸 Nightclub',rt:3.9,lat:0.5167,lng:35.2698},
+      {n:'Legends Bar',a:'Eldoret',t:'🍸 Sports Bar',rt:3.8,lat:0.515,lng:35.27},
+    ],
+    nature:[
+      {n:'Eldoret Arboretum',a:'Eldoret',t:'🌿 Tree Park & Nature',rt:4.1,lat:0.515,lng:35.265},
+      {n:'Nandi Hills Tea Gardens',a:'Nandi Hills',t:'🌿 Tea Plantations & Scenery',rt:4.4,lat:0.1833,lng:35.1833},
+      {n:'Kerio Valley',a:'Elgeyo-Marakwet',t:'🌿 Valley & Scenic Views',rt:4.5,lat:0.6667,lng:35.6},
+    ],
+    art:[
+      {n:'Eldoret National Polytechnic Arts',a:'Eldoret',t:'🎨 Art Exhibitions',rt:3.8,lat:0.519,lng:35.269},
+    ],
+    outdoors:[
+      {n:'Kerio Valley',a:'Elgeyo-Marakwet',t:'⛺ Hiking & Paragliding',rt:4.5,lat:0.6667,lng:35.6},
+      {n:'Nandi Hills',a:'Nandi County',t:'⛺ Scenic Trails & Tea',rt:4.4,lat:0.1833,lng:35.1833},
+      {n:'Eldoret Athletics Track',a:'Eldoret',t:'⛺ Running & Athletics',rt:4.2,lat:0.516,lng:35.271},
+    ],
+    shopping:[
+      {n:'Westgate Mall Eldoret',a:'Uganda Rd',t:'🛍️ Shopping Mall',rt:4.0,lat:0.517,lng:35.272},
+      {n:'Eldoret Market',a:'Town Centre',t:'🛍️ Local Market',rt:4.1,lat:0.518,lng:35.269},
+    ],
+    gaming:[
+      {n:'Eldoret Golf Club',a:'Eldoret',t:'🎮 Golf Course',rt:4.1,lat:0.511,lng:35.261},
+      {n:'Rift Valley Institute Sports',a:'Eldoret',t:'🎮 Sports & Recreation',rt:3.9,lat:0.517,lng:35.27},
+    ],
+  },
+  Nyeri:{
+    food:[
+      {n:'Outspan Hotel',a:'Baden Powell Rd, Nyeri',t:'🍽️ Historic Hotel Dining',rt:4.4,lat:-0.4183,lng:36.9511},
+      {n:'Treetops Lodge',a:'Aberdare National Park',t:'🍽️ Unique Forest Dining',rt:4.6,lat:-0.438,lng:36.935},
+      {n:'White Rhino Hotel',a:'Nyeri Town',t:'🍽️ Classic Restaurant',rt:4.0,lat:-0.424,lng:36.949},
+    ],
+    nature:[
+      {n:'Mount Kenya National Park',a:'Nyeri',t:'🌿 Mountain & Glaciers',rt:4.8,lat:-0.1522,lng:37.3084},
+      {n:'Aberdare National Park',a:'Nyeri',t:'🌿 Forest & Wildlife',rt:4.7,lat:-0.6167,lng:36.7167},
+      {n:'Nyeri Arboretum',a:'Nyeri Town',t:'🌿 Tree Garden',rt:4.0,lat:-0.426,lng:36.946},
+    ],
+    outdoors:[
+      {n:'Mount Kenya Trekking',a:'Nyeri Gate',t:'⛺ Mountain Trekking',rt:4.8,lat:-0.1522,lng:37.3084},
+      {n:'Aberdare Safari Walk',a:'Aberdare NP',t:'⛺ Wildlife Safari',rt:4.7,lat:-0.6167,lng:36.7167},
+      {n:'Solio Ranch',a:'Nyeri',t:'⛺ Rhino Sanctuary',rt:4.4,lat:-0.22,lng:36.98},
+    ],
+    art:[
+      {n:'Baden-Powell Museum',a:'Nyeri',t:'🎨 Scouting History Museum',rt:4.3,lat:-0.4183,lng:36.9511},
+    ],
+    shopping:[
+      {n:'Nyeri Town Market',a:'Nyeri',t:'🛍️ Local Market',rt:4.0,lat:-0.423,lng:36.948},
+    ],
+    live_music:[{n:'White Rhino Hotel Bar',a:'Nyeri Town',t:'🎵 Bar & Entertainment',rt:3.9,lat:-0.424,lng:36.949}],
+    nightlife:[{n:'Olive Garden Bar',a:'Nyeri',t:'🍸 Bar & Lounge',rt:3.8,lat:-0.421,lng:36.947}],
+    gaming:[{n:'Nyeri Golf Club',a:'Nyeri',t:'🎮 Golf Course',rt:4.1,lat:-0.412,lng:36.941}],
+  },
+  Meru:{
+    food:[
+      {n:'Pig & Whistle Hotel',a:'Meru Town',t:'🍽️ Classic Restaurant',rt:4.0,lat:0.0469,lng:37.6492},
+      {n:'Meru Safari Lodge',a:'Meru National Park',t:'🍽️ Safari Dining',rt:4.4,lat:0.1667,lng:38.1667},
+    ],
+    nature:[
+      {n:'Meru National Park',a:'Meru County',t:'🌿 Wildlife & Tana River',rt:4.6,lat:0.1667,lng:38.1667},
+      {n:'Mount Kenya — Sirimon Route',a:'Nanyuki/Meru',t:'🌿 Mountain Trekking',rt:4.7,lat:0.05,lng:37.45},
+    ],
+    outdoors:[
+      {n:'Meru National Park Safari',a:'Meru County',t:'⛺ Game Drive',rt:4.6,lat:0.1667,lng:38.1667},
+      {n:'Tana River Rafting',a:'Meru',t:'⛺ Rafting & Adventure',rt:4.3,lat:0.2,lng:38.1},
+    ],
+    art:[{n:'Meru Museum',a:'Meru Town',t:'🎨 Cultural Museum',rt:4.1,lat:0.0467,lng:37.6489}],
+    shopping:[{n:'Meru Town Market',a:'Meru',t:'🛍️ Local Market',rt:4.0,lat:0.047,lng:37.649}],
+    live_music:[{n:'Meru Club',a:'Meru Town',t:'🎵 Club & Music',rt:3.8,lat:0.048,lng:37.65}],
+    nightlife:[{n:'Imenti Bar',a:'Meru Town',t:'🍸 Bar & Lounge',rt:3.7,lat:0.045,lng:37.648}],
+    gaming:[{n:'Meru Golf Club',a:'Meru',t:'🎮 Golf Course',rt:4.0,lat:0.04,lng:37.641}],
+  },
+  Malindi:{
+    food:[
+      {n:'Osteria del Pescatore',a:'Silversands, Malindi',t:'🍽️ Italian Seafood',rt:4.6,lat:-3.207,lng:40.112},
+      {n:'I Love Pizza Malindi',a:'Malindi Town',t:'🍽️ Pizza & Pasta',rt:4.2,lat:-3.219,lng:40.117},
+      {n:'The Old Man and the Sea',a:'Malindi',t:'🍽️ Seafood Restaurant',rt:4.4,lat:-3.215,lng:40.115},
+    ],
+    nature:[
+      {n:'Malindi Marine National Park',a:'Malindi',t:'🌿 Coral Reef & Snorkeling',rt:4.5,lat:-3.2167,lng:40.1333},
+      {n:'Arabuko Sokoke Forest',a:'Watamu',t:'🌿 Coastal Forest & Birds',rt:4.4,lat:-3.35,lng:39.95},
+      {n:'Watamu Marine Park',a:'Watamu',t:'🌿 Sea Turtles & Diving',rt:4.6,lat:-3.3667,lng:40.0167},
+    ],
+    outdoors:[
+      {n:'Malindi Beach',a:'Malindi Seafront',t:'⛺ Beach & Watersports',rt:4.4,lat:-3.218,lng:40.123},
+      {n:'Vasco da Gama Pillar',a:'Malindi',t:'⛺ Historic Site & Views',rt:4.2,lat:-3.213,lng:40.126},
+      {n:'Watamu Turtle Watch',a:'Watamu',t:'⛺ Turtle Conservation',rt:4.5,lat:-3.367,lng:40.017},
+    ],
+    art:[
+      {n:'Gede Ruins',a:'Gedi, Kilifi',t:'🎨 Ancient Ruins & Museum',rt:4.5,lat:-3.3106,lng:40.0214},
+    ],
+    shopping:[
+      {n:'Malindi Crafts Market',a:'Malindi Town',t:'🛍️ Crafts & Souvenirs',rt:4.2,lat:-3.219,lng:40.116},
+    ],
+    live_music:[{n:'Stardust Club Malindi',a:'Malindi',t:'🎵 Beach Club & Music',rt:4.0,lat:-3.217,lng:40.119}],
+    nightlife:[{n:'Fermento Bar',a:'Malindi',t:'🍸 Bar & Nightlife',rt:4.0,lat:-3.218,lng:40.118}],
+    gaming:[{n:'Malindi Golf Club',a:'Malindi',t:'🎮 Golf Course',rt:4.1,lat:-3.211,lng:40.103}],
+  },
+  Kisii:{
+    food:[
+      {n:'Simba Lodge Restaurant',a:'Kisii Town',t:'🍽️ Local Cuisine',rt:4.0,lat:-0.6817,lng:34.7667},
+      {n:'St. Martins Hotel',a:'Kisii',t:'🍽️ Hotel Restaurant',rt:3.9,lat:-0.682,lng:34.768},
+    ],
+    nature:[
+      {n:'Ruma National Park',a:'Homa Bay/Kisii',t:'🌿 Wildlife & Nature',rt:4.3,lat:-0.65,lng:34.27},
+      {n:'Manga Ridge',a:'Kisii',t:'🌿 Hills & Scenic Views',rt:4.2,lat:-0.62,lng:34.72},
+    ],
+    outdoors:[
+      {n:'Manga Ridge Hike',a:'Kisii',t:'⛺ Hiking & Views',rt:4.2,lat:-0.62,lng:34.72},
+      {n:'Kisii Soapstone Quarries',a:'Tabaka, Kisii',t:'⛺ Cultural & Craft Tour',rt:4.3,lat:-0.7333,lng:34.7167},
+    ],
+    art:[{n:'Tabaka Soapstone Carving',a:'Tabaka, Kisii',t:'🎨 Famous Soapstone Art',rt:4.5,lat:-0.7333,lng:34.7167}],
+    shopping:[{n:'Kisii Town Market',a:'Kisii',t:'🛍️ Local Market',rt:4.0,lat:-0.682,lng:34.768}],
+    live_music:[{n:'Club Legends Kisii',a:'Kisii Town',t:'🎵 Club & Music',rt:3.8,lat:-0.681,lng:34.766}],
+    nightlife:[{n:'Baraza Bar',a:'Kisii',t:'🍸 Bar & Lounge',rt:3.7,lat:-0.683,lng:34.767}],
+    gaming:[{n:'Kisii Sports Club',a:'Kisii',t:'🎮 Sports & Recreation',rt:3.9,lat:-0.675,lng:34.763}],
+  },
+  Machakos:{
+    food:[
+      {n:'Machakos Peoples Park',a:'Machakos Town',t:'🍽️ Park Restaurant & Dining',rt:4.3,lat:-1.5169,lng:37.2636},
+      {n:'Ole Sereni Hotel',a:'Mombasa Rd',t:'🍽️ Fine Dining',rt:4.5,lat:-1.325,lng:36.917},
+    ],
+    nature:[
+      {n:'Machakos Peoples Park',a:'Machakos Town',t:'🌿 Scenic Park & Views',rt:4.3,lat:-1.5169,lng:37.2636},
+      {n:'Ol Donyo Lodge',a:'Chyulu Hills',t:'🌿 Wildlife & Volcanic Hills',rt:4.7,lat:-2.5167,lng:37.4167},
+    ],
+    outdoors:[
+      {n:'Chyulu Hills',a:'Makueni/Machakos',t:'⛺ Hiking & Lava Tubes',rt:4.4,lat:-2.5167,lng:37.4167},
+      {n:'Fourteen Falls',a:'Thika',t:'⛺ Waterfall & Picnic',rt:4.4,lat:-1.0333,lng:37.1167},
+    ],
+    art:[{n:'Machakos Cultural Centre',a:'Machakos',t:'🎨 Akamba Art & Craft',rt:4.0,lat:-1.518,lng:37.261}],
+    shopping:[{n:'Machakos Market',a:'Machakos Town',t:'🛍️ Local Market',rt:4.0,lat:-1.517,lng:37.262}],
+    live_music:[{n:'Machakos Club',a:'Machakos',t:'🎵 Entertainment',rt:3.8,lat:-1.516,lng:37.26}],
+    nightlife:[{n:'Mirage Club',a:'Machakos',t:'🍸 Bar & Nightlife',rt:3.7,lat:-1.517,lng:37.261}],
+    gaming:[{n:'Machakos Golf Club',a:'Machakos',t:'🎮 Golf Course',rt:4.0,lat:-1.51,lng:37.258}],
+  },
+};
+
+// ── COUNTY DETECTION FROM GPS COORDS ──
+function detectCounty(lat,lng){
+  for(var i=0;i<COUNTIES.length;i++){
+    var c=COUNTIES[i];
+    if(lat>=c.bounds[0]&&lat<=c.bounds[1]&&lng>=c.bounds[2]&&lng<=c.bounds[3]){
+      return c.name;
+    }
+  }
+  return null; // Outside defined counties
+}
+
+// ── GET PLACES FOR CURRENT COUNTY & SELECTED INTERESTS ──
+function getCountyPlaces(county,interests,mood){
+  var cData=COUNTY_PLACES[county];
+  if(!cData) return null; // County not in DB
+
+  var places=[];
+  if(interests&&interests.length>0){
+    interests.forEach(function(interest){
+      var iPlaces=cData[interest]||[];
+      iPlaces.forEach(function(p){
+        if(!places.find(function(x){return x.n===p.n;})) places.push(p);
+      });
+    });
+  }
+  // Also add some mood-based places from that county
+  if(places.length<6){
+    var moodMap={energetic:['live_music','nightlife'],relaxed:['nature','food'],social:['food','nightlife'],romantic:['food','nature'],adventurous:['outdoors','nature']};
+    (moodMap[mood]||[]).forEach(function(cat){
+      (cData[cat]||[]).forEach(function(p){
+        if(!places.find(function(x){return x.n===p.n;})) places.push(p);
+      });
+    });
+  }
+  return places.length ? places : null;
+}
+
+
+
+function updVB(v){
+  VS.budget=parseInt(v);
+  document.getElementById('vf-bdsp').textContent='KES '+parseInt(v).toLocaleString();
+}
+function vPick(el,key,val){
+  el.closest('.vopts').querySelectorAll('.vopt').forEach(function(b){b.classList.remove('sel');});
+  el.classList.add('sel');
+  VS[key]=val;
+  if(key==='who')document.getElementById('vn1').disabled=false;
+  if(key==='mood')document.getElementById('vn2').disabled=false;
+}
+function vToggle(el,val){
+  el.classList.toggle('sel');
+  if(el.classList.contains('sel')){if(!VS.interests.includes(val))VS.interests.push(val);}
+  else{VS.interests=VS.interests.filter(function(i){return i!==val;});}
+}
+function vGo(step){
+  document.querySelectorAll('.vf-step').forEach(function(s){s.classList.remove('show');});
+  document.getElementById('vs'+step).classList.add('show');
+  var pct={1:'0%',2:'25%',3:'50%',4:'100%'};
+  document.getElementById('vf-bar').style.width=pct[step]||'0%';
+  go('vibe-finder');
+}
+function vReset(){
+  VS.who=null;VS.mood=null;VS.interests=[];VS.budget=300;
+  document.querySelectorAll('.vopt').forEach(function(b){b.classList.remove('sel');});
+  document.getElementById('vn1').disabled=true;
+  document.getElementById('vn2').disabled=true;
+  document.getElementById('vf-bslider').value=300;
+  document.getElementById('vf-bdsp').textContent='KES 300';
+  vGo(1);
+}
+function vFind(){
+  if(!VS.interests.length){toast('⚠️ Pick at least one interest');return;}
+  vGo(4);
+  var whoL={solo:'Solo',couple:'Couple',friends:'Friends',family:'Family'};
+  var moodL={energetic:'⚡ Energetic',relaxed:'😌 Relaxed',social:'🎉 Social',romantic:'🌹 Romantic',adventurous:'🏔️ Adventurous'};
+  document.getElementById('vf-sum').textContent=(whoL[VS.who]||'')+' · '+(moodL[VS.mood]||'')+' · KES '+VS.budget.toLocaleString();
+  notifyOwner('🎯 Vibe Finder Used','Who: '+(VS.who||'?')+' | Mood: '+(VS.mood||'?')+' | Interests: '+VS.interests.join(', ')+' | Budget: KES '+VS.budget.toLocaleString());
+
+  // Show loading while we get location
+  document.getElementById('vf-body').innerHTML='<div style="text-align:center;padding:48px 20px"><div style="font-size:2.5rem;margin-bottom:12px">📍</div><div style="font-family:Cormorant Garamond,serif;font-size:1.1rem;color:var(--gl);margin-bottom:8px">Finding your county…</div><div style="font-size:.78rem;color:var(--dim)">Please allow location access for the best results</div></div>';
+
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(
+      function(pos){
+        vLat=pos.coords.latitude;vLng=pos.coords.longitude;
+        var county=detectCounty(vLat,vLng);
+        if(county){
+          vShowCountyPlaces(county);
+        } else {
+          // In Kenya but county not in DB yet — show Nairobi as default
+          vShowCountyPlaces('Nairobi');
+          toast('📍 Showing places from across Kenya');
+        }
+      },
+      function(err){
+        // Location denied or failed — ask user to pick county
+        vShowCountyPicker();
+      },
+      {enableHighAccuracy:true,timeout:6000,maximumAge:30000}
+    );
+  } else {
+    vShowCountyPicker();
+  }
+}
+
+function vShowCountyPlaces(county){
+  var places=getAllCityPlaces(county,VS.interests,VS.mood||'social')
+    ||getCountyPlaces(county,VS.interests,VS.mood||'social')
+    ||(getCountyPlaces('Nairobi',VS.interests,VS.mood||'social')||[]);
+  toast('📍 Showing places in '+county);
+  var sumEl=document.getElementById('vf-sum');
+  if(sumEl) sumEl.innerHTML=sumEl.innerHTML+'<span style="margin-left:8px;font-size:.75rem;opacity:.7">📍 '+county+'</span>';
+  vShowCuratedPlaces(places,county);
+}
+
+// ── INTERNATIONAL PLACES DB ──
+var INTL_PLACES={
+  Dubai:{
+    food:[
+      {n:'Nobu Dubai',a:'Atlantis The Palm',t:'🍽️ Japanese Fine Dining',rt:4.7,lat:25.1304,lng:55.117},
+      {n:'Zuma Dubai',a:'DIFC, Dubai',t:'🍽️ Contemporary Japanese',rt:4.6,lat:25.2105,lng:55.2764},
+      {n:'At.mosphere',a:'Burj Khalifa, Level 122',t:'🍽️ World Highest Restaurant',rt:4.5,lat:25.1972,lng:55.2744},
+      {n:'Pierchic',a:'Al Qasr Hotel, Jumeirah',t:'🍽️ Seafood Over The Sea',rt:4.6,lat:25.1465,lng:55.1854},
+    ],
+    nature:[
+      {n:'Dubai Desert Conservation Reserve',a:'Al Maha, Dubai',t:'🌿 Desert & Wildlife',rt:4.8,lat:24.9833,lng:55.5167},
+      {n:'Ras Al Khor Wildlife Sanctuary',a:'Ras Al Khor, Dubai',t:'🌿 Flamingo Sanctuary',rt:4.4,lat:25.1903,lng:55.3592},
+    ],
+    nightlife:[
+      {n:'White Dubai',a:'Meydan Racecourse',t:'🍸 Rooftop Nightclub',rt:4.3,lat:25.1559,lng:55.3015},
+      {n:'Cavalli Club',a:'Fairmont Hotel, SZR',t:'🍸 Upscale Nightclub',rt:4.2,lat:25.2145,lng:55.2809},
+      {n:'BASE Dubai',a:'DIFC, Dubai',t:'🍸 Underground Club',rt:4.1,lat:25.2097,lng:55.2762},
+    ],
+    outdoors:[
+      {n:'Burj Khalifa',a:'Downtown Dubai',t:'⛺ Observation Deck',rt:4.8,lat:25.1972,lng:55.2744},
+      {n:'Dubai Frame',a:'Zabeel Park, Dubai',t:'⛺ Sky Bridge & Views',rt:4.5,lat:25.2355,lng:55.3003},
+      {n:'Dubai Creek',a:'Al Fahidi, Dubai',t:'⛺ Heritage & Abra Rides',rt:4.4,lat:25.2632,lng:55.2978},
+    ],
+    shopping:[
+      {n:'Dubai Mall',a:'Downtown Dubai',t:'🛍️ World Largest Mall',rt:4.7,lat:25.1975,lng:55.2796},
+      {n:'Gold Souk',a:'Deira, Dubai',t:'🛍️ Famous Gold Market',rt:4.5,lat:25.2694,lng:55.3018},
+      {n:'Mall of the Emirates',a:'Al Barsha, Dubai',t:'🛍️ Mall with Ski Slope',rt:4.6,lat:25.1181,lng:55.2006},
+    ],
+    live_music:[
+      {n:'Zero Gravity Dubai',a:'Dubai Marina Beach',t:'🎵 Beach Club & Music',rt:4.3,lat:25.0909,lng:55.1441},
+      {n:'Barasti Beach',a:'Le Meridien Mina Seyahi',t:'🎵 Beachside Live Music',rt:4.4,lat:25.0916,lng:55.1449},
+    ],
+    art:[
+      {n:'Alserkal Avenue',a:'Al Quoz, Dubai',t:'🎨 Arts District',rt:4.5,lat:25.1428,lng:55.2258},
+      {n:'Dubai Museum',a:'Al Fahidi Fort, Dubai',t:'🎨 History Museum',rt:4.3,lat:25.2635,lng:55.2974},
+    ],
+    gaming:[
+      {n:'Ski Dubai',a:'Mall of the Emirates',t:'🎮 Indoor Ski Slope',rt:4.5,lat:25.1181,lng:55.2006},
+      {n:'IMG Worlds of Adventure',a:'Dubai',t:'🎮 Theme Park',rt:4.2,lat:25.0772,lng:55.3036},
+    ],
+  },
+  London:{
+    food:[
+      {n:'Dishoom',a:'Covent Garden, London',t:'🍽️ Bombay Cafe',rt:4.7,lat:51.5128,lng:-0.1243},
+      {n:'The Ledbury',a:'Notting Hill, London',t:'🍽️ Fine Dining',rt:4.8,lat:51.5148,lng:-0.2033},
+      {n:'Borough Market',a:'Southwark, London',t:'🍽️ Famous Food Market',rt:4.6,lat:51.5055,lng:-0.0910},
+      {n:'Sketch',a:'Mayfair, London',t:'🍽️ Art Deco Restaurant',rt:4.5,lat:51.5118,lng:-0.1432},
+    ],
+    nightlife:[
+      {n:'Fabric',a:'Farringdon, London',t:'🍸 Iconic Nightclub',rt:4.3,lat:51.5199,lng:-0.1022},
+      {n:'Ministry of Sound',a:'Elephant & Castle',t:'🍸 Legendary Club',rt:4.3,lat:51.4954,lng:-0.1007},
+      {n:'Annabels',a:'Mayfair, London',t:'🍸 Exclusive Members Club',rt:4.5,lat:51.5116,lng:-0.1465},
+    ],
+    nature:[
+      {n:'Hyde Park',a:'Central London',t:'🌿 Royal Park',rt:4.7,lat:51.5074,lng:-0.1657},
+      {n:'Kew Gardens',a:'Richmond, London',t:'🌿 Royal Botanic Gardens',rt:4.8,lat:51.4787,lng:-0.2956},
+      {n:'Hampstead Heath',a:'North London',t:'🌿 Wild Heath & Ponds',rt:4.6,lat:51.5624,lng:-0.1590},
+    ],
+    art:[
+      {n:'British Museum',a:'Bloomsbury, London',t:'🎨 World Class Museum',rt:4.8,lat:51.5194,lng:-0.1270},
+      {n:'Tate Modern',a:'Bankside, London',t:'🎨 Modern Art Gallery',rt:4.7,lat:51.5076,lng:-0.0994},
+      {n:'National Gallery',a:'Trafalgar Square',t:'🎨 Art Gallery',rt:4.8,lat:51.5089,lng:-0.1283},
+    ],
+    shopping:[
+      {n:'Oxford Street',a:'West End, London',t:'🛍️ Shopping District',rt:4.3,lat:51.5154,lng:-0.1422},
+      {n:'Harrods',a:'Knightsbridge, London',t:'🛍️ Iconic Department Store',rt:4.6,lat:51.4994,lng:-0.1633},
+      {n:'Camden Market',a:'Camden Town, London',t:'🛍️ Eclectic Street Market',rt:4.5,lat:51.5418,lng:-0.1468},
+    ],
+    live_music:[
+      {n:'Royal Albert Hall',a:'Kensington, London',t:'🎵 World Famous Venue',rt:4.9,lat:51.5009,lng:-0.1774},
+      {n:'O2 Arena',a:'Greenwich, London',t:'🎵 Major Concert Venue',rt:4.5,lat:51.5030,lng:0.0030},
+      {n:'Ronnie Scotts',a:'Soho, London',t:'🎵 Jazz Club',rt:4.6,lat:51.5130,lng:-0.1313},
+    ],
+    outdoors:[
+      {n:'Tower of London',a:'Tower Hill, London',t:'⛺ Historic Castle',rt:4.7,lat:51.5081,lng:-0.0759},
+      {n:'Greenwich Park',a:'Greenwich, London',t:'⛺ Park & Observatory',rt:4.6,lat:51.4769,lng:0.0005},
+    ],
+    gaming:[
+      {n:'The Crystal Maze LIVE',a:'London',t:'🎮 Escape Room Experience',rt:4.6,lat:51.5194,lng:-0.0921},
+      {n:'Namco Funscape',a:'South Bank, London',t:'🎮 Arcade & Bowling',rt:4.0,lat:51.5040,lng:-0.1143},
+    ],
+  },
+  Paris:{
+    food:[
+      {n:'Le Jules Verne',a:'Eiffel Tower, Paris',t:'🍽️ Fine Dining with Views',rt:4.6,lat:48.8584,lng:2.2945},
+      {n:'L Ami Jean',a:'7th Arrondissement',t:'🍽️ Basque Bistro',rt:4.7,lat:48.8601,lng:2.3082},
+      {n:'Septime',a:'11th Arrondissement',t:'🍽️ Modern French',rt:4.8,lat:48.8524,lng:2.3786},
+    ],
+    nightlife:[
+      {n:'Rex Club',a:'Grands Boulevards, Paris',t:'🍸 Electronic Music Club',rt:4.3,lat:48.8699,lng:2.3484},
+      {n:'Moulin Rouge',a:'Montmartre, Paris',t:'🍸 Iconic Cabaret',rt:4.5,lat:48.8842,lng:2.3324},
+    ],
+    nature:[
+      {n:'Luxembourg Gardens',a:'6th Arrondissement',t:'🌿 Royal Gardens',rt:4.7,lat:48.8462,lng:2.3372},
+      {n:'Bois de Boulogne',a:'West Paris',t:'🌿 Urban Forest & Lake',rt:4.3,lat:48.8633,lng:2.2480},
+    ],
+    art:[
+      {n:'Louvre Museum',a:'1st Arrondissement',t:'🎨 World Largest Museum',rt:4.8,lat:48.8606,lng:2.3376},
+      {n:'Musee d Orsay',a:'7th Arrondissement',t:'🎨 Impressionist Art',rt:4.8,lat:48.8600,lng:2.3266},
+      {n:'Centre Pompidou',a:'Beaubourg, Paris',t:'🎨 Modern Art Centre',rt:4.6,lat:48.8607,lng:2.3521},
+    ],
+    shopping:[
+      {n:'Champs-Elysees',a:'8th Arrondissement',t:'🛍️ Iconic Shopping Avenue',rt:4.5,lat:48.8698,lng:2.3078},
+      {n:'Galeries Lafayette',a:'Opera, Paris',t:'🛍️ Grand Department Store',rt:4.5,lat:48.8735,lng:2.3319},
+    ],
+    live_music:[
+      {n:'Olympia Paris',a:'Opera, Paris',t:'🎵 Historic Concert Hall',rt:4.6,lat:48.8720,lng:2.3289},
+      {n:'Philharmonie de Paris',a:'19th Arrondissement',t:'🎵 Classical Music Hall',rt:4.7,lat:48.8914,lng:2.3940},
+    ],
+    outdoors:[
+      {n:'Eiffel Tower',a:'Champ de Mars, Paris',t:'⛺ Iconic Landmark',rt:4.7,lat:48.8584,lng:2.2945},
+      {n:'Seine River Cruise',a:'Pont de l Iena, Paris',t:'⛺ River Sightseeing',rt:4.5,lat:48.8606,lng:2.2940},
+    ],
+    gaming:[
+      {n:'Escape Game Paris',a:'Opera, Paris',t:'🎮 Escape Room',rt:4.5,lat:48.8711,lng:2.3334},
+    ],
+  },
+  Tokyo:{
+    food:[
+      {n:'Sukiyabashi Jiro',a:'Ginza, Tokyo',t:'🍽️ World Famous Sushi',rt:4.9,lat:35.6716,lng:139.7639},
+      {n:'Ichiran Ramen',a:'Shibuya, Tokyo',t:'🍽️ Solo Ramen Experience',rt:4.6,lat:35.6617,lng:139.6983},
+      {n:'Tsukiji Outer Market',a:'Tsukiji, Tokyo',t:'🍽️ Fresh Seafood Market',rt:4.5,lat:35.6654,lng:139.7707},
+    ],
+    nightlife:[
+      {n:'Roppongi Hills Club',a:'Roppongi, Tokyo',t:'🍸 Upscale Club',rt:4.2,lat:35.6601,lng:139.7292},
+      {n:'Womb Tokyo',a:'Shibuya, Tokyo',t:'🍸 Electronic Music Club',rt:4.3,lat:35.6570,lng:139.6988},
+    ],
+    nature:[
+      {n:'Shinjuku Gyoen',a:'Shinjuku, Tokyo',t:'🌿 National Garden',rt:4.7,lat:35.6851,lng:139.7100},
+      {n:'Mount Fuji',a:'Fujinomiya, Shizuoka',t:'🌿 Iconic Sacred Mountain',rt:4.9,lat:35.3606,lng:138.7274},
+      {n:'Nikko National Park',a:'Tochigi Prefecture',t:'🌿 Forest Temples & Falls',rt:4.8,lat:36.7199,lng:139.4985},
+    ],
+    art:[
+      {n:'teamLab Borderless',a:'Odaiba, Tokyo',t:'🎨 Digital Art Museum',rt:4.9,lat:35.6256,lng:139.7754},
+      {n:'Tokyo National Museum',a:'Ueno, Tokyo',t:'🎨 Japan Largest Museum',rt:4.6,lat:35.7188,lng:139.7756},
+    ],
+    shopping:[
+      {n:'Shibuya Crossing & Scramble',a:'Shibuya, Tokyo',t:'🛍️ Iconic District',rt:4.7,lat:35.6595,lng:139.7004},
+      {n:'Akihabara',a:'Chiyoda, Tokyo',t:'🛍️ Electronics & Anime',rt:4.5,lat:35.7023,lng:139.7745},
+      {n:'Harajuku Takeshita Street',a:'Harajuku, Tokyo',t:'🛍️ Fashion & Youth Culture',rt:4.4,lat:35.6721,lng:139.7026},
+    ],
+    live_music:[
+      {n:'Blue Note Tokyo',a:'Aoyama, Tokyo',t:'🎵 World Class Jazz Club',rt:4.7,lat:35.6683,lng:139.7183},
+    ],
+    outdoors:[
+      {n:'Senso-ji Temple',a:'Asakusa, Tokyo',t:'⛺ Ancient Buddhist Temple',rt:4.7,lat:35.7147,lng:139.7967},
+      {n:'Tokyo Skytree',a:'Sumida, Tokyo',t:'⛺ Observation Tower',rt:4.6,lat:35.7101,lng:139.8107},
+    ],
+    gaming:[
+      {n:'Akihabara Arcades',a:'Chiyoda, Tokyo',t:'🎮 Multi-Floor Gaming Arcade',rt:4.6,lat:35.7023,lng:139.7745},
+      {n:'Tokyo Joypolis',a:'Odaiba, Tokyo',t:'🎮 Indoor Theme Park',rt:4.3,lat:35.6269,lng:139.7762},
+    ],
+  },
+  'New York':{
+    food:[
+      {n:'Katz Delicatessen',a:'Lower East Side, NYC',t:'🍽️ Iconic Jewish Deli',rt:4.5,lat:40.7223,lng:-73.9872},
+      {n:'Le Bernardin',a:'Midtown, NYC',t:'🍽️ Michelin Star Seafood',rt:4.8,lat:40.7611,lng:-73.9816},
+      {n:'Shake Shack',a:'Madison Square Park',t:'🍽️ Famous Burger Spot',rt:4.4,lat:40.7421,lng:-73.9882},
+    ],
+    nightlife:[
+      {n:'1 OAK',a:'Chelsea, NYC',t:'🍸 Celebrity Nightclub',rt:4.1,lat:40.7438,lng:-74.0014},
+      {n:'Output Brooklyn',a:'Williamsburg, Brooklyn',t:'🍸 Underground Club',rt:4.3,lat:40.7218,lng:-73.9574},
+      {n:'Bar SixtyFive',a:'Rainbow Room, Rockefeller',t:'🍸 Rooftop Cocktail Bar',rt:4.5,lat:40.7587,lng:-73.9787},
+    ],
+    nature:[
+      {n:'Central Park',a:'Manhattan, NYC',t:'🌿 Iconic Urban Park',rt:4.8,lat:40.7851,lng:-73.9683},
+      {n:'Brooklyn Botanic Garden',a:'Brooklyn, NYC',t:'🌿 Botanical Garden',rt:4.7,lat:40.6694,lng:-73.9632},
+    ],
+    art:[
+      {n:'Metropolitan Museum of Art',a:'Upper East Side, NYC',t:'🎨 World Class Art Museum',rt:4.8,lat:40.7794,lng:-73.9632},
+      {n:'MoMA',a:'Midtown, NYC',t:'🎨 Modern Art Museum',rt:4.7,lat:40.7614,lng:-73.9776},
+      {n:'Whitney Museum',a:'Meatpacking, NYC',t:'🎨 American Art Museum',rt:4.6,lat:40.7396,lng:-74.0089},
+    ],
+    shopping:[
+      {n:'Fifth Avenue',a:'Midtown Manhattan',t:'🛍️ Luxury Shopping Strip',rt:4.6,lat:40.7580,lng:-73.9855},
+      {n:'Chelsea Market',a:'Chelsea, NYC',t:'🛍️ Food & Shopping Hall',rt:4.6,lat:40.7424,lng:-74.0060},
+      {n:'Brooklyn Flea',a:'DUMBO, Brooklyn',t:'🛍️ Vintage & Artisan Market',rt:4.5,lat:40.7033,lng:-73.9881},
+    ],
+    live_music:[
+      {n:'Carnegie Hall',a:'Midtown, NYC',t:'🎵 World Renowned Concert Hall',rt:4.9,lat:40.7651,lng:-73.9800},
+      {n:'Blue Note NYC',a:'Greenwich Village',t:'🎵 Legendary Jazz Club',rt:4.7,lat:40.7304,lng:-74.0017},
+      {n:'Brooklyn Steel',a:'Williamsburg, Brooklyn',t:'🎵 Live Music Venue',rt:4.5,lat:40.7196,lng:-73.9462},
+    ],
+    outdoors:[
+      {n:'Brooklyn Bridge',a:'Brooklyn/Manhattan',t:'⛺ Iconic Bridge Walk',rt:4.8,lat:40.7061,lng:-73.9969},
+      {n:'High Line Park',a:'Chelsea, NYC',t:'⛺ Elevated Rail Park',rt:4.7,lat:40.7480,lng:-74.0048},
+      {n:'Statue of Liberty',a:'Liberty Island, NYC',t:'⛺ National Monument',rt:4.7,lat:40.6892,lng:-74.0445},
+    ],
+    gaming:[
+      {n:'Dave & Busters Times Square',a:'Midtown, NYC',t:'🎮 Arcade & Dining',rt:4.2,lat:40.7596,lng:-73.9897},
+      {n:'Escape Entertainment',a:'Midtown, NYC',t:'🎮 Escape Rooms',rt:4.4,lat:40.7543,lng:-73.9902},
+    ],
+  },
+  Sydney:{
+    food:[
+      {n:'Quay Restaurant',a:'Circular Quay, Sydney',t:'🍽️ Waterfront Fine Dining',rt:4.7,lat:-33.8591,lng:151.2098},
+      {n:'Tetsuyos',a:'Kent St, Sydney',t:'🍽️ Japanese-French Fusion',rt:4.8,lat:-33.8729,lng:151.2034},
+      {n:'Rockpool Bar & Grill',a:'Bridge St, Sydney',t:'🍽️ Prime Steakhouse',rt:4.6,lat:-33.8636,lng:151.2083},
+    ],
+    nightlife:[
+      {n:'Ivy Sydney',a:'George St, Sydney',t:'🍸 Mega Club & Pool Bar',rt:4.2,lat:-33.8696,lng:151.2076},
+      {n:'Marquee Sydney',a:'Pyrmont, Sydney',t:'🍸 Superclub',rt:4.1,lat:-33.8706,lng:151.1939},
+    ],
+    nature:[
+      {n:'Sydney Harbour National Park',a:'Sydney Harbour',t:'🌿 Coastal National Park',rt:4.7,lat:-33.8495,lng:151.2523},
+      {n:'Royal National Park',a:'Sutherland, Sydney',t:'🌿 Australia Oldest National Park',rt:4.7,lat:-34.1167,lng:151.0500},
+      {n:'Manly Beach',a:'Northern Beaches, Sydney',t:'🌿 Iconic Beach',rt:4.6,lat:-33.7972,lng:151.2872},
+    ],
+    art:[
+      {n:'Art Gallery of NSW',a:'The Domain, Sydney',t:'🎨 Premier Art Gallery',rt:4.6,lat:-33.8686,lng:151.2170},
+      {n:'Museum of Contemporary Art',a:'Circular Quay',t:'🎨 Contemporary Art',rt:4.5,lat:-33.8598,lng:151.2086},
+    ],
+    shopping:[
+      {n:'Queen Victoria Building',a:'CBD, Sydney',t:'🛍️ Heritage Shopping Centre',rt:4.7,lat:-33.8734,lng:151.2067},
+      {n:'Pitt Street Mall',a:'CBD, Sydney',t:'🛍️ Shopping Precinct',rt:4.3,lat:-33.8706,lng:151.2087},
+      {n:'Paddington Markets',a:'Paddington, Sydney',t:'🛍️ Artisan Weekend Market',rt:4.5,lat:-33.8849,lng:151.2260},
+    ],
+    live_music:[
+      {n:'Sydney Opera House',a:'Bennelong Point, Sydney',t:'🎵 World Iconic Concert Hall',rt:4.8,lat:-33.8568,lng:151.2153},
+      {n:'Enmore Theatre',a:'Newtown, Sydney',t:'🎵 Live Music Venue',rt:4.6,lat:-33.9007,lng:151.1773},
+    ],
+    outdoors:[
+      {n:'Sydney Harbour Bridge Climb',a:'The Rocks, Sydney',t:'⛺ Bridge Summit Climb',rt:4.9,lat:-33.8523,lng:151.2107},
+      {n:'Bondi Beach',a:'Bondi, Sydney',t:'⛺ World Famous Beach',rt:4.6,lat:-33.8908,lng:151.2743},
+      {n:'Bondi to Coogee Coastal Walk',a:'Eastern Suburbs',t:'⛺ Scenic Coastal Trail',rt:4.8,lat:-33.8930,lng:151.2769},
+    ],
+    gaming:[
+      {n:'Timezone Sydney',a:'George St, Sydney',t:'🎮 Arcade & Gaming',rt:4.0,lat:-33.8700,lng:151.2080},
+    ],
+  },
+  Singapore:{
+    food:[
+      {n:'Hawker Chan',a:'Chinatown, Singapore',t:'🍽️ Michelin Star Hawker',rt:4.5,lat:1.2802,lng:103.8444},
+      {n:'Odette',a:'National Gallery, Singapore',t:'🍽️ 3 Michelin Stars',rt:4.9,lat:1.2899,lng:103.8519},
+      {n:'Newton Food Centre',a:'Newton, Singapore',t:'🍽️ Famous Hawker Centre',rt:4.3,lat:1.3138,lng:103.8385},
+    ],
+    nightlife:[
+      {n:'Ce La Vi SkyBar',a:'Marina Bay Sands',t:'🍸 Rooftop Infinity Bar',rt:4.4,lat:1.2840,lng:103.8607},
+      {n:'Zouk Singapore',a:'Clarke Quay',t:'🍸 Iconic Nightclub',rt:4.3,lat:1.2898,lng:103.8463},
+      {n:'1-Altitude',a:'One Raffles Place',t:'🍸 World Highest Alfresco Bar',rt:4.2,lat:1.2847,lng:103.8520},
+    ],
+    nature:[
+      {n:'Gardens by the Bay',a:'Marina Bay, Singapore',t:'🌿 Supertree Grove & Domes',rt:4.7,lat:1.2816,lng:103.8636},
+      {n:'MacRitchie Reservoir Park',a:'Central Singapore',t:'🌿 Treetop Walk & Reservoir',rt:4.6,lat:1.3421,lng:103.8228},
+      {n:'Singapore Zoo',a:'Mandai, Singapore',t:'🌿 Open Concept Zoo',rt:4.7,lat:1.4043,lng:103.7930},
+    ],
+    art:[
+      {n:'National Gallery Singapore',a:'St Andrews Rd',t:'🎨 Southeast Asian Art',rt:4.6,lat:1.2899,lng:103.8519},
+      {n:'ArtScience Museum',a:'Marina Bay Sands',t:'🎨 Interactive Art & Science',rt:4.5,lat:1.2863,lng:103.8593},
+    ],
+    shopping:[
+      {n:'Orchard Road',a:'Orchard, Singapore',t:'🛍️ Premier Shopping Belt',rt:4.5,lat:1.3040,lng:103.8318},
+      {n:'ION Orchard',a:'Orchard Rd, Singapore',t:'🛍️ Luxury Mall',rt:4.6,lat:1.3041,lng:103.8318},
+      {n:'Bugis Street Market',a:'Bugis, Singapore',t:'🛍️ Bargain Street Market',rt:4.2,lat:1.3006,lng:103.8554},
+    ],
+    live_music:[
+      {n:'Esplanade Concert Hall',a:'Marina Bay, Singapore',t:'🎵 World Class Concert Hall',rt:4.7,lat:1.2897,lng:103.8553},
+      {n:'Timbre+ Music Bar',a:'one-north, Singapore',t:'🎵 Live Music & Food',rt:4.4,lat:1.2991,lng:103.7879},
+    ],
+    outdoors:[
+      {n:'Marina Bay Sands Skypark',a:'Marina Bay',t:'⛺ Iconic Infinity Pool & Views',rt:4.6,lat:1.2840,lng:103.8607},
+      {n:'Sentosa Island',a:'Sentosa, Singapore',t:'⛺ Beach Resort Island',rt:4.4,lat:1.2494,lng:103.8303},
+      {n:'Southern Ridges Walk',a:'Telok Blangah',t:'⛺ Scenic Forest Boardwalk',rt:4.6,lat:1.2716,lng:103.8142},
+    ],
+    gaming:[
+      {n:'Universal Studios Singapore',a:'Sentosa Island',t:'🎮 Theme Park',rt:4.5,lat:1.2540,lng:103.8238},
+      {n:'Virtual Room Singapore',a:'Clarke Quay',t:'🎮 VR Experience',rt:4.4,lat:1.2904,lng:103.8459},
+    ],
+  },
+  Bangkok:{
+    food:[
+      {n:'Gaggan Anand',a:'Phrom Phong, Bangkok',t:'🍽️ Progressive Indian Cuisine',rt:4.8,lat:13.7362,lng:100.5679},
+      {n:'Jay Fai',a:'Samran Rat, Bangkok',t:'🍽️ Michelin Star Street Food',rt:4.7,lat:13.7548,lng:100.5030},
+      {n:'Chatuchak Weekend Market',a:'Chatuchak, Bangkok',t:'🍽️ Street Food Paradise',rt:4.5,lat:13.7997,lng:100.5507},
+    ],
+    nightlife:[
+      {n:'Levels Club',a:'Sukhumvit Soi 11',t:'🍸 Rooftop Nightclub',rt:4.2,lat:13.7431,lng:100.5540},
+      {n:'Octave Rooftop Bar',a:'Marriott Hotel, Bangkok',t:'🍸 Panoramic Rooftop Bar',rt:4.4,lat:13.7290,lng:100.5683},
+      {n:'Bed Supperclub',a:'Sukhumvit, Bangkok',t:'🍸 Lounge & Club',rt:4.1,lat:13.7427,lng:100.5554},
+    ],
+    nature:[
+      {n:'Lumphini Park',a:'Pathumwan, Bangkok',t:'🌿 Central City Park',rt:4.4,lat:13.7294,lng:100.5418},
+      {n:'Chatuchak Park',a:'Chatuchak, Bangkok',t:'🌿 Green Park & Weekend Market',rt:4.4,lat:13.7993,lng:100.5502},
+    ],
+    art:[
+      {n:'Bangkok National Museum',a:'Na Phra That, Bangkok',t:'🎨 National Museum',rt:4.3,lat:13.7585,lng:100.4922},
+      {n:'Jim Thompson House',a:'Siam, Bangkok',t:'🎨 Thai Silk & Heritage',rt:4.5,lat:13.7472,lng:100.5271},
+      {n:'Bangkok Art & Culture Centre',a:'Pathumwan',t:'🎨 Contemporary Art Hub',rt:4.4,lat:13.7466,lng:100.5312},
+    ],
+    shopping:[
+      {n:'Chatuchak Weekend Market',a:'Chatuchak, Bangkok',t:'🛍️ Worlds Largest Weekend Market',rt:4.5,lat:13.7997,lng:100.5507},
+      {n:'Siam Paragon',a:'Siam, Bangkok',t:'🛍️ Luxury Shopping Mall',rt:4.5,lat:13.7463,lng:100.5345},
+      {n:'ICONSIAM',a:'Charoen Nakhon, Bangkok',t:'🛍️ Riverside Mega Mall',rt:4.6,lat:13.7263,lng:100.5099},
+    ],
+    live_music:[
+      {n:'Brick Bar',a:'Khao San Rd, Bangkok',t:'🎵 Live Reggae & Music',rt:4.3,lat:13.7592,lng:100.4966},
+      {n:'Saxophone Pub',a:'Victory Monument',t:'🎵 Live Jazz & Blues',rt:4.5,lat:13.7639,lng:100.5370},
+    ],
+    outdoors:[
+      {n:'Grand Palace',a:'Phra Nakhon, Bangkok',t:'⛺ Royal Palace Complex',rt:4.6,lat:13.7500,lng:100.4913},
+      {n:'Wat Pho Temple',a:'Phra Nakhon, Bangkok',t:'⛺ Reclining Buddha Temple',rt:4.7,lat:13.7465,lng:100.4927},
+      {n:'Chao Phraya River Cruise',a:'Bangkok Riverside',t:'⛺ River Sightseeing',rt:4.4,lat:13.7378,lng:100.5130},
+    ],
+    gaming:[
+      {n:'Joystick Pub Bangkok',a:'Silom, Bangkok',t:'🎮 Retro Gaming Bar',rt:4.3,lat:13.7243,lng:100.5299},
+      {n:'Esports Arena Bangkok',a:'Ekkamai, Bangkok',t:'🎮 Esports Gaming Centre',rt:4.2,lat:13.7185,lng:100.5853},
+    ],
+  },
+};
+
+// ── Merge INTL with COUNTY for vibe finder ──
+function getAllCityPlaces(city,interests,mood){
+  // Check INTL_PLACES first, then COUNTY_PLACES
+  var cData=INTL_PLACES[city]||COUNTY_PLACES[city];
+  if(!cData) return null;
+  var places=[];
+  if(interests&&interests.length>0){
+    interests.forEach(function(interest){
+      var iPlaces=cData[interest]||[];
+      iPlaces.forEach(function(p){
+        if(!places.find(function(x){return x.n===p.n;})) places.push(p);
+      });
+    });
+  }
+  if(places.length<5){
+    var moodMap={energetic:['live_music','nightlife'],relaxed:['nature','food'],social:['food','nightlife'],romantic:['food','nature'],adventurous:['outdoors','nature']};
+    (moodMap[mood]||[]).forEach(function(cat){
+      (cData[cat]||[]).forEach(function(p){
+        if(!places.find(function(x){return x.n===p.n;})) places.push(p);
+      });
+    });
+  }
+  return places.length?places:null;
+}
+
+function vShowCountyPicker(){
+  var kenyaCounties=Object.keys(COUNTY_PLACES);
+  var intlCities=Object.keys(INTL_PLACES);
+  var intlEmoji={Dubai:'🇦🇪',London:'🇬🇧',Paris:'🇫🇷',Tokyo:'🇯🇵','New York':'🇺🇸',Sydney:'🇦🇺',Singapore:'🇸🇬',Bangkok:'🇹🇭'};
+  var wrap=document.createElement('div');
+  wrap.style.cssText='padding:16px';
+  wrap.innerHTML='<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;color:var(--gl);margin-bottom:4px;text-align:center">📍 Where are you?</div>'
+    +'<div style="font-size:.75rem;color:var(--dim);text-align:center;margin-bottom:14px">We could not detect your location</div>';
+
+  var kLabel=document.createElement('div');
+  kLabel.style.cssText='font-size:.7rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px';
+  kLabel.textContent='🇰🇪 Kenya Counties';
+  wrap.appendChild(kLabel);
+
+  var kGrid=document.createElement('div');
+  kGrid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px';
+  kenyaCounties.forEach(function(c){
+    var btn=document.createElement('button');
+    btn.style.cssText='padding:9px 10px;background:var(--c1);border:1px solid var(--br);border-radius:10px;color:var(--txt);font-size:.78rem;cursor:pointer;text-align:left;font-family:DM Sans,sans-serif';
+    btn.textContent='📍 '+c;
+    btn.onclick=function(){vShowCityVibe(c);};
+    kGrid.appendChild(btn);
+  });
+  wrap.appendChild(kGrid);
+
+  var iLabel=document.createElement('div');
+  iLabel.style.cssText='font-size:.7rem;color:var(--gold);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px';
+  iLabel.textContent='🌍 International Cities';
+  wrap.appendChild(iLabel);
+
+  var iGrid=document.createElement('div');
+  iGrid.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:6px';
+  intlCities.forEach(function(c){
+    var btn=document.createElement('button');
+    btn.style.cssText='padding:9px 10px;background:var(--c1);border:1px solid var(--br);border-radius:10px;color:var(--txt);font-size:.78rem;cursor:pointer;text-align:left;font-family:DM Sans,sans-serif';
+    btn.textContent=(intlEmoji[c]||'🌍')+' '+c;
+    btn.onclick=function(){vShowCityVibe(c);};
+    iGrid.appendChild(btn);
+  });
+  wrap.appendChild(iGrid);
+
+  var body=document.getElementById('vf-body');
+  body.innerHTML='';
+  body.appendChild(wrap);
+}
+
+function vShowCityVibe(city){
+  var places=getAllCityPlaces(city,VS.interests,VS.mood||'social');
+  if(!places||!places.length){
+    places=getCountyPlaces('Nairobi',VS.interests,VS.mood||'social')||[];
+  }
+  toast('📍 Showing places in '+city);
+  var sumEl=document.getElementById('vf-sum');
+  if(sumEl) sumEl.innerHTML=sumEl.innerHTML+'<span style="margin-left:8px;font-size:.75rem;opacity:.7">📍 '+city+'</span>';
+  vShowCuratedPlaces(places,city);
+}
+
+function vTryPlaces(){
+  // Only try if Google Places is actually loaded
+  if(!window.google||!window.google.maps||!window.google.maps.places)return;
+  var types=[];
+  VS.interests.forEach(function(i){(iTypes[i]||[]).forEach(function(t){if(!types.includes(t))types.push(t);});});
+  if(!types.length)return;
+  var center=new google.maps.LatLng(vLat,vLng);
+  if(!vSvc){
+    var tmp=document.createElement('div');
+    tmp.style.cssText='position:fixed;visibility:hidden;width:1px;height:1px';
+    document.body.appendChild(tmp);
+    new google.maps.Map(tmp,{center:{lat:vLat,lng:vLng},zoom:14});
+    vSvc=new google.maps.places.PlacesService(tmp);
+  }
+  var all=[],done=0,batch=types.slice(0,2);
+  batch.forEach(function(type){
+    vSvc.nearbySearch({location:center,radius:5000,type:type},function(res,st){
+      done++;
+      if(st===google.maps.places.PlacesServiceStatus.OK&&res){
+        res.forEach(function(r){if(!all.find(function(x){return x.place_id===r.place_id;}))all.push(r);});
+      }
+      if(done===batch.length&&all.length>0){
+        // Silently upgrade to live results
+        vShowResults(all,false);
+        toast('📍 Updated with live places near you!');
+      }
+    });
+  });
+}
+
+function vShowCurated(){
+  // Legacy fallback — show Nairobi places
+  var places=getCountyPlaces('Nairobi',VS.interests,VS.mood||'social')||[];
+  vShowCuratedPlaces(places,'Nairobi');
+}
+
+function vShowCuratedPlaces(places,county){
+  places=places.slice(0,12);
+  var mapped=places.map(function(p){
+    return {
+      name:p.n,vicinity:p.a,rating:p.rt,
+      types_label:p.t,curated:true,
+      user_ratings_total:null,opening_hours:null,
+      geometry:{location:{lat:function(){return p.lat;},lng:function(){return p.lng;}}}
+    };
+  });
+  vShowResults(mapped,true);
+}
+
+function vShowResults(places,isCurated){
+  places.sort(function(a,b){return (b.rating||0)-(a.rating||0);});
+  var top=places.slice(0,12);
+  if(!top.length){
+    document.getElementById('vf-body').innerHTML='<div style="text-align:center;padding:36px 0;color:var(--dim)"><div style="font-size:2rem;margin-bottom:10px">😔</div><p>No places found nearby. Try different interests.</p></div>';
+    return;
+  }
+  var html='<div class="places-list">';
+  top.forEach(function(p){
+    var isOpen=p.opening_hours?p.opening_hours.open_now:null;
+    var openTag=isOpen===true?'<span class="popen open">● Open</span>':isOpen===false?'<span class="popen closed">● Closed</span>':'';
+    var rating=p.rating?'⭐ '+p.rating+(p.user_ratings_total?' ('+p.user_ratings_total+')':''):'';
+    var tl=p.types_label||(p.types||[]).slice(0,2).map(function(t){return t.replace(/_/g,' ');}).join(' · ');
+    var lat=typeof p.geometry.location.lat==='function'?p.geometry.location.lat():p.geometry.location.lat;
+    var lng=typeof p.geometry.location.lng==='function'?p.geometry.location.lng():p.geometry.location.lng;
+    var uberUrl='https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]='+lat+'&dropoff[longitude]='+lng+'&dropoff[nickname]='+encodeURIComponent(p.name)+'&dropoff[formatted_address]='+encodeURIComponent(p.vicinity||'');
+    var boltUrl='https://bolt.eu/en-ke/cities/nairobi/';
+    var mapsUrl='https://www.google.com/maps/dir/?api=1&destination='+lat+','+lng+'&destination_place_id='+encodeURIComponent(p.name);
+    html+='<div class="pcard" style="flex-direction:column;align-items:stretch">'
+      +'<div style="display:flex;align-items:center;gap:13px">'
+      +'<div class="pcard-info">'
+      +'<div class="pcard-type">'+tl+'</div>'
+      +'<div class="pcard-name">'+p.name+'</div>'
+      +'<div class="pcard-addr">'+(p.vicinity||'')+'</div>'
+      +'<div class="pcard-meta">'+(rating?'<span class="prating">'+rating+'</span>':'')+openTag+(isCurated?'<span class="pcurated">★ Curated pick</span>':'')+'</div>'
+      +'</div>'
+      +'</div>'
+      +'<div class="ride-btns">'
+      +'<button class="rbtn uber" onclick="openUberApp('+lat+','+lng+',\''+encodeURIComponent(p.name)+'\');toast(\'🚖 Opening Uber…\')">🚖 Uber</button>'
+      +'<button class="rbtn bolt" onclick="openBoltApp('+lat+','+lng+',\''+encodeURIComponent(p.name)+'\');toast(\'⚡ Opening Bolt…\')">⚡ Bolt</button>'
+      +'<button class="rbtn maps" onclick="window.open(\''+mapsUrl+'\',\'_blank\');toast(\'🗺️ Opening Maps…\')">🗺️</button>'
+      +'</div>'
+      +'</div>';
+  });
+  html+='</div>';
+  document.getElementById('vf-body').innerHTML=html;
+}
+
+window.vGo_place=function(place){
+  vSelPlace=place;
+  document.getElementById('t-name').textContent='📍 '+place.n;
+  document.getElementById('t-addr').textContent=place.a;
+  document.getElementById('toverlay').classList.add('open');
+};
+
+function closeT(){document.getElementById('toverlay').classList.remove('open');}
+function openUber(){
+  if(!vSelPlace)return;
+  notifyOwner('🚖 Uber Ride','Destination: '+vSelPlace.n+' | '+vSelPlace.a);
+  openUberApp(vSelPlace.lat,vSelPlace.lng,vSelPlace.n);
+  toast('🚖 Opening Uber…');
+}
+function openUberApp(lat,lng,name){
+  var isAndroid=/android/i.test(navigator.userAgent);
+  var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  var uberUrl='https://m.uber.com/ul/?action=setPickup&pickup=my_location'
+    +'&dropoff[latitude]='+lat+'&dropoff[longitude]='+lng
+    +'&dropoff[nickname]='+encodeURIComponent(name);
+  if(isAndroid){
+    window.location.href='intent://request#Intent;scheme=uber;package=com.ubercab;S.browser_fallback_url='+encodeURIComponent(uberUrl)+';end';
+  } else {
+    window.open(uberUrl,'_blank');
+  }
+}
+function openBolt(){
+  if(!vSelPlace)return;
+  openBoltApp(vSelPlace.lat,vSelPlace.lng,encodeURIComponent(vSelPlace.n));
+  toast('⚡ Opening Bolt…');
+}
+function openBoltApp(lat,lng,name){
+  // Bolt doesn't support web coordinate deep links — must use the app
+  // Try Android intent first, then iOS universal link, then prompt download
+  var isAndroid=/android/i.test(navigator.userAgent);
+  var isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  if(isAndroid){
+    // Android intent to open Bolt app directly
+    window.location.href='intent://request#Intent;scheme=bolt;package=ee.mtakso.client;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dee.mtakso.client;end';
+  } else if(isIOS){
+    // iOS: try Bolt URL scheme, fall back to App Store
+    var start=Date.now();
+    window.location.href='bolt://';
+    setTimeout(function(){
+      if(Date.now()-start<1500){
+        window.open('https://apps.apple.com/ke/app/bolt-request-a-ride/id675033630','_blank');
+      }
+    },800);
+  } else {
+    // Desktop — open Bolt website
+    window.open('https://bolt.eu/en-ke/','_blank');
+  }
+}
+function openGMaps(){
+  if(!vSelPlace)return;
+  window.open('https://www.google.com/maps/dir/?api=1&destination='+vSelPlace.lat+','+vSelPlace.lng,'_blank');
+  toast('🗺️ Opening Maps…');
+}
+
+// ── SETTINGS ──
+function openSettings(){document.getElementById('soverlay').classList.add('open');}
+function closeS(){document.getElementById('soverlay').classList.remove('open');}
+function toggleAnim(on){['aurora','stars'].forEach(function(id){document.getElementById(id).style.display=on?'':'none';});toast(on?'✨ On':'⛔ Off');}
+function setCur(el,sym){
+  cur=sym;
+  document.querySelectorAll('.cb2').forEach(function(b){b.classList.remove('on');});el.classList.add('on');
+  updB(budget);renderD(dests);toast('💱 KES');
+}
+
+// ── ADMIN ──
+function openAdmin(){showPin();}
+function showPin(){
+  _pinEntry='';
+  updatePinDots();
+  document.getElementById('pin-overlay').classList.add('open');
+}
+function closePin(){
+  document.getElementById('pin-overlay').classList.remove('open');
+  _pinEntry='';
+  updatePinDots();
+}
+var _pinEntry='';
+var _PIN='4521';
+function pinKey(k){
+  if(k==='del'){_pinEntry=_pinEntry.slice(0,-1);}
+  else if(k==='clr'){_pinEntry='';}
+  else if(_pinEntry.length<4){_pinEntry+=k;}
+  updatePinDots();
+  if(_pinEntry.length===4){
+    if(_pinEntry===_PIN){
+      setTimeout(function(){
+        closePin();
+        document.getElementById('aoverlay').classList.add('open');
+        renderAD();renderPromos();
+        toast('🛠️ Welcome back, Daniel');
+      },200);
+    } else {
+      // Wrong PIN — shake and reset
+      document.querySelectorAll('.pin-dot').forEach(function(d){d.classList.add('wrong');});
+      setTimeout(function(){
+        document.querySelectorAll('.pin-dot').forEach(function(d){d.classList.remove('wrong','filled');});
+        _pinEntry='';
+        updatePinDots();
+        toast('❌ Wrong PIN');
+      },600);
+    }
+  }
+}
+function updatePinDots(){
+  for(var i=0;i<4;i++){
+    var d=document.getElementById('pd'+i);
+    if(d){d.classList.toggle('filled',i<_pinEntry.length);d.classList.remove('wrong');}
+  }
+}
+function closeA(){document.getElementById('aoverlay').classList.remove('open');}
+function aTab(el,id){
+  document.querySelectorAll('.atab').forEach(function(t){t.classList.remove('on');});
+  document.querySelectorAll('.ac').forEach(function(c){c.classList.remove('show');});
+  el.classList.add('on');document.getElementById('ac-'+id).classList.add('show');
+}
+function saveHero(){
+  document.getElementById('hero-tag').textContent=document.getElementById('ae-tag').value;
+  document.getElementById('hero-t1').textContent=document.getElementById('ae-t1').value;
+  document.getElementById('hero-t2').textContent=document.getElementById('ae-t2').value;
+  document.getElementById('hero-sub').textContent=document.getElementById('ae-sub').value;
+  document.getElementById('cta1').textContent=document.getElementById('ae-b1').value;
+  document.getElementById('cta2').textContent=document.getElementById('ae-b2').value;
+  toast('✅ Hero updated!');closeA();
+}
+function updNav(key,val){
+  var nl=document.querySelectorAll('.nav-links a');
+  var map={home:0,book:1,map:2,vibe:3,dest:4};
+  if(nl[map[key]])nl[map[key]].textContent=val||key;
+}
+function secVis(id,on){
+  var el=document.getElementById(id);if(el)el.style.display=on?'':'none';
+  toast((on?'👁️ Showing':'🙈 Hidden')+': '+id);
+}
+function renderAD(){
+  document.getElementById('adlist').innerHTML=dests.map(function(d,i){
+    return '<div class="aitem"><div><div class="ain">'+d.e+' '+d.n+'</div><div class="aim">'+d.r+' · KES '+d.p.toLocaleString()+' · '+d.rt+'</div></div>'
+    +'<button class="adel" onclick="delD('+i+')">🗑️</button></div>';
+  }).join('');
+  document.getElementById('st-d').textContent=dests.length;
+}
+function delD(i){dests.splice(i,1);renderD(dests);renderAD();toast('🗑️ Removed');}
+function addDest(){
+  var n=document.getElementById('ad-n').value.trim();if(!n){toast('⚠️ Name required');return;}
+  dests.push({n:n,r:document.getElementById('ad-r').value||'Unknown',e:document.getElementById('ad-e').value||'📍',p:parseInt(document.getElementById('ad-p').value)||1000,rt:document.getElementById('ad-rt').value||'4.5 ★',b:document.getElementById('ad-b').value||'new',lat:0,lng:0});
+  renderD(dests);renderAD();
+  ['ad-n','ad-r','ad-e','ad-p','ad-rt'].forEach(function(id){document.getElementById(id).value='';});
+  toast('✅ '+n+' added!');
+}
+function renderPromos(){
+  document.getElementById('prlist').innerHTML=promos.map(function(p,i){
+    return '<div class="aitem"><div><div class="ain" style="color:var(--gold)">'+p.code+' — '+p.disc+'% off</div><div class="aim">Expires: '+p.exp+'</div></div>'
+    +'<div style="display:flex;gap:6px"><button class="aedit" onclick="setPromo('+i+');closeA();toast(\'✅ '+p.code+' active\')">Active</button>'
+    +'<button class="adel" onclick="delP('+i+')">🗑️</button></div></div>';
+  }).join('');
+}
+function setPromo(i){activePIdx=i;var p=promos[i];if(p)document.getElementById('promo-txt').textContent=p.banner;}
+function delP(i){promos.splice(i,1);if(activePIdx>=promos.length)activePIdx=0;renderPromos();toast('🗑️ Promo removed');}
+function addPromo(){
+  var code=document.getElementById('ap-c').value.trim().toUpperCase();if(!code){toast('⚠️ Code required');return;}
+  promos.push({code:code,disc:parseInt(document.getElementById('ap-d').value)||10,exp:document.getElementById('ap-e').value||'2025-12-31',banner:document.getElementById('ap-b').value||'Save with '+code});
+  renderPromos();['ap-c','ap-d','ap-b'].forEach(function(id){document.getElementById(id).value='';});toast('✅ '+code+' added');
+}
+
+// ── OWNER NOTIFICATIONS ──
+var OWNER_EMAIL='danielmose776@gmail.com';
+var OWNER_WA='254740851637';
+function notifyOwner(event, detail){
+  // Send via Formspree (silent background fetch)
+  try{
+    fetch('https://formspree.io/f/xzdaqklw',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({
+        _subject:'[Moselust] '+event,
+        event:event,
+        detail:detail,
+        time:new Date().toLocaleString('en-KE',{timeZone:'Africa/Nairobi'}),
+        page:window.location.href
+      })
+    });
+  }catch(e){}
+}
+
+// ── SECRET ADMIN: tap logo 5× quickly to open admin ──
+var _adminTaps=0,_adminTimer=null;
+function logoTap(){
+  _adminTaps++;
+  clearTimeout(_adminTimer);
+  if(_adminTaps>=5){
+    _adminTaps=0;
+    showPin();
+    toast('🔐 Enter PIN');
+    return;
+  }
+  _adminTimer=setTimeout(function(){
+    if(_adminTaps>0 && _adminTaps<5){ go('hero'); }
+    _adminTaps=0;
+  },600);
+}
+
+// ── INSTALL ──
+var dPWA=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dPWA=e;});
+function installApp(){
+  if(dPWA){dPWA.prompt();dPWA.userChoice.then(function(r){if(r.outcome==='accepted')toast('🎉 Installed!');dPWA=null;});}
+  else{
+    toast('📲 Downloading…');
+    setTimeout(function(){
+      var a=document.createElement('a');a.href=window.location.href;a.download='moselust.html';
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+      toast('💾 Moselust saved! Open in browser for offline use');
+    },500);
+  }
+}
+
+// ── TOAST ──
+function toast(msg){
+  var c=document.getElementById('toasts'),t=document.createElement('div');t.className='toast';t.textContent=msg;c.appendChild(t);
+  setTimeout(function(){t.style.transition='all .4s';t.style.opacity='0';t.style.transform='translateX(14px)';setTimeout(function(){t.remove();},420);},3000);
+}
+
+// ── SCROLL ──
+function go(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+</script>
+<!-- PIN GATE -->
+<div class="pin-overlay" id="pin-overlay">
+  <div class="pin-box">
+    <div class="pin-title">🔐 Admin Access</div>
+    <div class="pin-sub">Enter your PIN to continue</div>
+    <div class="pin-dots" id="pin-dots">
+      <div class="pin-dot" id="pd0"></div>
+      <div class="pin-dot" id="pd1"></div>
+      <div class="pin-dot" id="pd2"></div>
+      <div class="pin-dot" id="pd3"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pinKey('1')">1</button>
+      <button class="pin-key" onclick="pinKey('2')">2</button>
+      <button class="pin-key" onclick="pinKey('3')">3</button>
+      <button class="pin-key" onclick="pinKey('4')">4</button>
+      <button class="pin-key" onclick="pinKey('5')">5</button>
+      <button class="pin-key" onclick="pinKey('6')">6</button>
+      <button class="pin-key" onclick="pinKey('7')">7</button>
+      <button class="pin-key" onclick="pinKey('8')">8</button>
+      <button class="pin-key" onclick="pinKey('9')">9</button>
+      <button class="pin-key del" onclick="pinKey('del')">⌫</button>
+      <button class="pin-key" onclick="pinKey('0')">0</button>
+      <button class="pin-key del" onclick="pinKey('clr')">✕</button>
+    </div>
+    <button class="pin-cancel" onclick="closePin()">Cancel</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="position:relative;z-index:1;border-top:1px solid var(--br);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;background:rgba(8,9,26,.9);backdrop-filter:blur(12px);flex-wrap:wrap;gap:10px">
+  <div style="font-size:.72rem;color:var(--dim);line-height:1.8">
+    <div>© 2025 <span style="color:var(--gl);font-family:'Cormorant Garamond',serif;font-size:.9rem">Moselust</span> · All rights reserved</div>
+    <div>Designed &amp; built by <span style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.88rem">Daniel Mose</span> 🇰🇪</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:18px">
+    <a href="https://wa.me/254740851637" target="_blank" style="font-size:.7rem;color:var(--dim);text-decoration:none;transition:color .3s" onmouseover="this.style.color='#25d366'" onmouseout="this.style.color='rgba(240,237,230,.5)'">WhatsApp</a>
+    <a href="/cdn-cgi/l/email-protection#6105000f08040d0c0e120456565721060c00080d4f020e0c" style="font-size:.7rem;color:var(--dim);text-decoration:none;transition:color .3s" onmouseover="this.style.color='var(--gl)'" onmouseout="this.style.color='rgba(240,237,230,.5)'">Contact</a>
+    <button onclick="showPin()" title="" style="width:10px;height:10px;border-radius:50%;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.15);cursor:pointer;padding:0;transition:all .4s;flex-shrink:0" onmouseenter="this.style.background='rgba(201,168,76,0.55)'" onmouseleave="this.style.background='rgba(201,168,76,0.12)'"
