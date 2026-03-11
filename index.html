@@ -307,6 +307,106 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .find-me-btn{position:absolute;bottom:16px;right:16px;z-index:10;background:#0d1026;border:1px solid var(--gold);color:var(--gl);padding:9px 14px;border-radius:100px;font-size:.75rem;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .3s;box-shadow:0 4px 16px rgba(0,0,0,.4);font-family:'DM Sans',sans-serif}
 .find-me-btn:hover{background:var(--gold);color:#000}
 .map-county-tag{position:absolute;top:14px;left:14px;z-index:10;background:rgba(13,16,38,.85);backdrop-filter:blur(8px);border:1px solid rgba(201,168,76,.3);color:var(--gl);padding:7px 13px;border-radius:100px;font-size:.72rem;font-family:'DM Sans',sans-serif;pointer-events:none;display:none}
+
+/* ── TICKET / FLIGHT RESULTS ── */
+.flights-overlay{position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);display:none;align-items:flex-end;justify-content:center;padding:0}
+.flights-overlay.open{display:flex}
+.flights-sheet{background:#080c1e;border:1px solid var(--gold);border-radius:22px 22px 0 0;width:100%;max-width:720px;max-height:90vh;overflow-y:auto;animation:slideup .38s cubic-bezier(.16,1,.3,1) both;padding-bottom:28px}
+.flights-sheet::-webkit-scrollbar{width:3px}
+.flights-sheet::-webkit-scrollbar-thumb{background:var(--gold);border-radius:100px}
+.fsh-head{position:sticky;top:0;z-index:2;background:#080c1e;border-bottom:1px solid var(--br);padding:20px 24px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fsh-route{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--gl)}
+.fsh-meta{font-size:.72rem;color:var(--dim);margin-top:2px}
+.fsh-close{width:32px;height:32px;border-radius:50%;background:var(--c2);border:1px solid var(--br);color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;transition:all .2s}
+.fsh-close:hover{background:rgba(239,68,68,.2);color:#f87171;border-color:rgba(239,68,68,.4)}
+.fsh-body{padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.flight-card{background:var(--c1);border:1px solid var(--br);border-radius:14px;padding:16px 18px;transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
+.flight-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .3s}
+.flight-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.flight-card:hover::before{opacity:1}
+.fc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.fc-airline{display:flex;align-items:center;gap:8px}
+.fc-logo{width:34px;height:34px;border-radius:8px;background:var(--c2);border:1px solid var(--br);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.fc-airline-name{font-size:.82rem;color:var(--txt);font-weight:500}
+.fc-airline-code{font-size:.66rem;color:var(--dim);margin-top:1px}
+.fc-price{text-align:right}
+.fc-amount{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gl)}
+.fc-pp{font-size:.65rem;color:var(--dim)}
+.fc-mid{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.fc-time{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--txt)}
+.fc-line{flex:1;height:1px;background:var(--br);position:relative}
+.fc-line::after{content:'✈';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:.82rem;background:#080c1e;padding:0 4px;color:var(--gold)}
+.fc-dur{font-size:.68rem;color:var(--dim);position:absolute;top:-16px;left:50%;transform:translateX(-50%);white-space:nowrap}
+.fc-bot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.fc-tags{display:flex;gap:6px;flex-wrap:wrap}
+.fc-tag{font-size:.62rem;padding:3px 8px;border-radius:100px;border:1px solid var(--br);color:var(--dim)}
+.fc-tag.direct{border-color:rgba(74,222,128,.4);color:#4ade80;background:rgba(74,222,128,.08)}
+.fc-tag.deal{border-color:rgba(201,168,76,.4);color:var(--gold);background:rgba(201,168,76,.08)}
+.fc-book-btn{padding:9px 22px;background:linear-gradient(135deg,var(--gold),var(--acc));color:#fff;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .3s;flex-shrink:0}
+.fc-book-btn:hover{filter:brightness(1.15);transform:translateY(-2px)}
+.flights-loading{text-align:center;padding:54px 24px;color:var(--dim)}
+.fl-spin{width:44px;height:44px;border:3px solid var(--br);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+.fl-spin-txt{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gl);margin-bottom:6px}
+.groq-badge{display:inline-flex;align-items:center;gap:5px;font-size:.6rem;color:var(--dim);letter-spacing:.08em;padding:4px 10px;border:1px solid var(--br);border-radius:100px;margin:0 auto;background:var(--c1)}
+
+/* ── TICKET CHECKOUT MODAL ── */
+.ticket-overlay{position:fixed;inset:0;z-index:5500;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);display:none;align-items:center;justify-content:center;padding:16px}
+.ticket-overlay.open{display:flex}
+.ticket-modal{background:#08091a;border:1px solid var(--gold);border-radius:22px;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;animation:fiu .35s ease both;position:relative}
+.ticket-modal::-webkit-scrollbar{width:3px}
+.ticket-modal::-webkit-scrollbar-thumb{background:var(--gold);border-radius:100px}
+.tm-head{background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(124,58,237,.08));border-bottom:1px solid var(--br);padding:22px 24px;border-radius:22px 22px 0 0;position:relative}
+.tm-head::after{content:'';position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);width:60%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.tm-airline-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.tm-logo{font-size:2rem}
+.tm-route{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--gl);line-height:1.1}
+.tm-sub{font-size:.72rem;color:var(--dim);margin-top:4px}
+.tm-perfs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.tm-perf{background:var(--c1);border:1px solid var(--br);border-radius:10px;padding:10px 12px;text-align:center}
+.tm-perf-val{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gl)}
+.tm-perf-lbl{font-size:.62rem;color:var(--dim);margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
+.tm-body{padding:22px 24px}
+.tm-section{margin-bottom:20px}
+.tm-sec-title{font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.tm-field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.tm-label{font-size:.68rem;color:var(--dim);letter-spacing:.08em;text-transform:uppercase}
+.tm-input{background:var(--c2);border:1px solid var(--br);border-radius:10px;padding:11px 14px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;transition:all .3s;width:100%}
+.tm-input:focus{border-color:var(--gold);background:rgba(201,168,76,.04)}
+.tm-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tm-price-box{background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(124,58,237,.05));border:1px solid rgba(201,168,76,.3);border-radius:14px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.tm-total-lbl{font-size:.72rem;color:var(--dim)}
+.tm-total{font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--gl)}
+.tm-total-sub{font-size:.66rem;color:var(--dim);margin-top:2px}
+.tm-pay-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold),var(--acc));color:#fff;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .3s;letter-spacing:.04em}
+.tm-pay-btn:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.3)}
+.tm-pay-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.tm-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:var(--c2);border:1px solid var(--br);color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:all .2s}
+.tm-close:hover{background:rgba(239,68,68,.2);color:#f87171;border-color:rgba(239,68,68,.4)}
+.tm-success{text-align:center;padding:36px 24px}
+.tm-tick{font-size:3.5rem;margin-bottom:14px;animation:fiu .5s ease both}
+.tm-ticket-no{font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gl);letter-spacing:.1em;margin-bottom:6px}
+.tm-ticket-sub{font-size:.78rem;color:var(--dim);line-height:1.7;max-width:280px;margin:0 auto}
+.tm-dashed{border-top:2px dashed var(--br);margin:18px 0;position:relative}
+.tm-dashed::before,.tm-dashed::after{content:'';position:absolute;top:50%;width:20px;height:20px;background:#08091a;border-radius:50%;border:1px solid var(--br);transform:translateY(-50%)}
+.tm-dashed::before{left:-24px}
+.tm-dashed::after{right:-24px}
+
+/* ── AI RESULT PANEL ── */
+.ai-panel{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(124,58,237,.04));border:1px solid rgba(201,168,76,.25);border-radius:14px;padding:18px 20px;margin-top:18px;animation:fiu .4s ease both;position:relative;overflow:hidden}
+.ai-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--acc),var(--gl))}
+.ai-panel-tag{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.ai-panel-tag::before{content:'✦ AI';background:linear-gradient(90deg,var(--gold),var(--acc));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ai-panel-body{font-size:.84rem;color:var(--txt);line-height:1.75;white-space:pre-wrap}
+.ai-spin{display:inline-block;width:14px;height:14px;border:2px solid var(--br);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+.ai-key-row{display:flex;gap:8px;align-items:center;margin-top:10px}
+.ai-key-inp{flex:1;background:var(--c2);border:1px solid var(--br);border-radius:9px;padding:9px 12px;color:var(--txt);font-family:'DM Sans',sans-serif;font-size:.82rem;outline:none;transition:all .3s}
+.ai-key-inp:focus{border-color:var(--gold)}
+.ai-key-btn{padding:9px 16px;background:var(--gold);color:#000;border:none;border-radius:9px;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .3s;white-space:nowrap}
+.ai-key-btn:hover{background:var(--gl)}
+.ai-status{font-size:.7rem;margin-top:6px}
+.ai-status.ok{color:#4ade80}
+.ai-status.err{color:#f87171}
+.vf-ai-tip{font-size:.75rem;color:var(--gold);font-style:italic;margin-top:4px;padding:6px 10px;background:rgba(201,168,76,.06);border-radius:8px;border-left:2px solid var(--gold)}
 </style>
 </head>
 <body>
@@ -405,11 +505,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
     </div>
     <div class="bfoot">
       <div class="bsum">For <strong id="sum-t">2 adults</strong> · Budget <strong id="sum-b">KES 5,000</strong></div>
-      <button class="btn-p" style="padding:12px 34px" onclick="doSearch()">Search Trips →</button>
+      <button class="btn-p" style="padding:12px 34px" onclick="doSearch()">🔍 Search & Buy Tickets</button>
     </div>
     <div class="offer">
       <div class="offtxt">🎉 Save up to 35% on early bookings<span id="promo-txt">Use code MOSE45 · Save 45% on your booking</span></div>
       <button class="btn-s" style="padding:7px 14px;font-size:.74rem" onclick="copyCode()">Copy Code</button>
+    </div>
+    <!-- AI Trip Suggestions -->
+    <div id="ai-booking-panel" style="display:none" class="ai-panel">
+      <div class="ai-panel-tag">Powered by Groq AI</div>
+      <div class="ai-panel-body" id="ai-booking-body"><span class="ai-spin"></span>Crafting personalised trip ideas…</div>
     </div>
   </div>
 </section>
@@ -515,6 +620,37 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 </section>
 </div>
 
+<!-- FLIGHTS RESULTS SHEET -->
+<div class="flights-overlay" id="flights-overlay" onclick="if(event.target===this)closeFlights()">
+  <div class="flights-sheet">
+    <div class="fsh-head">
+      <div>
+        <div class="fsh-route" id="fsh-route">Nairobi → Paris</div>
+        <div class="fsh-meta" id="fsh-meta">Loading flights…</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="groq-badge">⚡ Groq AI</div>
+        <button class="fsh-close" onclick="closeFlights()">✕</button>
+      </div>
+    </div>
+    <div class="fsh-body" id="fsh-body">
+      <div class="flights-loading">
+        <div class="fl-spin"></div>
+        <div class="fl-spin-txt">Searching flights…</div>
+        <div style="font-size:.78rem;color:var(--dim)">Groq AI is finding the best deals</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKET CHECKOUT MODAL -->
+<div class="ticket-overlay" id="ticket-overlay" onclick="if(event.target===this)closeTicket()">
+  <div class="ticket-modal">
+    <button class="tm-close" onclick="closeTicket()">✕</button>
+    <div id="ticket-modal-content"></div>
+  </div>
+</div>
+
 <!-- TRANSPORT SHEET -->
 <div class="toverlay" id="toverlay" onclick="if(event.target===this)closeT()">
   <div class="tsheet">
@@ -562,6 +698,15 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
         <button class="cb2 on" onclick="setCur(this,'KES')">🇰🇪 KES</button>
         <button class="cb2" onclick="setCur(this,'A$')">🇦🇺 AUD</button>
       </div>
+    </div>
+    <div class="ssec">
+      <div class="ssec-t">🤖 AI Assistant (Claude)</div>
+      <p style="font-size:.72rem;color:var(--dim);margin-bottom:10px;line-height:1.6">Paste your Anthropic API key to unlock AI-powered trip suggestions &amp; vibe recommendations.</p>
+      <div class="ai-key-row">
+        <input class="ai-key-inp" id="ai-key-inp" type="password" placeholder="sk-ant-…" oninput="aiKeyChanged()">
+        <button class="ai-key-btn" onclick="saveAiKey()">Save</button>
+      </div>
+      <div class="ai-status" id="ai-key-status"></div>
     </div>
     <div class="ssec">
       <div class="ssec-t">Install App</div>
@@ -784,14 +929,218 @@ function setTab(el){
   el.classList.add('on');
   toast(el.textContent+' selected');
 }
+var GROQ_KEY='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';
+var _currentFlights=[];
+var _selectedFlight=null;
+
 function doSearch(){
   var f=document.getElementById('from').value.trim(),t=document.getElementById('to').value.trim();
   if(!f||!t){toast('⚠️ Fill in From & To');return;}
+  var dep=document.getElementById('dep').value;
+  var ret=document.getElementById('ret').value;
+  var cls=document.querySelector('select.fi').value;
   searches++;document.getElementById('st-s').textContent=searches;
-  toast('🔍 Searching '+f+' → '+t+'…');
   notifyOwner('✈️ New Search','From: '+f+' → To: '+t+' | Travelers: '+travelers+' | Budget: KES '+budget.toLocaleString());
-  setTimeout(function(){toast('✅ Found '+(Math.floor(Math.random()*14)+3)+' options!');},1500);
-  setTimeout(function(){go('destinations');},2000);
+
+  // Open flights sheet immediately
+  document.getElementById('fsh-route').textContent=f.split('(')[0].trim()+' → '+t.split('(')[0].trim();
+  document.getElementById('fsh-meta').textContent=travelers+' traveller'+(travelers>1?'s':'')+' · '+cls+(dep?' · '+dep:'');
+  document.getElementById('fsh-body').innerHTML='<div class="flights-loading"><div class="fl-spin"></div><div class="fl-spin-txt">Searching flights…</div><div style="font-size:.78rem;color:var(--dim)">⚡ Groq AI is finding the best deals for you</div></div>';
+  document.getElementById('flights-overlay').classList.add('open');
+
+  // ── GROQ AI: Generate flight options ──
+  var prompt='You are a flight booking AI for Moselust, a premium travel platform. Generate 5 realistic flight options from '+f+' to '+t+'.'
+    +' Departure: '+(dep||'flexible')+'. Return: '+(ret||'one-way')+'. Class: '+cls+'. Travelers: '+travelers+'. Budget: KES '+budget.toLocaleString()+' per person.'
+    +'\n\nRespond ONLY with a valid JSON array (no markdown, no explanation). Exact format:'
+    +'\n[{"airline":"Kenya Airways","code":"KQ","emoji":"🇰🇪","flightNo":"KQ101","dep":"08:45","arr":"14:20","duration":"5h 35m","stops":0,"priceKES":87500,"tags":["Direct","Best Value"],"aircraft":"Boeing 787"}]'
+    +'\nGenerate 5 varied options: different airlines, realistic KES prices, durations, 1-2 with stops. At least one "Best Deal" and one "Premium" option.';
+
+  fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:1000,temperature:0.7,messages:[{role:'user',content:prompt}]})
+  }).then(function(r){return r.json();})
+  .then(function(d){
+    var raw=(d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)||'[]';
+    raw=raw.replace(/```json|```/g,'').trim();
+    // extract JSON array
+    var m=raw.match(/\[[\s\S]*\]/);
+    var flights=m?JSON.parse(m[0]):[];
+    _currentFlights=flights;
+    renderFlights(flights,f,t,dep,ret,travelers,cls);
+  })
+  .catch(function(){
+    document.getElementById('fsh-body').innerHTML='<div class="flights-loading"><div style="font-size:2rem;margin-bottom:12px">⚠️</div><div style="font-family:Cormorant Garamond,serif;color:var(--gl);margin-bottom:6px">Could not load flights</div><div style="font-size:.78rem;color:var(--dim)">Please try again in a moment.</div></div>';
+  });
+
+  // AI travel tip in booking section
+  aiTravelTip(f,t,dep,ret,cls);
+}
+
+function renderFlights(flights,from,to,dep,ret,travelers,cls){
+  if(!flights||!flights.length){
+    document.getElementById('fsh-body').innerHTML='<div class="flights-loading"><div style="font-size:2rem;margin-bottom:12px">😔</div><div style="color:var(--dim)">No flights found. Try adjusting your search.</div></div>';
+    return;
+  }
+  var html='<div style="font-size:.72rem;color:var(--dim);text-align:center;margin-bottom:2px">Prices per person · '+travelers+' traveller'+(travelers>1?'s':'')+' · tap a card to book</div>';
+  flights.forEach(function(fl,i){
+    var stopsLabel=fl.stops===0?'<span class="fc-tag direct">✓ Direct</span>':'<span class="fc-tag">'+fl.stops+' stop'+(fl.stops>1?'s':'')+'</span>';
+    var extraTags=(fl.tags||[]).map(function(tg){
+      var c=tg.toLowerCase().includes('deal')||tg.toLowerCase().includes('value')?'deal':'';
+      return '<span class="fc-tag '+c+'">'+tg+'</span>';
+    }).join('');
+    var istr=i+'';
+    html+='<div class="flight-card">'
+      +'<div class="fc-top">'
+        +'<div class="fc-airline">'
+          +'<div class="fc-logo">'+(fl.emoji||'✈️')+'</div>'
+          +'<div><div class="fc-airline-name">'+(fl.airline||'Airline')+'</div><div class="fc-airline-code">'+(fl.flightNo||'')+(fl.aircraft?' · '+fl.aircraft:'')+'</div></div>'
+        +'</div>'
+        +'<div class="fc-price"><div class="fc-amount">KES '+(fl.priceKES||0).toLocaleString()+'</div><div class="fc-pp">per person</div></div>'
+      +'</div>'
+      +'<div class="fc-mid">'
+        +'<div class="fc-time">'+(fl.dep||'--:--')+'</div>'
+        +'<div class="fc-line" style="position:relative"><span class="fc-dur">'+(fl.duration||'')+'</span></div>'
+        +'<div class="fc-time">'+(fl.arr||'--:--')+'</div>'
+      +'</div>'
+      +'<div class="fc-bot">'
+        +'<div class="fc-tags">'+stopsLabel+extraTags+'</div>'
+        +'<button class="fc-book-btn" onclick="selectFlight('+istr+',\''+escJ(from)+'\',\''+escJ(to)+'\')">Book Now →</button>'
+      +'</div>'
+    +'</div>';
+  });
+  document.getElementById('fsh-body').innerHTML=html;
+  toast('✅ Found '+flights.length+' flights!');
+}
+
+function escJ(s){return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+
+function selectFlight(idx,from,to){
+  _selectedFlight=_currentFlights[idx];
+  if(!_selectedFlight)return;
+  var fl=_selectedFlight;
+  var totalKES=(fl.priceKES||0)*travelers;
+  var content=
+    '<div class="tm-head">'
+      +'<div class="tm-airline-row"><div class="tm-logo">'+(fl.emoji||'✈️')+'</div>'
+      +'<div><div class="tm-route">'+from.split('(')[0].trim()+' → '+to.split('(')[0].trim()+'</div>'
+      +'<div class="tm-sub">'+(fl.airline||'')+(fl.flightNo?' · '+fl.flightNo:'')+' · '+fl.aircraft+'</div></div></div>'
+      +'<div class="tm-perfs">'
+        +'<div class="tm-perf"><div class="tm-perf-val">'+(fl.dep||'')+'</div><div class="tm-perf-lbl">Departs</div></div>'
+        +'<div class="tm-perf"><div class="tm-perf-val">'+(fl.arr||'')+'</div><div class="tm-perf-lbl">Arrives</div></div>'
+        +'<div class="tm-perf"><div class="tm-perf-val">'+(fl.duration||'')+'</div><div class="tm-perf-lbl">Duration</div></div>'
+        +'<div class="tm-perf"><div class="tm-perf-val">'+(fl.stops===0?'Direct':fl.stops+' stop'+(fl.stops>1?'s':''))+'</div><div class="tm-perf-lbl">Stops</div></div>'
+      +'</div>'
+    +'</div>'
+    +'<div class="tm-body">'
+      +'<div class="tm-section">'
+        +'<div class="tm-sec-title">👤 Passenger Details</div>'
+        +'<div class="tm-field"><label class="tm-label">Full Name (as on ID/Passport)</label><input class="tm-input" id="tk-name" placeholder="John Doe" type="text"></div>'
+        +'<div class="tm-row"><div class="tm-field"><label class="tm-label">Email</label><input class="tm-input" id="tk-email" placeholder="you@email.com" type="email"></div>'
+        +'<div class="tm-field"><label class="tm-label">Phone</label><input class="tm-input" id="tk-phone" placeholder="+254 700 000000" type="tel"></div></div>'
+        +'<div class="tm-row"><div class="tm-field"><label class="tm-label">Passport / ID No.</label><input class="tm-input" id="tk-passport" placeholder="A12345678" type="text"></div>'
+        +'<div class="tm-field"><label class="tm-label">Nationality</label><input class="tm-input" id="tk-nat" placeholder="Kenyan" type="text"></div></div>'
+      +'</div>'
+      +'<div class="tm-section">'
+        +'<div class="tm-sec-title">💳 Payment Details</div>'
+        +'<div class="tm-field"><label class="tm-label">Card Number</label><input class="tm-input" id="tk-card" placeholder="4111 1111 1111 1111" type="text" maxlength="19" oninput="fmtCard(this)"></div>'
+        +'<div class="tm-row"><div class="tm-field"><label class="tm-label">Expiry (MM/YY)</label><input class="tm-input" id="tk-exp" placeholder="08/27" type="text" maxlength="5" oninput="fmtExp(this)"></div>'
+        +'<div class="tm-field"><label class="tm-label">CVV</label><input class="tm-input" id="tk-cvv" placeholder="123" type="text" maxlength="4"></div></div>'
+      +'</div>'
+      +'<div class="tm-price-box">'
+        +'<div><div class="tm-total-lbl">Total Amount</div><div class="tm-total">KES '+totalKES.toLocaleString()+'</div>'
+        +'<div class="tm-total-sub">'+travelers+' traveller'+(travelers>1?'s':'')+' × KES '+(fl.priceKES||0).toLocaleString()+'</div></div>'
+        +'<div style="font-size:2rem">'+(fl.emoji||'✈️')+'</div>'
+      +'</div>'
+      +'<button class="tm-pay-btn" id="tk-pay-btn" onclick="processPayment(\''+escJ(from)+'\',\''+escJ(to)+'\')">🔒 Confirm & Pay KES '+totalKES.toLocaleString()+'</button>'
+      +'<div style="text-align:center;font-size:.65rem;color:var(--dim);margin-top:10px">🔒 Secured · Powered by ⚡ Groq AI · Confirmed instantly</div>'
+    +'</div>';
+  document.getElementById('ticket-modal-content').innerHTML=content;
+  document.getElementById('ticket-overlay').classList.add('open');
+}
+
+function fmtCard(el){var v=el.value.replace(/\D/g,'').substring(0,16);el.value=v.replace(/(.{4})/g,'$1 ').trim();}
+function fmtExp(el){var v=el.value.replace(/\D/g,'').substring(0,4);if(v.length>2)v=v.slice(0,2)+'/'+v.slice(2);el.value=v;}
+
+function processPayment(from,to){
+  var name=(document.getElementById('tk-name')||{}).value||'';
+  var email=(document.getElementById('tk-email')||{}).value||'';
+  var phone=(document.getElementById('tk-phone')||{}).value||'';
+  var passport=(document.getElementById('tk-passport')||{}).value||'';
+  var card=(document.getElementById('tk-card')||{}).value||'';
+  var exp=(document.getElementById('tk-exp')||{}).value||'';
+  var cvv=(document.getElementById('tk-cvv')||{}).value||'';
+  if(!name.trim()||!email.trim()||!phone.trim()){toast('⚠️ Fill in all passenger details');return;}
+  if(card.replace(/\s/g,'').length<16){toast('⚠️ Enter a valid 16-digit card number');return;}
+  if(!exp.trim()||!cvv.trim()){toast('⚠️ Enter card expiry and CVV');return;}
+  var btn=document.getElementById('tk-pay-btn');
+  if(btn){btn.disabled=true;btn.innerHTML='<span class="ai-spin"></span> Processing payment…';}
+  var fl=_selectedFlight||{};
+  notifyOwner('🎫 TICKET PURCHASE','Name: '+name+' | Email: '+email+' | Phone: '+phone+' | Flight: '+(fl.airline||'')+' '+(fl.flightNo||'')+' | KES '+(fl.priceKES||0)+' × '+travelers+' = KES '+((fl.priceKES||0)*travelers).toLocaleString()+' | Passport: '+passport);
+  setTimeout(function(){
+    var ticketNo='MSL-'+(Math.random().toString(36).substring(2,8)).toUpperCase();
+    showTicketSuccess(ticketNo,name.trim(),fl,from,to);
+    bookings++;
+    if(document.getElementById('st-b'))document.getElementById('st-b').textContent=bookings;
+  },2800);
+}
+
+function showTicketSuccess(ticketNo,name,fl,from,to){
+  var route=(from||'').split('(')[0].trim()+' → '+(to||'').split('(')[0].trim();
+  var content='<div class="tm-success">'
+    +'<div class="tm-tick">🎉</div>'
+    +'<div style="font-family:Cormorant Garamond,serif;font-size:1.3rem;color:var(--gl);margin-bottom:4px">Booking Confirmed!</div>'
+    +'<div style="font-size:.76rem;color:var(--dim);margin-bottom:22px">Your ticket is ready</div>'
+    +'<div style="background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(124,58,237,.06));border:1px solid rgba(201,168,76,.35);border-radius:18px;padding:22px;margin-bottom:16px">'
+      +'<div style="font-size:2.6rem;margin-bottom:10px">'+(fl.emoji||'✈️')+'</div>'
+      +'<div style="font-family:Cormorant Garamond,serif;font-size:1.9rem;color:var(--gold);letter-spacing:.1em;margin-bottom:4px">'+ticketNo+'</div>'
+      +'<div style="font-family:Cormorant Garamond,serif;font-size:1.2rem;color:var(--gl);margin-bottom:6px">'+route+'</div>'
+      +'<div style="font-size:.72rem;color:var(--dim);margin-bottom:14px">'+(fl.airline||'')+(fl.flightNo?' · '+fl.flightNo:'')+' · '+(fl.dep||'')+'–'+(fl.arr||'')+' · '+(fl.duration||'')+'</div>'
+      +'<div style="border-top:2px dashed rgba(255,255,255,.1);padding-top:14px">'
+        +'<div style="font-size:.88rem;color:var(--txt);font-weight:500">'+name+'</div>'
+        +'<div style="font-size:.68rem;color:var(--dim);margin-top:2px">Passenger · '+travelers+' traveller'+(travelers>1?'s':'')+'</div>'
+      +'</div>'
+    +'</div>'
+    +'<div style="font-size:.76rem;color:var(--dim);line-height:1.8;margin-bottom:20px">A confirmation will be sent to your email.<br>Please arrive <strong style="color:var(--gl)">2 hours</strong> before departure. Bon voyage! ✈️</div>'
+    +'<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">'
+      +'<button onclick="closeTicket();closeFlights()" style="padding:11px 28px;background:var(--gold);color:#000;border:none;border-radius:100px;font-weight:700;font-size:.84rem;cursor:pointer;transition:all .3s">✅ Done</button>'
+      +'<button onclick="shareTicket(\''+ticketNo+'\',\''+escJ(route)+'\')" style="padding:11px 22px;background:var(--c2);color:var(--dim);border:1px solid var(--br);border-radius:100px;font-size:.82rem;cursor:pointer;transition:all .3s">📤 Share</button>'
+    +'</div>'
+  +'</div>';
+  document.getElementById('ticket-modal-content').innerHTML=content;
+  toast('🎫 Ticket '+ticketNo+' confirmed!');
+}
+
+function shareTicket(ticketNo,route){
+  var txt='I just booked my trip with Moselust! ✈️\nTicket: '+ticketNo+'\nRoute: '+route+'\n\nBook yours at moselust.app';
+  if(navigator.share){navigator.share({title:'My Moselust Ticket',text:txt});}
+  else{try{navigator.clipboard.writeText(txt);}catch(e){}toast('📋 Ticket details copied!');}
+}
+
+function closeFlights(){document.getElementById('flights-overlay').classList.remove('open');}
+function closeTicket(){document.getElementById('ticket-overlay').classList.remove('open');}
+
+function aiTravelTip(f,t,dep,ret,cls){
+  var panel=document.getElementById('ai-booking-panel');
+  var body=document.getElementById('ai-booking-body');
+  panel.style.display='block';
+  body.innerHTML='<span class="ai-spin"></span>Crafting personalised travel tips…';
+  var prompt='You are Moselust, a premium travel concierge AI. A traveller wants to fly from '+f+' to '+t
+    +'. They have '+travelers+' traveller(s), a budget of KES '+budget.toLocaleString()+' per person'
+    +(dep?' departing '+dep:'')+(ret?' returning '+ret:'')+', flying '+cls+'.'
+    +'\n\nGive a warm, concise response (max 160 words) with:\n'
+    +'1. 🌟 A highlight or must-do in '+t.split('(')[0].trim()+'\n'
+    +'2. 💡 One smart packing or travel tip for this route\n'
+    +'3. 💰 A brief note on whether the budget is tight, comfortable, or generous\n'
+    +'Luxurious, inspiring tone. Use emoji labels only, no markdown.';
+  fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:280,temperature:0.85,messages:[{role:'user',content:prompt}]})
+  }).then(function(r){return r.json();}).then(function(d){
+    var txt=(d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)||'Travel tip unavailable.';
+    body.textContent=txt;
+  }).catch(function(){body.textContent='Travel tip unavailable at this moment.';});
 }
 
 // ══════════════════════════════════════════
@@ -2224,6 +2573,32 @@ function vShowResults(places,isCurated){
   });
   html+='</div>';
   document.getElementById('vf-body').innerHTML=html;
+
+  // ── AI VIBE RECOMMENDATION (Groq) ──
+  if(top.length){
+    var aiDiv=document.createElement('div');
+    aiDiv.className='ai-panel';
+    aiDiv.style.marginTop='16px';
+    aiDiv.innerHTML='<div class="ai-panel-tag">Powered by Groq AI</div>'
+      +'<div class="ai-panel-body" id="ai-vibe-body"><span class="ai-spin"></span>Getting your personalised vibe tip…</div>';
+    document.getElementById('vf-body').appendChild(aiDiv);
+    var placeNames=top.slice(0,5).map(function(p){return p.name;}).join(', ');
+    var prompt='You are Moselust, a chic local discovery AI. A '+VS.who+' outing with a '+(VS.mood||'social')+' mood and KES '+VS.budget.toLocaleString()+' budget wants to explore: '+VS.interests.join(', ')+'.'
+      +'\nTop suggested places: '+placeNames+'.'
+      +'\n\nWrite a single warm, inspiring paragraph (max 100 words) with a vibe tip — which place to start with, what to order or do first, and the ideal time to go. No bullet points. Luxurious, local, insider tone.';
+    fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+      body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:200,temperature:0.85,messages:[{role:'user',content:prompt}]})
+    }).then(function(r){return r.json();}).then(function(d){
+      var txt=(d.choices&&d.choices[0]&&d.choices[0].message&&d.choices[0].message.content)||'';
+      var bodyEl=document.getElementById('ai-vibe-body');
+      if(bodyEl)bodyEl.textContent=txt;
+    }).catch(function(){
+      var bodyEl=document.getElementById('ai-vibe-body');
+      if(bodyEl)bodyEl.textContent='Vibe tip unavailable at this moment.';
+    });
+  }
 }
 
 window.vGo_place=function(place){
@@ -2445,6 +2820,25 @@ function installApp(){
       toast('💾 Moselust saved! Open in browser for offline use');
     },500);
   }
+}
+
+// ── AI KEY MANAGEMENT ──
+function getAiKey(){
+  try{return sessionStorage.getItem('moselust_ai_key')||'';}catch(e){return '';}
+}
+function saveAiKey(){
+  var k=document.getElementById('ai-key-inp').value.trim();
+  var st=document.getElementById('ai-key-status');
+  if(!k){st.className='ai-status err';st.textContent='⚠️ Please enter a key';return;}
+  if(!k.startsWith('sk-ant-')){st.className='ai-status err';st.textContent='⚠️ Key should start with sk-ant-';return;}
+  try{sessionStorage.setItem('moselust_ai_key',k);}catch(e){}
+  st.className='ai-status ok';st.textContent='✅ Key saved for this session';
+  document.getElementById('ai-key-inp').value='';
+  toast('🤖 AI ready! Search a trip or find your vibe.');
+}
+function aiKeyChanged(){
+  var st=document.getElementById('ai-key-status');
+  if(st)st.textContent='';
 }
 
 // ── TOAST ──
